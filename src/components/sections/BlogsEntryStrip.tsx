@@ -27,13 +27,13 @@ export const BlogsEntryStrip: React.FC<BlogsEntryStripProps> = ({ onNavigateBlog
 
         {/* Layer 2: Semi-transparent JJ Nutrition Blue overlay layer */}
         <div
-          className="absolute inset-0 bg-[#42A9E5]/65 group-hover:bg-[#0789D2]/75 transition-colors duration-300"
+          className="absolute inset-0 bg-[#044AA3]/70 group-hover:bg-[#033B85]/80 transition-colors duration-300"
           aria-hidden="true"
         />
 
         {/* Layer 3: Centred Foreground Content (Crisp 100% white text and icon) */}
         <span className="relative z-10 inline-flex items-center justify-center gap-3 text-white transition-all duration-300">
-          <span className="font-montserrat font-normal text-2xl sm:text-3xl md:text-4xl tracking-tight text-white drop-shadow-xs">
+          <span className="font-heading font-medium italic text-2xl sm:text-3xl md:text-4xl tracking-tight text-white drop-shadow-xs">
             Blogs
           </span>
           <ArrowUpRight

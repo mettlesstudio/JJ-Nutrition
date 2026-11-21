@@ -239,7 +239,7 @@ const PARTICLES_CONFIG: ParticleConfig[] = [
 const MolecularNodeSvg: React.FC<{ size: number; opacity: number; color?: string }> = ({
   size,
   opacity,
-  color = '#42A9E5',
+  color = '#044AA3',
 }) => {
   return (
     <svg
@@ -256,7 +256,7 @@ const MolecularNodeSvg: React.FC<{ size: number; opacity: number; color?: string
       <line x1="20" y1="32" x2="32" y2="28" stroke={color} strokeWidth="1.2" strokeOpacity="0.85" />
 
       <circle cx="12" cy="20" r="3.5" fill={color} />
-      <circle cx="28" cy="12" r="3" fill="#0789D2" />
+      <circle cx="28" cy="12" r="3" fill="#033B85" />
       <circle cx="32" cy="28" r="3.5" fill={color} />
       <circle cx="20" cy="32" r="2.5" fill="#10243D" />
 

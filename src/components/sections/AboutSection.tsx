@@ -93,7 +93,7 @@ const StatCounter: React.FC<{
   return (
     <span
       className={`font-montserrat font-bold text-xl md:text-xl lg:text-[23px] xl:text-[25px] leading-tight tracking-tight inline-flex items-baseline gap-1 ${
-        isAccent ? 'text-[#0789D2]' : 'text-[#111827]'
+        isAccent ? 'text-[#044AA3]' : 'text-[#111827]'
       }`}
     >
       <span>{formattedNumber}{suffix}</span>
@@ -171,7 +171,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
           initial={shouldReduceMotion ? {} : 'hidden'}
           whileInView={shouldReduceMotion ? {} : 'visible'}
           viewport={{ once: true, margin: '-40px' }}
-          className="font-sans text-3xl sm:text-4xl md:text-[44px] text-[#111827] uppercase font-normal leading-tight text-left"
+          className="font-heading font-medium italic text-3xl sm:text-4xl md:text-5xl lg:text-[54px] text-[#111827] normal-case leading-[1.12] text-left"
         >
           <motion.span variants={headingLineVariants} className="block">
             A Personal Approach to
@@ -235,7 +235,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                 delay: shouldReduceMotion ? 0 : 0.08 + index * 0.07,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="flex-1 flex flex-col justify-center p-3.5 md:p-4 lg:p-4.5 rounded-2xl bg-white border border-[#DCE8F1] shadow-[0_2px_12px_rgba(16,36,61,0.03)] hover:border-accent/40 hover:shadow-xs transition-all duration-300"
+              className="flex-1 flex flex-col justify-center p-3.5 md:p-4 lg:p-4.5 rounded-2xl bg-white border border-[#CDE0F3] shadow-[0_2px_12px_rgba(16,36,61,0.03)] hover:border-accent/40 hover:shadow-xs transition-all duration-300"
             >
               <StatCounter
                 target={stat.targetNumber}
@@ -291,7 +291,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="group inline-flex items-center justify-between gap-3 sm:gap-4 pl-5 sm:pl-6 pr-1.5 sm:pr-2 py-1.5 sm:py-2 rounded-full bg-accent text-white hover:bg-accent-strong transition-all duration-300 shadow-[0_4px_16px_rgba(66,169,229,0.3)] hover:shadow-[0_6px_22px_rgba(7,137,210,0.4)] cursor-pointer select-none"
+                className="group inline-flex items-center justify-between gap-3 sm:gap-4 pl-5 sm:pl-6 pr-1.5 sm:pr-2 py-1.5 sm:py-2 rounded-full bg-accent text-white hover:bg-accent-strong transition-all duration-300 shadow-[0_4px_16px_rgba(4,74,163,0.28)] hover:shadow-[0_6px_22px_rgba(3,59,133,0.36)] cursor-pointer select-none"
               >
                 <span className="font-montserrat text-xs sm:text-sm font-semibold tracking-wide">
                   Book a Consultation
@@ -386,7 +386,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
           <motion.button
             onClick={onBookNow}
             whileTap={{ scale: 0.98 }}
-            className="flex-1 min-w-0 group inline-flex items-center justify-between gap-1 pl-2.5 sm:pl-3.5 pr-1 py-1.5 rounded-full bg-accent text-white hover:bg-accent-strong transition-all duration-300 shadow-[0_4px_16px_rgba(66,169,229,0.3)] cursor-pointer select-none min-h-[42px]"
+            className="flex-1 min-w-0 group inline-flex items-center justify-between gap-1 pl-2.5 sm:pl-3.5 pr-1 py-1.5 rounded-full bg-accent text-white hover:bg-accent-strong transition-all duration-300 shadow-[0_4px_16px_rgba(4,74,163,0.28)] cursor-pointer select-none min-h-[42px]"
           >
             <span className="font-montserrat text-[9.5px] min-[390px]:text-[10.5px] sm:text-xs font-semibold tracking-wide whitespace-nowrap">
               Book a Consultation
@@ -425,7 +425,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                 delay: shouldReduceMotion ? 0 : 0.06 + index * 0.05,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="p-3.5 sm:p-4 rounded-2xl bg-white border border-[#DCE8F1] shadow-[0_2px_10px_rgba(16,36,61,0.03)] flex flex-col justify-between min-h-[96px]"
+              className="p-3.5 sm:p-4 rounded-2xl bg-white border border-[#CDE0F3] shadow-[0_2px_10px_rgba(16,36,61,0.03)] flex flex-col justify-between min-h-[96px]"
             >
               <StatCounter
                 target={stat.targetNumber}

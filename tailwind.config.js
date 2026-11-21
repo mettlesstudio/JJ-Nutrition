@@ -7,20 +7,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        // JJ Nutrition White & Sky Blue Direction
+        // JJ Nutrition White & Rich Brand Blue Direction (#044AA3)
         white: '#FFFFFF',
         surface: {
-          light: '#F3F9FD',     // Secondary background
-          pale: '#E8F5FC',      // Light blue surface
-          decorative: '#D9EFFB',// Light blue decorative
+          light: '#F4F8FC',     // Secondary background
+          pale: '#E6EEF8',      // Light blue surface
+          decorative: '#D0E0F2',// Light blue decorative
         },
         accent: {
-          DEFAULT: '#42A9E5', // Primary accent: Sky blue
-          sky: '#42A9E5',
-          strong: '#0789D2',  // Strong accent: Strong blue
-          light: '#E8F5FC',
-          decorative: '#D9EFFB',
-          border: '#DCE8F1',
+          DEFAULT: '#044AA3', // Primary brand blue: Rich clinical blue (#044AA3)
+          sky: '#044AA3',
+          strong: '#033B85',  // Strong / Hover accent: Rich deeper blue (#033B85)
+          dark: '#022B60',    // Active accent (#022B60)
+          light: '#E6EEF8',   // Light blue surface tint
+          decorative: '#D0E0F2',// Subtle decorative accent
+          border: '#CDE0F3',  // Restrained blue-tinted border
         },
         navy: {
           DEFAULT: '#111827', // Primary typography: Near-black (#111827)
@@ -34,15 +35,15 @@ export default {
           light: '#555555',
         },
         border: {
-          blue: '#DCE8F1',    // Borders
-          DEFAULT: '#DCE8F1',
+          blue: '#CDE0F3',    // Borders
+          DEFAULT: '#CDE0F3',
         },
 
         // Mapped legacy tokens for full-site consistency
         cream: {
           DEFAULT: '#FFFFFF', // Pure white dominant
           light: '#FFFFFF',
-          dark: '#F3F9FD',    // Very light blue secondary
+          dark: '#F4F8FC',    // Very light blue secondary
         },
         dark: {
           DEFAULT: '#111827', // Near-black replacing old navy/brown
@@ -57,7 +58,11 @@ export default {
         }
       },
       fontFamily: {
-        serif: ['"Abhaya Libre"', 'Playfair Display', 'Georgia', 'serif'],
+        heading: ['"playfair-a"', '"Playfair Display"', 'Georgia', 'serif'],
+        subheading: ['Inter', 'system-ui', 'sans-serif'],
+        inter: ['Inter', 'system-ui', 'sans-serif'],
+        playfair: ['"playfair-a"', '"Playfair Display"', 'Georgia', 'serif'],
+        serif: ['"playfair-a"', '"Playfair Display"', '"Abhaya Libre"', 'Georgia', 'serif'],
         script: ['Praise', '"Alex Brush"', 'cursive'],
         sans: ['"Clash Grotesk"', '"DM Sans"', 'system-ui', 'sans-serif'],
         montserrat: ['Montserrat', 'system-ui', 'sans-serif'],

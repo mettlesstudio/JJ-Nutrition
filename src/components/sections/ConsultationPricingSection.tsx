@@ -34,10 +34,10 @@ export const ConsultationPricingSection: React.FC<ConsultationPricingSectionProp
             whileInView={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-15% 0px -20% 0px' }}
             transition={{ duration: 0.6 }}
-            className="font-sans text-3xl sm:text-4xl md:text-5xl text-[#111827] uppercase font-normal leading-tight mb-3 sm:mb-4"
+            className="font-heading font-medium italic text-3xl sm:text-4xl md:text-5xl lg:text-[54px] text-[#111827] normal-case leading-tight mb-3 sm:mb-4"
           >
-            SELECT YOUR CONSULTATION TIER <br />
-            <span className="text-accent font-medium">& BEGIN YOUR HEALTH RECOVERY</span>
+            Select Your Consultation Tier <br />
+            <span className="text-accent font-medium">& Begin Your Health Recovery</span>
           </motion.h2>
 
           <motion.p
@@ -71,13 +71,13 @@ export const ConsultationPricingSection: React.FC<ConsultationPricingSectionProp
                   delay: shouldReduceMotion ? 0 : idx * 0.08,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                className="rounded-3xl p-6 sm:p-7 lg:p-8 bg-white border border-[#DCE8F1] shadow-[0_4px_20px_rgba(16,36,61,0.04)] hover:shadow-[0_8px_28px_rgba(16,36,61,0.08)] transition-all duration-300 flex flex-col items-center text-center relative min-h-[350px] sm:min-h-[360px] md:min-h-[416px] lg:min-h-[370px] justify-between"
+                className="rounded-3xl p-6 sm:p-7 lg:p-8 bg-white border border-[#CDE0F3] shadow-[0_4px_20px_rgba(16,36,61,0.04)] hover:shadow-[0_8px_28px_rgba(16,36,61,0.08)] transition-all duration-300 flex flex-col items-center text-center relative min-h-[350px] sm:min-h-[360px] md:min-h-[416px] lg:min-h-[370px] justify-between"
               >
                 {/* Top Block: Title, Duration, Price, Subtitle, Show/Hide */}
                 <div className="w-full flex flex-col items-center text-center">
                   {/* 1. Plan Name (Centred, Montserrat Medium 500, fixed height slot for exact row alignment) */}
                   <div className="min-h-[32px] md:min-h-[56px] lg:min-h-[36px] flex items-center justify-center mb-1.5 w-full">
-                    <h3 className="font-montserrat text-xl sm:text-2xl lg:text-[24px] font-medium text-[#111827] leading-tight">
+                    <h3 className="font-heading font-medium italic text-xl sm:text-2xl lg:text-[24px] text-[#111827] leading-tight">
                       {tier.name}
                     </h3>
                   </div>
@@ -130,7 +130,7 @@ export const ConsultationPricingSection: React.FC<ConsultationPricingSectionProp
                         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                         className="overflow-hidden w-full mb-4"
                       >
-                        <div className="pt-4 pb-1 border-t border-[#DCE8F1] text-left w-full">
+                        <div className="pt-4 pb-1 border-t border-[#CDE0F3] text-left w-full">
                           <span className="text-[11px] font-normal uppercase tracking-wider text-[#111827] block mb-3 font-montserrat text-center sm:text-left">
                             INCLUDED IN THIS CONSULTATION:
                           </span>
@@ -159,7 +159,7 @@ export const ConsultationPricingSection: React.FC<ConsultationPricingSectionProp
                     whileHover={{ y: -1 }}
                     whileTap={{ scale: 0.98 }}
                     transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-full group inline-flex items-center justify-between gap-3 pl-6 pr-2 py-2 rounded-full bg-accent text-white hover:bg-accent-strong transition-all duration-300 shadow-[0_4px_16px_rgba(66,169,229,0.3)] hover:shadow-[0_6px_22px_rgba(7,137,210,0.4)] cursor-pointer select-none"
+                    className="w-full group inline-flex items-center justify-between gap-3 pl-6 pr-2 py-2 rounded-full bg-accent text-white hover:bg-accent-strong transition-all duration-300 shadow-[0_4px_16px_rgba(4,74,163,0.28)] hover:shadow-[0_6px_22px_rgba(3,59,133,0.36)] cursor-pointer select-none"
                   >
                     <span className="font-montserrat text-xs sm:text-sm font-semibold tracking-wide mx-auto">
                       Select & Schedule

@@ -20,13 +20,13 @@ export const AboutJJNutritionSection: React.FC<AboutJJNutritionSectionProps> = (
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-2xl lg:max-w-3xl text-left">
-          {/* Left-Aligned Headline with Approved Hierarchy & Accent */}
+          {/* Left-Aligned Headline with Playfair-A 500 Italic Typography */}
           <motion.h2
             initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
             whileInView={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-15% 0px -20% 0px' }}
             transition={{ duration: 0.6 }}
-            className="font-sans text-3xl sm:text-4xl md:text-[44px] text-[#111827] uppercase font-normal leading-tight mb-6 sm:mb-7"
+            className="font-heading font-medium italic text-3xl sm:text-4xl md:text-5xl lg:text-[54px] text-[#111827] normal-case leading-[1.12] mb-6 sm:mb-7"
           >
             Personalised Nutrition, <br />
             <span className="text-accent font-medium">Grounded in Science.</span>
@@ -34,7 +34,7 @@ export const AboutJJNutritionSection: React.FC<AboutJJNutritionSectionProps> = (
 
           {/* Left-Aligned Paragraph with ScrollReveal Animation & Rich Dark Navy Color */}
           <ScrollReveal
-            highlightColor="#2a78ee"
+            highlightColor="#044AA3"
             mode="scrub"
             splitBy="words"
             effect="flip"

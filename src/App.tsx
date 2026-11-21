@@ -5,8 +5,9 @@ import { HomePage } from './pages/HomePage';
 import { BlogPage } from './pages/BlogPage';
 import { BookingModal } from './components/booking/BookingModal';
 import { GlobalFallingScientificElements } from './components/decorative/GlobalFallingScientificElements';
+import { MaintenancePage } from './components/pages/MaintenancePage';
 
-export function App() {
+function MainWebsite() {
   const [route, setRoute] = useState<string>(() => {
     if (typeof window !== 'undefined') {
       const path = window.location.pathname.toLowerCase();
@@ -171,6 +172,21 @@ export function App() {
       />
     </div>
   );
+}
+
+export function App() {
+  // Environment-based Maintenance Mode Switch:
+  // VITE_MAINTENANCE_MODE=true  -> MaintenancePage
+  // VITE_MAINTENANCE_MODE=false -> Normal Website
+  // Defaults to false if undefined, empty, or anything other than "true"
+  const isMaintenanceMode =
+    String(import.meta.env.VITE_MAINTENANCE_MODE || '').trim().toLowerCase() === 'true';
+
+  if (isMaintenanceMode) {
+    return <MaintenancePage />;
+  }
+
+  return <MainWebsite />;
 }
 
 export default App;

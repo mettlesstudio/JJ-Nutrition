@@ -531,13 +531,13 @@ export const ServicesOverviewSection: React.FC<ServicesOverviewSectionProps> = (
           initial={shouldReduceMotion ? {} : 'hidden'}
           whileInView={shouldReduceMotion ? {} : 'visible'}
           viewport={{ once: true, margin: '-15% 0px -20% 0px' }}
-          className="font-sans text-[22px] sm:text-[26px] md:text-[46px] lg:text-[52px] text-[#111827] uppercase font-normal leading-tight mb-2 md:mb-4 text-center"
+          className="font-heading font-medium italic text-[24px] sm:text-[30px] md:text-[48px] lg:text-[56px] text-[#111827] normal-case leading-tight mb-2 md:mb-4 text-center"
         >
           <motion.span variants={headingLineVariants} className="block">
-            TARGETED CLINICAL NUTRITION
+            Targeted Clinical Nutrition
           </motion.span>
           <motion.span variants={headingLineVariants} className="block text-accent font-medium">
-            & SUPPLEMENT PROTOCOLS
+            & Supplement Protocols
           </motion.span>
         </motion.h2>
 
@@ -636,12 +636,12 @@ export const ServicesOverviewSection: React.FC<ServicesOverviewSectionProps> = (
             {/* RIGHT COLUMN: Large Dynamic Detail Card (~66%) */}
             <div className="flex-1 h-full relative rounded-3xl overflow-hidden border border-border-blue/80 shadow-[0_8px_30px_rgba(16,36,61,0.06)] bg-white flex flex-col">
               
-              {/* Restrained Sky Blue Gradient in Top-Left Corner */}
+              {/* Restrained Brand Blue Gradient in Top-Left Corner */}
               <div
                 className="absolute top-0 left-0 w-80 h-80 pointer-events-none z-10"
                 style={{
                   background:
-                    'radial-gradient(circle at top left, rgba(66, 169, 229, 0.12) 0%, rgba(232, 245, 252, 0.05) 50%, transparent 75%)',
+                    'radial-gradient(circle at top left, rgba(4, 74, 163, 0.12) 0%, rgba(230, 238, 248, 0.05) 50%, transparent 75%)',
                 }}
               />
 
@@ -690,10 +690,10 @@ export const ServicesOverviewSection: React.FC<ServicesOverviewSectionProps> = (
                     className="flex flex-col justify-between h-full"
                   >
                     <div>
-                      {/* Service Title */}
+                      {/* Service Title with Playfair-A 500 Italic */}
                       <motion.h3
                         variants={cardContentItemVariants}
-                        className="font-sans text-[26px] lg:text-[32px] xl:text-[36px] text-[#111827] uppercase font-normal leading-tight mb-2 pt-1"
+                        className="font-heading font-medium italic text-[24px] lg:text-[28px] xl:text-[32px] text-[#111827] normal-case leading-tight mb-2 pt-1"
                       >
                         {activeService.title}
                       </motion.h3>
@@ -720,7 +720,7 @@ export const ServicesOverviewSection: React.FC<ServicesOverviewSectionProps> = (
                         className="grid grid-cols-1 lg:grid-cols-2 gap-3.5 mb-5"
                       >
                         {/* Expected Clinical Outcomes */}
-                        <div className="p-3.5 lg:p-4 rounded-2xl bg-white/90 border border-[#DCE8F1] shadow-2xs backdrop-blur-xs">
+                        <div className="p-3.5 lg:p-4 rounded-2xl bg-white/90 border border-[#CDE0F3] shadow-2xs backdrop-blur-xs">
                           <span className="text-[11.5px] lg:text-[12px] font-bold uppercase tracking-wider text-accent block mb-2 font-montserrat">
                             Expected Clinical Outcomes
                           </span>
@@ -738,7 +738,7 @@ export const ServicesOverviewSection: React.FC<ServicesOverviewSectionProps> = (
                         </div>
 
                         {/* Therapeutic Synergists */}
-                        <div className="p-3.5 lg:p-4 rounded-2xl bg-white/90 border border-[#DCE8F1] shadow-2xs backdrop-blur-xs">
+                        <div className="p-3.5 lg:p-4 rounded-2xl bg-white/90 border border-[#CDE0F3] shadow-2xs backdrop-blur-xs">
                           <span className="text-[11.5px] lg:text-[12px] font-bold uppercase tracking-wider text-[#111827] block mb-2 font-montserrat">
                             Therapeutic Synergists
                           </span>
@@ -769,12 +769,12 @@ export const ServicesOverviewSection: React.FC<ServicesOverviewSectionProps> = (
                     </div>
 
                     {/* Action CTA Buttons: Only Book Consultation is retained */}
-                    <div className="flex items-center justify-end pt-4 border-t border-[#DCE8F1]">
+                    <div className="flex items-center justify-end pt-4 border-t border-[#CDE0F3]">
                       <motion.button
                         whileHover={shouldReduceMotion ? {} : { y: -2, scale: 1.01 }}
                         whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
                         onClick={() => onBookService(activeService.id)}
-                        className="group inline-flex items-center justify-between gap-3 pl-6 pr-2 py-2 rounded-full bg-accent text-white hover:bg-accent-strong transition-all duration-300 shadow-[0_4px_16px_rgba(66,169,229,0.3)] hover:shadow-[0_6px_22px_rgba(7,137,210,0.4)] cursor-pointer select-none active:scale-[0.98]"
+                        className="group inline-flex items-center justify-between gap-3 pl-6 pr-2 py-2 rounded-full bg-accent text-white hover:bg-accent-strong transition-all duration-300 shadow-[0_4px_16px_rgba(4,74,163,0.28)] hover:shadow-[0_6px_22px_rgba(3,59,133,0.36)] cursor-pointer select-none active:scale-[0.98]"
                       >
                         <span className="font-montserrat text-[13.5px] sm:text-[14.5px] font-semibold tracking-wide">
                           Book Consultation
@@ -829,12 +829,12 @@ export const ServicesOverviewSection: React.FC<ServicesOverviewSectionProps> = (
             {/* Mobile Dynamic Detail Card (Centrally Fitted, Whole Card Visible, Internal Scroll on Small Screens) */}
             <div className="relative rounded-3xl overflow-hidden border border-border-blue/80 shadow-md bg-white flex flex-col justify-between max-h-[calc(100dvh-150px)] min-h-[380px] h-full">
               
-              {/* Restrained Sky Blue Gradient in Top-Left Corner */}
+              {/* Restrained Brand Blue Gradient in Top-Left Corner */}
               <div
                 className="absolute top-0 left-0 w-64 h-64 pointer-events-none z-10"
                 style={{
                   background:
-                    'radial-gradient(circle at top left, rgba(66, 169, 229, 0.12) 0%, rgba(232, 245, 252, 0.05) 50%, transparent 75%)',
+                    'radial-gradient(circle at top left, rgba(4, 74, 163, 0.12) 0%, rgba(230, 238, 248, 0.05) 50%, transparent 75%)',
                 }}
               />
 
@@ -886,7 +886,7 @@ export const ServicesOverviewSection: React.FC<ServicesOverviewSectionProps> = (
                     <div className="flex-shrink-0">
                       <motion.h3
                         variants={cardContentItemVariants}
-                        className="font-sans text-[22px] sm:text-[24px] text-[#111827] uppercase font-normal leading-tight mb-1 pt-0.5"
+                        className="font-heading font-medium italic text-[20px] sm:text-[22px] text-[#111827] normal-case leading-tight mb-1 pt-0.5"
                       >
                         {activeService.title}
                       </motion.h3>
@@ -927,11 +927,11 @@ export const ServicesOverviewSection: React.FC<ServicesOverviewSectionProps> = (
                     </div>
 
                     {/* Card Bottom: Book Consultation Button (flex-shrink-0, permanently visible) */}
-                    <div className="pt-2.5 border-t border-[#DCE8F1] flex justify-center flex-shrink-0 mt-2">
+                    <div className="pt-2.5 border-t border-[#CDE0F3] flex justify-center flex-shrink-0 mt-2">
                       <motion.button
                         whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
                         onClick={() => onBookService(activeService.id)}
-                        className="w-full group inline-flex items-center justify-between gap-2 pl-5 pr-1.5 py-2 rounded-full bg-accent text-white hover:bg-accent-strong transition-all duration-300 shadow-[0_4px_16px_rgba(66,169,229,0.3)] cursor-pointer select-none active:scale-[0.98] min-h-[46px]"
+                        className="w-full group inline-flex items-center justify-between gap-2 pl-5 pr-1.5 py-2 rounded-full bg-accent text-white hover:bg-accent-strong transition-all duration-300 shadow-[0_4px_16px_rgba(4,74,163,0.28)] cursor-pointer select-none active:scale-[0.98] min-h-[46px]"
                       >
                         <span className="font-montserrat text-[13.5px] font-semibold tracking-wide mx-auto">
                           Book Consultation

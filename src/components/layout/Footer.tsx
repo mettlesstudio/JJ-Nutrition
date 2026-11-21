@@ -18,7 +18,7 @@ export const Footer: React.FC<FooterProps> = ({ onRouteChange }) => {
   };
 
   return (
-    <footer className="bg-[#3569BA] text-white pt-14 md:pt-20 pb-12 relative overflow-hidden">
+    <footer className="bg-[#044AA3] text-white pt-14 md:pt-20 pb-12 relative overflow-hidden">
       <motion.div
         initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
         whileInView={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
@@ -51,7 +51,7 @@ export const Footer: React.FC<FooterProps> = ({ onRouteChange }) => {
           {/* Column 1: Clinical Protocols (1-5) */}
           <div>
             <h4 className="font-sans text-base sm:text-lg text-white font-semibold tracking-wide mb-4 flex items-center gap-2">
-              <Stethoscope className="w-4 h-4 text-[#D9EFFB]" />
+              <Stethoscope className="w-4 h-4 text-[#D0E0F2]" />
               Targeted Protocols
             </h4>
             <ul className="space-y-2.5 text-xs sm:text-sm text-white/80">
@@ -71,7 +71,7 @@ export const Footer: React.FC<FooterProps> = ({ onRouteChange }) => {
           {/* Column 2: Clinical Protocols (6-10) */}
           <div>
             <h4 className="font-sans text-base sm:text-lg text-white font-semibold tracking-wide mb-4 flex items-center gap-2">
-              <Heart className="w-4 h-4 text-[#D9EFFB]" />
+              <Heart className="w-4 h-4 text-[#D0E0F2]" />
               Specialized Care
             </h4>
             <ul className="space-y-2.5 text-xs sm:text-sm text-white/80">
@@ -91,7 +91,7 @@ export const Footer: React.FC<FooterProps> = ({ onRouteChange }) => {
           {/* Column 3: Consultations & Hours */}
           <div>
             <h4 className="font-sans text-base sm:text-lg text-white font-semibold tracking-wide mb-4 flex items-center gap-2">
-              <Clock className="w-4 h-4 text-[#D9EFFB]" />
+              <Clock className="w-4 h-4 text-[#D0E0F2]" />
               Telehealth Hours
             </h4>
             <ul className="space-y-3 text-xs sm:text-sm text-white/80">
@@ -118,19 +118,19 @@ export const Footer: React.FC<FooterProps> = ({ onRouteChange }) => {
             </h4>
             <ul className="space-y-3 text-xs sm:text-sm text-white/80">
               <li className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-[#D9EFFB] flex-shrink-0" />
+                <Phone className="w-4 h-4 text-[#D0E0F2] flex-shrink-0" />
                 <a href="tel:0416177347" className="hover:text-white transition-colors">
                   0416 177 347 (AU)
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-[#D9EFFB] flex-shrink-0" />
+                <Phone className="w-4 h-4 text-[#D0E0F2] flex-shrink-0" />
                 <a href="tel:+61416177347" className="hover:text-white transition-colors">
                   +61 416 177 347 (Intl)
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-[#D9EFFB] flex-shrink-0" />
+                <Mail className="w-4 h-4 text-[#D0E0F2] flex-shrink-0" />
                 <a href="mailto:info@jjnutrition.com.au" className="hover:text-white transition-colors">
                   info@jjnutrition.com.au
                 </a>

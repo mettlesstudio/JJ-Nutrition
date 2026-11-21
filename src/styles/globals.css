@@ -2,24 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ========================================================================= */
+/* PLAYFAIR-A & INTER FONTS (Local TTF + WebFont Fallback)                  */
+/* Playfair-A 500 Italic Reference:                                         */
+/* font-family: "playfair-a", serif; font-weight: 500; font-style: italic;   */
+/* ========================================================================= */
+@font-face {
+  font-family: 'playfair-a';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/PlayfairDisplay-Italic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'playfair-a';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/PlayfairDisplay.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/PlayfairDisplay-Italic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/PlayfairDisplay.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/Inter.ttf') format('truetype');
+}
+
 @layer base {
   :root {
     --color-white: #FFFFFF;
-    --color-surface-light: #F3F9FD;
-    --color-surface-pale: #E8F5FC;
-    --color-surface-decorative: #D9EFFB;
-    --color-sky-blue: #42A9E5;
-    --color-strong-blue: #0789D2;
+    --color-surface-light: #F4F8FC;
+    --color-surface-pale: #E6EEF8;
+    --color-surface-decorative: #D0E0F2;
+    --color-sky-blue: #044AA3;
+    --color-strong-blue: #033B85;
     --color-deep-navy: #111827;
     --color-slate: #333333;
     --color-body: #1A1A1A;
     --color-subtle: #555555;
-    --color-border-blue: #DCE8F1;
+    --color-border-blue: #CDE0F3;
 
     /* Semantic mapping */
     --color-cream: #FFFFFF;
     --color-dark: #111827;
-    --color-accent: #42A9E5;
+    --color-accent: #044AA3;
   }
 
   html {
@@ -39,26 +84,37 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Clash Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'playfair-a', 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 500;
     letter-spacing: -0.01em;
-    font-weight: 400;
     color: #111827;
   }
 }
 
-/* Custom scrollbar in sky blue */
+@layer utilities {
+  .font-heading {
+    font-family: 'playfair-a', 'Playfair Display', Georgia, serif;
+  }
+  .font-subheading,
+  .font-inter {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Custom scrollbar in brand blue */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #F3F9FD;
+  background: #F4F8FC;
 }
 ::-webkit-scrollbar-thumb {
-  background: #42A9E5;
+  background: #044AA3;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #0789D2;
+  background: #033B85;
 }
 
 /* Font utilities for the marquee brand identities */
@@ -129,7 +185,7 @@
     125% 135% at 50% 12%,
     rgba(255, 255, 255, 0.90) 0%,
     rgba(240, 248, 255, 0.58) 52%,
-    rgba(217, 239, 251, 0.38) 100%
+    rgba(208, 224, 242, 0.38) 100%
   );
   backdrop-filter: blur(8px) saturate(150%) brightness(105%);
   -webkit-backdrop-filter: blur(8px) saturate(150%) brightness(105%);
@@ -139,12 +195,12 @@
     inset 0 1px 1.5px 0 rgba(255, 255, 255, 1.0),
     /* Soft bottom refraction rim */
     inset 0 -1px 1px 0 rgba(16, 36, 61, 0.05),
-    /* Chromatic dispersion: cyan/sky on left, soft violet on right */
-    inset 1.5px 0 2px 0 rgba(66, 169, 229, 0.44),
+    /* Chromatic dispersion: rich blue on left, soft violet on right */
+    inset 1.5px 0 2px 0 rgba(4, 74, 163, 0.44),
     inset -1.5px 0 2px 0 rgba(155, 115, 230, 0.34),
     /* Physical glass elevation */
     0 2px 8px -1px rgba(16, 36, 61, 0.07),
-    0 8px 18px -2px rgba(66, 169, 229, 0.16);
+    0 8px 18px -2px rgba(4, 74, 163, 0.16);
 }
 
 .glass-lens-glare {
@@ -166,7 +222,7 @@
 /* Subtle chromatic aberration on text magnified under the lens */
 .lens-text-chromatic {
   text-shadow:
-    -0.4px 0 0.5px rgba(7, 137, 210, 0.42),
+    -0.4px 0 0.5px rgba(4, 74, 163, 0.42),
     0.4px 0 0.5px rgba(150, 95, 220, 0.32);
 }
 

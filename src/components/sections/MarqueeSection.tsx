@@ -156,7 +156,7 @@ export const MarqueeSection: React.FC = () => {
     <section className="bg-transparent border-y border-border-blue/60 py-4.5 sm:py-7 select-none relative overflow-hidden">
       {/* Refined Understated Heading: "Partners" in Montserrat Regular */}
       <div className="max-w-7xl mx-auto px-4 mb-2.5 sm:mb-4 text-center">
-        <h3 className="font-montserrat font-normal text-xs sm:text-[13px] tracking-[0.04em] text-slate/85">
+        <h3 className="font-subheading font-normal text-xs sm:text-[13px] tracking-[0.06em] text-slate/85 uppercase">
           Partners
         </h3>
       </div>

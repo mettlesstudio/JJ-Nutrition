@@ -394,7 +394,7 @@ export const ReviewsSection: React.FC = () => {
             whileInView={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-15% 0px -20% 0px' }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="font-sans text-3xl sm:text-4xl md:text-[44px] text-[#111827] uppercase font-normal leading-tight text-right max-w-2xl"
+            className="font-heading font-medium italic text-3xl sm:text-4xl md:text-5xl lg:text-[54px] text-[#111827] normal-case leading-[1.12] text-right max-w-2xl"
           >
             Real Patients, <br />
             <span className="text-accent font-medium">Restored Cellular Vitality.</span>
@@ -514,7 +514,7 @@ export const ReviewsSection: React.FC = () => {
                 </div>
               </div>
 
-              <h3 id="modal-review-title" className="font-montserrat text-xl sm:text-2xl font-medium text-[#111827] mb-4">
+              <h3 id="modal-review-title" className="font-heading font-medium italic text-xl sm:text-2xl md:text-[26px] text-[#111827] mb-4">
                 "{selectedReview.quoteTitle}"
               </h3>
 
@@ -536,7 +536,7 @@ export const ReviewsSection: React.FC = () => {
 
               {/* Practitioner Note */}
               <div className="p-4 rounded-2xl bg-surface-light border border-border-blue">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#0789D2] block mb-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#044AA3] block mb-1">
                   Practitioner Selvi's Clinical Note:
                 </span>
                 <p className="text-xs sm:text-sm text-[#1A1A1A] leading-relaxed italic font-montserrat">
@@ -563,7 +563,7 @@ const ReviewCardContent: React.FC<ReviewCardContentProps> = ({
   review,
 }) => {
   return (
-    <div className="w-full h-full p-6 sm:p-7 rounded-3xl bg-white border border-[#DCE8F1] shadow-[0_4px_20px_rgba(16,36,61,0.04)] hover:shadow-[0_8px_28px_rgba(16,36,61,0.08)] transition-all duration-300 flex flex-col justify-between text-left">
+    <div className="w-full h-full p-6 sm:p-7 rounded-3xl bg-white border border-[#CDE0F3] shadow-[0_4px_20px_rgba(16,36,61,0.04)] hover:shadow-[0_8px_28px_rgba(16,36,61,0.08)] transition-all duration-300 flex flex-col justify-between text-left">
       {/* Top Content: Star Rating + Headline + Review Body */}
       <div>
         {/* Star Rating in Consistent Warm Gold */}
@@ -585,7 +585,7 @@ const ReviewCardContent: React.FC<ReviewCardContentProps> = ({
       </div>
 
       {/* Card Bottom: Reviewer Name & Location / Date — Montserrat Medium (500) */}
-      <div className="pt-4 mt-5 border-t border-[#DCE8F1]">
+      <div className="pt-4 mt-5 border-t border-[#CDE0F3]">
         <h5 className="font-montserrat font-medium text-[#111827] text-sm sm:text-base leading-tight mb-1">
           {review.patientName}
         </h5>

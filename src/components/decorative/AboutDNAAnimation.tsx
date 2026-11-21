@@ -74,18 +74,18 @@ export const AboutDNAAnimation: React.FC<AboutDNAAnimationProps> = ({ targetRef,
 
           {/* Primary Strand Gradient */}
           <linearGradient id="dnaGrad1" x1="470" y1="30" x2="470" y2="635" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#42A9E5" stopOpacity="0.4" />
-            <stop offset="25%" stopColor="#0789D2" stopOpacity="0.85" />
-            <stop offset="50%" stopColor="#42A9E5" stopOpacity="0.95" />
-            <stop offset="75%" stopColor="#0789D2" stopOpacity="0.85" />
-            <stop offset="100%" stopColor="#42A9E5" stopOpacity="0.4" />
+            <stop offset="0%" stopColor="#044AA3" stopOpacity="0.4" />
+            <stop offset="25%" stopColor="#033B85" stopOpacity="0.85" />
+            <stop offset="50%" stopColor="#044AA3" stopOpacity="0.95" />
+            <stop offset="75%" stopColor="#033B85" stopOpacity="0.85" />
+            <stop offset="100%" stopColor="#044AA3" stopOpacity="0.4" />
           </linearGradient>
 
           {/* Complementary Strand Gradient */}
           <linearGradient id="dnaGrad2" x1="250" y1="230" x2="250" y2="450" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#42A9E5" stopOpacity="0.3" />
-            <stop offset="50%" stopColor="#0789D2" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#42A9E5" stopOpacity="0.3" />
+            <stop offset="0%" stopColor="#044AA3" stopOpacity="0.3" />
+            <stop offset="50%" stopColor="#033B85" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#044AA3" stopOpacity="0.3" />
           </linearGradient>
         </defs>
 
@@ -95,8 +95,8 @@ export const AboutDNAAnimation: React.FC<AboutDNAAnimationProps> = ({ targetRef,
           cy="340"
           rx="70"
           ry="120"
-          fill="#42A9E5"
-          fillOpacity="0.035"
+          fill="#044AA3"
+          fillOpacity="0.04"
           filter="url(#dnaGlow)"
         />
 
@@ -147,9 +147,9 @@ export const AboutDNAAnimation: React.FC<AboutDNAAnimationProps> = ({ targetRef,
         />
 
         {/* Start Point Subtle Node */}
-        <circle cx="470" cy="30" r="3" fill="#42A9E5" fillOpacity="0.6" />
+        <circle cx="470" cy="30" r="3" fill="#044AA3" fillOpacity="0.6" />
         {/* End Point Subtle Node */}
-        <circle cx="470" cy="635" r="3" fill="#42A9E5" fillOpacity="0.6" />
+        <circle cx="470" cy="635" r="3" fill="#044AA3" fillOpacity="0.6" />
       </svg>
     </div>
   );
@@ -183,7 +183,7 @@ const RungComponent: React.FC<RungProps> = ({ rung, smoothProgress, shouldReduce
         y1={rung.y}
         x2={rung.x2}
         y2={rung.y}
-        stroke="#42A9E5"
+        stroke="#044AA3"
         strokeWidth="1.2"
         strokeDasharray="3 2"
         strokeOpacity="0.75"
@@ -193,7 +193,7 @@ const RungComponent: React.FC<RungProps> = ({ rung, smoothProgress, shouldReduce
         cx={rung.x1}
         cy={rung.y}
         r="2.5"
-        fill="#42A9E5"
+        fill="#044AA3"
         stroke="#FFFFFF"
         strokeWidth="0.8"
       />
@@ -202,7 +202,7 @@ const RungComponent: React.FC<RungProps> = ({ rung, smoothProgress, shouldReduce
         cx={rung.x2}
         cy={rung.y}
         r="2.5"
-        fill="#0789D2"
+        fill="#033B85"
         stroke="#FFFFFF"
         strokeWidth="0.8"
       />

@@ -191,12 +191,12 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.97, y: 12 }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-4xl bg-white rounded-2xl sm:rounded-3xl shadow-[0_24px_70px_rgba(16,36,61,0.18)] border border-[#DCE8F1] overflow-hidden z-10 flex flex-col h-[94dvh] sm:h-[88vh] max-h-[94dvh] sm:max-h-[850px]"
+          className="relative w-full max-w-4xl bg-white rounded-2xl sm:rounded-3xl shadow-[0_24px_70px_rgba(16,36,61,0.18)] border border-[#CDE0F3] overflow-hidden z-10 flex flex-col h-[94dvh] sm:h-[88vh] max-h-[94dvh] sm:max-h-[850px]"
         >
           {/* ============================================================== */}
           {/* 1. CLEAN COMPACT HEADER (Fixed ~64-72px, Never intrinsic logo) */}
           {/* ============================================================== */}
-          <div className="h-16 sm:h-[72px] px-4 sm:px-6 md:px-8 flex items-center justify-between border-b border-[#DCE8F1] bg-white flex-shrink-0 z-20">
+          <div className="h-16 sm:h-[72px] px-4 sm:px-6 md:px-8 flex items-center justify-between border-b border-[#CDE0F3] bg-white flex-shrink-0 z-20">
             {/* Left: JJ Nutrition Brand Lockup */}
             <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 mr-3">
               <img
@@ -211,7 +211,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 <span className="font-montserrat text-[15.5px] sm:text-[17px] font-normal text-[#111827] whitespace-nowrap truncate">
                   JJ Nutrition
                 </span>
-                <span className="hidden md:inline-block w-px h-3.5 bg-[#DCE8F1] flex-shrink-0" />
+                <span className="hidden md:inline-block w-px h-3.5 bg-[#CDE0F3] flex-shrink-0" />
                 <span className="hidden md:inline-block font-montserrat text-xs text-[#555555] whitespace-nowrap truncate">
                   Clinical Telehealth Booking
                 </span>
@@ -222,7 +222,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             <button
               type="button"
               onClick={handleClose}
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#F3F9FD] hover:bg-[#E8F5FC] text-[#555555] hover:text-[#111827] flex items-center justify-center transition-colors cursor-pointer border border-[#DCE8F1] flex-shrink-0 ml-auto focus:outline-none focus:ring-2 focus:ring-accent/40"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#F4F8FC] hover:bg-[#E6EEF8] text-[#555555] hover:text-[#111827] flex items-center justify-center transition-colors cursor-pointer border border-[#CDE0F3] flex-shrink-0 ml-auto focus:outline-none focus:ring-2 focus:ring-accent/40"
               aria-label="Close booking modal"
             >
               <X className="w-4 h-4 sm:w-4.5 sm:h-4.5" strokeWidth={2} />
@@ -233,7 +233,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           {/* 2. REFINED 4-STEP PROGRESS INDICATOR                           */}
           {/* ============================================================== */}
           {/* Desktop & iPad Horizontal Stepper */}
-          <div className="hidden sm:flex items-center justify-between px-6 sm:px-8 py-2.5 sm:py-3 bg-[#F3F9FD]/70 border-b border-[#DCE8F1] flex-shrink-0">
+          <div className="hidden sm:flex items-center justify-between px-6 sm:px-8 py-2.5 sm:py-3 bg-[#F4F8FC]/70 border-b border-[#CDE0F3] flex-shrink-0">
             {STEPS.map((s, idx) => {
               const isCompleted = step > s.num;
               const isCurrent = step === s.num;
@@ -247,7 +247,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                           ? 'bg-accent/15 text-accent font-semibold border border-accent/30'
                           : isCurrent
                           ? 'bg-accent text-white font-semibold shadow-xs'
-                          : 'bg-white text-[#555555] border border-[#DCE8F1]'
+                          : 'bg-white text-[#555555] border border-[#CDE0F3]'
                       }`}
                     >
                       {isCompleted ? <Check className="w-3.5 h-3.5" strokeWidth={2.2} /> : s.num}
@@ -267,7 +267,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   {idx < STEPS.length - 1 && (
                     <div
                       className={`flex-1 h-px mx-4 transition-colors duration-300 ${
-                        step > s.num ? 'bg-accent/40' : 'bg-[#DCE8F1]'
+                        step > s.num ? 'bg-accent/40' : 'bg-[#CDE0F3]'
                       }`}
                     />
                   )}
@@ -277,7 +277,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           </div>
 
           {/* Mobile Stepper & Progress Bar */}
-          <div className="flex sm:hidden flex-col bg-[#F3F9FD]/70 border-b border-[#DCE8F1] flex-shrink-0">
+          <div className="flex sm:hidden flex-col bg-[#F4F8FC]/70 border-b border-[#CDE0F3] flex-shrink-0">
             <div className="flex items-center justify-between px-4 py-2">
               <div className="flex items-center gap-2">
                 <span className="w-5 h-5 rounded-full bg-accent text-white flex items-center justify-center text-[11px] font-semibold">
@@ -292,7 +292,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               </span>
             </div>
             {/* Smooth 2px progress track */}
-            <div className="w-full h-0.5 bg-[#DCE8F1]">
+            <div className="w-full h-0.5 bg-[#CDE0F3]">
               <motion.div
                 className="h-full bg-accent"
                 initial={false}
@@ -325,7 +325,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     <div className="mb-5 sm:mb-6">
                       <h3
                         id="modal-booking-title"
-                        className="font-montserrat text-xl sm:text-2xl font-medium text-[#111827] leading-tight mb-1.5"
+                        className="font-heading font-medium italic text-xl sm:text-2xl text-[#111827] leading-tight mb-1.5"
                       >
                         Choose Your Clinical Focus
                       </h3>
@@ -346,8 +346,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                             onClick={() => setSelectedServiceId(service.id)}
                             className={`group p-4 rounded-2xl border text-left transition-all duration-200 cursor-pointer flex flex-col justify-between relative ${
                               isSelected
-                                ? 'border-accent bg-[#F1F8FC] shadow-2xs ring-1 ring-accent'
-                                : 'border-[#DCE8F1] bg-white hover:border-accent/50 hover:bg-[#F3F9FD]/50'
+                                ? 'border-accent bg-[#EBF2FA] shadow-2xs ring-1 ring-accent'
+                                : 'border-[#CDE0F3] bg-white hover:border-accent/50 hover:bg-[#F4F8FC]/50'
                             }`}
                           >
                             <div className="flex items-start justify-between gap-2 mb-1.5">
@@ -355,7 +355,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                                 className={`font-mono text-xs font-semibold px-2 py-0.5 rounded-md transition-colors ${
                                   isSelected
                                     ? 'bg-accent/15 text-accent'
-                                    : 'bg-[#F3F9FD] text-[#555555] group-hover:text-accent'
+                                    : 'bg-[#F4F8FC] text-[#555555] group-hover:text-accent'
                                 }`}
                               >
                                 {service.number}
@@ -365,7 +365,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                                 className={`w-5 h-5 rounded-full flex items-center justify-center transition-all ${
                                   isSelected
                                     ? 'bg-accent text-white scale-100'
-                                    : 'border border-[#DCE8F1] opacity-0 group-hover:opacity-100 scale-90'
+                                    : 'border border-[#CDE0F3] opacity-0 group-hover:opacity-100 scale-90'
                                 }`}
                               >
                                 <Check className="w-3 h-3" strokeWidth={2.5} />
@@ -385,7 +385,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     </div>
 
                     {/* Consultation Tier Selection */}
-                    <div className="pt-6 border-t border-[#DCE8F1]">
+                    <div className="pt-6 border-t border-[#CDE0F3]">
                       <div className="mb-4">
                         <h4 className="font-montserrat text-base sm:text-lg font-medium text-[#111827] mb-1">
                           Choose Consultation Tier
@@ -406,8 +406,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                               onClick={() => setSelectedTierId(tier.id)}
                               className={`group p-4 rounded-2xl border text-left transition-all duration-200 cursor-pointer flex flex-col justify-between relative ${
                                 isSelected
-                                  ? 'border-accent bg-[#F1F8FC] shadow-2xs ring-1 ring-accent'
-                                  : 'border-[#DCE8F1] bg-white hover:border-accent/50 hover:bg-[#F3F9FD]/50'
+                                  ? 'border-accent bg-[#EBF2FA] shadow-2xs ring-1 ring-accent'
+                                  : 'border-[#CDE0F3] bg-white hover:border-accent/50 hover:bg-[#F4F8FC]/50'
                               }`}
                             >
                               <div>
@@ -420,7 +420,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                                     className={`w-4 h-4 rounded-full flex items-center justify-center transition-all ${
                                       isSelected
                                         ? 'bg-accent text-white'
-                                        : 'border border-[#DCE8F1] opacity-0 group-hover:opacity-100'
+                                        : 'border border-[#CDE0F3] opacity-0 group-hover:opacity-100'
                                     }`}
                                   >
                                     <Check className="w-2.5 h-2.5" strokeWidth={2.5} />
@@ -435,7 +435,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                                 </p>
                               </div>
 
-                              <div className="pt-2 border-t border-[#DCE8F1]/70 flex items-baseline justify-between">
+                              <div className="pt-2 border-t border-[#CDE0F3]/70 flex items-baseline justify-between">
                                 <span className="font-montserrat text-xs text-[#555555]">Flat Fee</span>
                                 <span className="font-montserrat text-lg font-bold text-[#111827]">
                                   A${tier.priceAUD}
@@ -456,7 +456,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   <div>
                     {/* Section Heading */}
                     <div className="mb-5 sm:mb-6">
-                      <h3 className="font-montserrat text-xl sm:text-2xl font-medium text-[#111827] leading-tight mb-1.5">
+                      <h3 className="font-heading font-medium italic text-xl sm:text-2xl text-[#111827] leading-tight mb-1.5">
                         Choose Your Consultation Time
                       </h3>
                       <p className="font-montserrat text-xs sm:text-sm text-[#555555] font-normal leading-relaxed">
@@ -483,7 +483,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                               className={`p-3 rounded-2xl border text-center transition-all duration-200 cursor-pointer ${
                                 isSelected
                                   ? 'border-accent bg-accent text-white shadow-xs'
-                                  : 'border-[#DCE8F1] bg-white text-[#111827] hover:border-accent/50 hover:bg-[#F3F9FD]/60'
+                                  : 'border-[#CDE0F3] bg-white text-[#111827] hover:border-accent/50 hover:bg-[#F4F8FC]/60'
                               }`}
                             >
                               <span
@@ -519,8 +519,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                               onClick={() => setSelectedTime(slot)}
                               className={`py-3 px-4 rounded-2xl border text-center font-montserrat text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 ${
                                 isSelected
-                                  ? 'border-accent bg-[#F1F8FC] text-accent ring-1 ring-accent font-semibold shadow-2xs'
-                                  : 'border-[#DCE8F1] bg-white text-[#111827] hover:border-accent/50 hover:bg-[#F3F9FD]/60'
+                                  ? 'border-accent bg-[#EBF2FA] text-accent ring-1 ring-accent font-semibold shadow-2xs'
+                                  : 'border-[#CDE0F3] bg-white text-[#111827] hover:border-accent/50 hover:bg-[#F4F8FC]/60'
                               }`}
                             >
                               {slot}
@@ -546,11 +546,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                           onClick={() => setConsultFormat('video')}
                           className={`p-4 rounded-2xl border text-left flex items-start gap-3.5 transition-all duration-200 cursor-pointer ${
                             consultFormat === 'video'
-                              ? 'border-accent bg-[#F1F8FC] shadow-2xs ring-1 ring-accent'
-                              : 'border-[#DCE8F1] bg-white hover:border-accent/50 hover:bg-[#F3F9FD]/60'
+                              ? 'border-accent bg-[#EBF2FA] shadow-2xs ring-1 ring-accent'
+                              : 'border-[#CDE0F3] bg-white hover:border-accent/50 hover:bg-[#F4F8FC]/60'
                           }`}
                         >
-                          <div className="w-9 h-9 rounded-xl bg-white border border-[#DCE8F1] flex items-center justify-center flex-shrink-0 text-accent">
+                          <div className="w-9 h-9 rounded-xl bg-white border border-[#CDE0F3] flex items-center justify-center flex-shrink-0 text-accent">
                             <Video className="w-4 h-4 text-accent" strokeWidth={1.85} />
                           </div>
                           <div>
@@ -568,11 +568,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                           onClick={() => setConsultFormat('phone')}
                           className={`p-4 rounded-2xl border text-left flex items-start gap-3.5 transition-all duration-200 cursor-pointer ${
                             consultFormat === 'phone'
-                              ? 'border-accent bg-[#F1F8FC] shadow-2xs ring-1 ring-accent'
-                              : 'border-[#DCE8F1] bg-white hover:border-accent/50 hover:bg-[#F3F9FD]/60'
+                              ? 'border-accent bg-[#EBF2FA] shadow-2xs ring-1 ring-accent'
+                              : 'border-[#CDE0F3] bg-white hover:border-accent/50 hover:bg-[#F4F8FC]/60'
                           }`}
                         >
-                          <div className="w-9 h-9 rounded-xl bg-white border border-[#DCE8F1] flex items-center justify-center flex-shrink-0 text-accent">
+                          <div className="w-9 h-9 rounded-xl bg-white border border-[#CDE0F3] flex items-center justify-center flex-shrink-0 text-accent">
                             <Phone className="w-4 h-4 text-accent" strokeWidth={1.85} />
                           </div>
                           <div>
@@ -596,7 +596,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   <div>
                     {/* Section Heading */}
                     <div className="mb-5 sm:mb-6">
-                      <h3 className="font-montserrat text-xl sm:text-2xl font-medium text-[#111827] leading-tight mb-1.5">
+                      <h3 className="font-heading font-medium italic text-xl sm:text-2xl text-[#111827] leading-tight mb-1.5">
                         Tell Us About Yourself
                       </h3>
                       <p className="font-montserrat text-xs sm:text-sm text-[#555555] font-normal leading-relaxed">
@@ -620,7 +620,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                               onChange={(e) =>
                                 setPatientDetails({ ...patientDetails, fullName: e.target.value })
                               }
-                              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#DCE8F1] text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
+                              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#CDE0F3] text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
                             />
                           </div>
                         </div>
@@ -639,7 +639,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                               onChange={(e) =>
                                 setPatientDetails({ ...patientDetails, email: e.target.value })
                               }
-                              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#DCE8F1] text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
+                              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#CDE0F3] text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
                             />
                           </div>
                         </div>
@@ -658,7 +658,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                               onChange={(e) =>
                                 setPatientDetails({ ...patientDetails, phone: e.target.value })
                               }
-                              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#DCE8F1] text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
+                              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#CDE0F3] text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
                             />
                           </div>
                         </div>
@@ -674,7 +674,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                               onChange={(e) =>
                                 setPatientDetails({ ...patientDetails, country: e.target.value })
                               }
-                              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#DCE8F1] text-sm text-[#111827] font-montserrat focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white cursor-pointer"
+                              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#CDE0F3] text-sm text-[#111827] font-montserrat focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white cursor-pointer"
                             >
                               <option value="Australia (AEST)">Australia (AEST / AEDT)</option>
                               <option value="Australia (AWST)">Australia (AWST - Perth)</option>
@@ -701,7 +701,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                           onChange={(e) =>
                             setPatientDetails({ ...patientDetails, currentMedications: e.target.value })
                           }
-                          className="w-full p-3 rounded-xl border border-[#DCE8F1] text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
+                          className="w-full p-3 rounded-xl border border-[#CDE0F3] text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
                         />
                       </div>
 
@@ -716,7 +716,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                           onChange={(e) =>
                             setPatientDetails({ ...patientDetails, healthGoals: e.target.value })
                           }
-                          className="w-full p-3 rounded-xl border border-[#DCE8F1] text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
+                          className="w-full p-3 rounded-xl border border-[#CDE0F3] text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
                         />
                       </div>
 
@@ -729,7 +729,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                             onChange={(e) =>
                               setPatientDetails({ ...patientDetails, consentAgreed: e.target.checked })
                             }
-                            className="mt-0.5 w-4 h-4 rounded text-accent focus:ring-accent border-[#DCE8F1] cursor-pointer"
+                            className="mt-0.5 w-4 h-4 rounded text-accent focus:ring-accent border-[#CDE0F3] cursor-pointer"
                           />
                           <span className="font-montserrat text-xs text-[#555555] leading-relaxed">
                             I understand that this clinical consultation is conducted by Practitioner Selvi under professional guidelines. I agree to share my health history for nutritional evaluation. All information is kept strictly confidential.
@@ -745,12 +745,12 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 {/* -------------------------------------------------------- */}
                 {step === 4 && (
                   <div className="text-center py-3 sm:py-6 space-y-6 max-w-lg mx-auto">
-                    <div className="w-14 h-14 rounded-full bg-[#E8F5FC] border border-[#D9EFFB] text-accent flex items-center justify-center mx-auto shadow-2xs">
+                    <div className="w-14 h-14 rounded-full bg-[#E6EEF8] border border-[#D0E0F2] text-accent flex items-center justify-center mx-auto shadow-2xs">
                       <CheckCircle2 className="w-7 h-7 text-accent" strokeWidth={2} />
                     </div>
 
                     <div>
-                      <h3 className="font-montserrat text-2xl sm:text-3xl font-medium text-[#111827] mb-1.5">
+                      <h3 className="font-heading font-medium italic text-2xl sm:text-3xl text-[#111827] mb-1.5">
                         Your Booking Is Confirmed
                       </h3>
                       <p className="font-montserrat text-xs sm:text-sm text-[#555555] leading-relaxed">
@@ -759,20 +759,20 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     </div>
 
                     {/* Summary Card */}
-                    <div className="bg-[#F3F9FD]/70 border border-[#DCE8F1] rounded-2xl p-5 text-left space-y-3">
-                      <div className="flex justify-between items-center border-b border-[#DCE8F1]/70 pb-2.5">
+                    <div className="bg-[#F4F8FC]/70 border border-[#CDE0F3] rounded-2xl p-5 text-left space-y-3">
+                      <div className="flex justify-between items-center border-b border-[#CDE0F3]/70 pb-2.5">
                         <span className="font-montserrat text-xs text-[#555555]">Clinical Service</span>
                         <span className="font-montserrat text-xs sm:text-sm font-medium text-[#111827] text-right">
                           {selectedService?.title}
                         </span>
                       </div>
-                      <div className="flex justify-between items-center border-b border-[#DCE8F1]/70 pb-2.5">
+                      <div className="flex justify-between items-center border-b border-[#CDE0F3]/70 pb-2.5">
                         <span className="font-montserrat text-xs text-[#555555]">Consultation Tier</span>
                         <span className="font-montserrat text-xs sm:text-sm font-medium text-[#111827]">
                           {selectedTier.name} (A${selectedTier.priceAUD})
                         </span>
                       </div>
-                      <div className="flex justify-between items-center border-b border-[#DCE8F1]/70 pb-2.5">
+                      <div className="flex justify-between items-center border-b border-[#CDE0F3]/70 pb-2.5">
                         <span className="font-montserrat text-xs text-[#555555]">Date & Time</span>
                         <span className="font-montserrat text-xs sm:text-sm font-medium text-[#111827]">
                           {selectedDate} at {selectedTime} (AEST)
@@ -787,7 +787,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     </div>
 
                     {/* Safety & Preparation Notice */}
-                    <div className="p-4 rounded-xl bg-white border border-[#DCE8F1] text-xs text-[#555555] text-left flex items-start gap-3 shadow-2xs font-montserrat">
+                    <div className="p-4 rounded-xl bg-white border border-[#CDE0F3] text-xs text-[#555555] text-left flex items-start gap-3 shadow-2xs font-montserrat">
                       <ShieldCheck className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" strokeWidth={1.85} />
                       <p className="leading-relaxed">
                         A confirmation email with calendar invitation and telehealth meeting link has been dispatched to{' '}
@@ -803,12 +803,12 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           {/* ============================================================== */}
           {/* 4. REFINED FOOTER CONTROLS                                     */}
           {/* ============================================================== */}
-          <div className="px-4 sm:px-8 py-3.5 sm:py-4 bg-white border-t border-[#DCE8F1] flex items-center justify-between flex-shrink-0">
+          <div className="px-4 sm:px-8 py-3.5 sm:py-4 bg-white border-t border-[#CDE0F3] flex items-center justify-between flex-shrink-0">
             {step > 1 && step < 4 ? (
               <button
                 type="button"
                 onClick={handleBack}
-                className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-full border border-[#DCE8F1] text-xs sm:text-sm font-montserrat font-medium text-[#555555] hover:text-[#111827] hover:bg-[#F3F9FD] transition-all cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-full border border-[#CDE0F3] text-xs sm:text-sm font-montserrat font-medium text-[#555555] hover:text-[#111827] hover:bg-[#F4F8FC] transition-all cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4" />
                 Back
@@ -821,7 +821,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <button
                 type="button"
                 onClick={handleNext}
-                className="group inline-flex items-center gap-2 px-6 sm:px-7 py-2.5 rounded-full bg-accent text-white text-xs sm:text-sm font-montserrat font-medium hover:bg-accent-strong transition-all duration-300 shadow-[0_4px_14px_rgba(66,169,229,0.3)] hover:shadow-[0_6px_20px_rgba(7,137,210,0.4)] cursor-pointer ml-auto active:scale-[0.98]"
+                className="group inline-flex items-center gap-2 px-6 sm:px-7 py-2.5 rounded-full bg-accent text-white text-xs sm:text-sm font-montserrat font-medium hover:bg-accent-strong transition-all duration-300 shadow-[0_4px_14px_rgba(4,74,163,0.28)] hover:shadow-[0_6px_20px_rgba(3,59,133,0.36)] cursor-pointer ml-auto active:scale-[0.98]"
               >
                 <span>Next Step</span>
                 <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -833,10 +833,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 type="button"
                 disabled={!isStep3Valid}
                 onClick={handleNext}
-                className={`group inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 rounded-full text-xs sm:text-sm font-montserrat font-medium transition-all duration-300 shadow-[0_4px_14px_rgba(66,169,229,0.3)] ml-auto ${
+                className={`group inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 rounded-full text-xs sm:text-sm font-montserrat font-medium transition-all duration-300 shadow-[0_4px_14px_rgba(4,74,163,0.28)] ml-auto ${
                   !isStep3Valid
                     ? 'bg-[#60748A]/30 text-white cursor-not-allowed shadow-none'
-                    : 'bg-accent text-white hover:bg-accent-strong hover:shadow-[0_6px_20px_rgba(7,137,210,0.4)] cursor-pointer active:scale-[0.98]'
+                    : 'bg-accent text-white hover:bg-accent-strong hover:shadow-[0_6px_20px_rgba(3,59,133,0.36)] cursor-pointer active:scale-[0.98]'
                 }`}
               >
                 <span>Confirm Booking</span>
@@ -848,7 +848,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <button
                 type="button"
                 onClick={handleClose}
-                className="inline-flex items-center gap-2 px-8 py-2.5 rounded-full bg-accent text-white hover:bg-accent-strong text-xs sm:text-sm font-montserrat font-medium transition-all duration-300 shadow-[0_4px_14px_rgba(66,169,229,0.3)] cursor-pointer mx-auto active:scale-[0.98]"
+                className="inline-flex items-center gap-2 px-8 py-2.5 rounded-full bg-accent text-white hover:bg-accent-strong text-xs sm:text-sm font-montserrat font-medium transition-all duration-300 shadow-[0_4px_14px_rgba(4,74,163,0.28)] cursor-pointer mx-auto active:scale-[0.98]"
               >
                 Done & Return to Website
               </button>
