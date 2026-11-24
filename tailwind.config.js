@@ -63,7 +63,7 @@ export default {
         inter: ['Inter', 'system-ui', 'sans-serif'],
         playfair: ['"playfair-a"', '"Playfair Display"', 'Georgia', 'serif'],
         serif: ['"playfair-a"', '"Playfair Display"', '"Abhaya Libre"', 'Georgia', 'serif'],
-        script: ['Praise', '"Alex Brush"', 'cursive'],
+        script: ['"Alex Brush"', 'Praise', 'cursive'],
         sans: ['"Clash Grotesk"', '"DM Sans"', 'system-ui', 'sans-serif'],
         montserrat: ['Montserrat', 'system-ui', 'sans-serif'],
       },

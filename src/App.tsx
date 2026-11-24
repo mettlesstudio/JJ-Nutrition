@@ -154,8 +154,8 @@ function MainWebsite() {
         onOpenBooking={() => handleOpenBooking()}
       />
 
-      {/* Z-INDEX 4: Actual Website Content, Sections & Page Flow */}
-      <div className="flex-grow relative z-10">{renderPage()}</div>
+      {/* Actual Website Content, Sections & Page Flow */}
+      <div className="flex-grow relative">{renderPage()}</div>
 
       {/* Footer */}
       <Footer

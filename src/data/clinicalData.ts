@@ -48,6 +48,8 @@ export interface ClinicalArticle {
   authorRole: string;
   content: string[];
   keyTakeaways: string[];
+  image?: string;
+  type?: 'blog' | 'education';
 }
 
 export const PRACTITIONER_SELVI = {
@@ -441,17 +443,19 @@ export const PATIENT_REVIEWS: PatientReview[] = [
   },
 ];
 
-export const CLINICAL_ARTICLES: ClinicalArticle[] = [
+export const CLINICAL_BLOGS: ClinicalArticle[] = [
   {
     id: 'gut-brain-axis-anxiety',
+    type: 'blog',
     category: 'Neurological Health',
     title: 'The Gut-Brain Axis in Anxiety: Evidence-Based Nutritional Protocols',
-    date: 'February 18, 2026',
+    date: 'NOV 2026',
     readTime: '6 min read',
     summary:
       'Explore how enteric neurotransmitter synthesis, vagal nerve communication, and microbiome integrity dictate central nervous calm and panic susceptibility.',
-    author: 'Selvi',
+    author: 'Practitioner Selvi, RDN',
     authorRole: 'Clinical Nutritionist & Supplement Specialist',
+    image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80',
     content: [
       'Over 90% of the body’s serotonin and a substantial fraction of circulating GABA are synthesized within the gastrointestinal tract. When intestinal mucosal integrity is degraded or dysbiosis prevails, inflammatory cytokines cross the gut-vascular barrier and activate microglial neuroinflammation in the brain.',
       'Clinical nutrition addresses anxiety not as a purely psychological phenomenon, but as a biological dialogue between the microbiome, the vagus nerve, and neuro-endocrine receptors. By providing therapeutic cofactors—such as active Pyridoxal-5-Phosphate, suntheanine-grade L-Theanine, and gut-soothing adaptogens—we can restore parasympathetic tone and alleviate autonomic nervous trembling.',
@@ -465,14 +469,16 @@ export const CLINICAL_ARTICLES: ClinicalArticle[] = [
   },
   {
     id: 'restoring-ferritin-iron-protocols',
+    type: 'blog',
     category: 'Haematology & Energy',
     title: 'Restoring Ferritin: Why Traditional Iron Pills Fail & How Bioavailable Protocols Work',
-    date: 'January 24, 2026',
+    date: 'NOV 2026',
     readTime: '7 min read',
     summary:
       'Why standard ferrous sulfate causes severe gastric distress, and how chelated bisglycinate with apolactoferrin optimizes deep cellular iron storage.',
-    author: 'Selvi',
+    author: 'Practitioner Selvi, RDN',
     authorRole: 'Clinical Nutritionist & Supplement Specialist',
+    image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80',
     content: [
       'Millions of individuals are prescribed harsh ferrous sulfate tablets, only to experience unbearable constipation, dark stool, and nausea, while their serum ferritin remains stubbornly below 20 ng/mL. Traditional inorganic iron salts trigger hydroxyl free-radical cascades in the gut lumen, causing inflammation and triggering the liver to secrete hepcidin.',
       'Hepcidin actively blocks iron absorption channels in the duodenum. As a result, increasing the dose of standard iron only increases gastrointestinal misery rather than resolving the deficiency.',
@@ -485,15 +491,86 @@ export const CLINICAL_ARTICLES: ClinicalArticle[] = [
     ],
   },
   {
+    id: 'mitochondrial-energy-chronic-fatigue',
+    type: 'blog',
+    category: 'Cellular Biochemistry',
+    title: 'Cellular Mitochondrial Energy & Chronic Fatigue: CoQ10 & Carnitine Synergy',
+    date: 'OCT 2026',
+    readTime: '6 min read',
+    summary:
+      'Unlocking electron transport chain efficiency, ATP resynthesis, and targeted micronutrient cofactors to overcome unrelenting morning-to-night exhaustion.',
+    author: 'Practitioner Selvi, RDN',
+    authorRole: 'Clinical Nutritionist & Supplement Specialist',
+    image: 'https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&fit=crop&w=800&q=80',
+    content: [
+      'Chronic daily fatigue is rarely a lack of willpower; at its root, it is an energetic defect occurring inside the inner mitochondrial membrane where adenosine triphosphate (ATP) is generated.',
+      'When cellular toxins, chronic stress, or post-viral states deplete ubiquinol and acetyl-L-carnitine, long-chain fatty acids cannot cross into the mitochondrial matrix for beta-oxidation. The cell starves for usable chemical energy despite high calorie consumption.',
+      'Administering bioactive ubiquinol alongside D-ribose and magnesium malate provides the precise molecular substrate required to recharge adenylate energy pools within weeks.',
+    ],
+    keyTakeaways: [
+      'Ubiquinol acts as the essential rate-limiting electron donor in complexes I and II.',
+      'Acetyl-L-Carnitine shuttles essential fatty acids across mitochondrial membranes.',
+      'Active methylation cofactors clear metabolic bottlenecks causing morning brain fog.',
+    ],
+  },
+  {
+    id: 'hormone-thyroid-nutrient-cofactors',
+    type: 'blog',
+    category: 'Endocrine & Thyroid',
+    title: 'Hormone & Thyroid Nutrient Cofactors: Selenium, Zinc & Tyrosine Dynamics',
+    date: 'OCT 2026',
+    readTime: '5 min read',
+    summary:
+      'Why T4 to T3 conversion frequently stalls in peripheral tissues, and how specific mineral ratios restore metabolic hormone receptivity.',
+    author: 'Practitioner Selvi, RDN',
+    authorRole: 'Clinical Nutritionist & Supplement Specialist',
+    image: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=800&q=80',
+    content: [
+      'Many individuals with sluggish metabolism receive lab reports stating their Thyroid Stimulating Hormone (TSH) is normal, yet experience thinning hair, cold extremities, and stubborn weight resistance.',
+      'The thyroid gland predominantly produces inactive thyroxine (T4). Converting T4 into active triiodothyronine (T3) requires selenoprotein deiodinase enzymes located in the liver and gut mucosa.',
+      'In the presence of selenium deficiency or systemic inflammatory cytokines, T4 is shunted into reverse T3 (rT3), an inert decoy that clogs cellular receptors. Replenishing selenomethionine and zinc glycinate unblocks active conversion.',
+    ],
+    keyTakeaways: [
+      'Deiodinase enzymes require bioavailable selenium to convert inactive T4 to active T3.',
+      'Elevated reverse T3 acts as an antagonist at the cellular nuclear receptor level.',
+      'Zinc and L-Tyrosine are foundational cofactors for native thyroid hormone synthesis.',
+    ],
+  },
+  {
+    id: 'circadian-nutrition-deep-sleep',
+    type: 'blog',
+    category: 'Sleep Architecture',
+    title: 'Circadian Nutrition for Deep Sleep: GABA, Magnesium & Melatonin Precursors',
+    date: 'SEP 2026',
+    readTime: '6 min read',
+    summary:
+      'Clinical nutrition focused on central nervous system down-regulation, nocturnal cortisol blunting, and neurochemical precursors for uninterrupted delta sleep.',
+    author: 'Practitioner Selvi, RDN',
+    authorRole: 'Clinical Nutritionist & Supplement Specialist',
+    image: 'https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?auto=format&fit=crop&w=800&q=80',
+    content: [
+      'Fragmented nocturnal sleep and waking abruptly at 2:00 or 3:00 AM are hallmark indications of nocturnal cortisol surges, reactive hypoglycemia, or insufficient inhibitory GABAergic tone.',
+      'Magnesium L-Threonate is one of the few mineral compounds capable of crossing the blood-brain barrier to bind NMDA receptors and calm neurological excitability.',
+      'Paired with phytomelatonin from tart cherry and L-theanine, evening nutritional sequencing helps orchestrate deep stage-3 and stage-4 delta slow-wave sleep cycles.',
+    ],
+    keyTakeaways: [
+      'Magnesium L-Threonate safely crosses the blood-brain barrier to quiet neuronal firing.',
+      'Phosphatidylserine blunts nighttime cortisol surges responsible for 3 AM awakenings.',
+      'Tart cherry provides bioidentical phytomelatonin and anthocyanin antioxidants.',
+    ],
+  },
+  {
     id: 'cardiovascular-longevity-coq10',
+    type: 'blog',
     category: 'Cardiovascular Health',
-    title: 'Cardiovascular Longevity: The Synergy Between CoQ10, Omega-3s, and Arterial Elasticity',
-    date: 'December 15, 2025',
+    title: 'Cardiovascular Longevity: Endothelial Nitric Oxide & Lipid Protection',
+    date: 'SEP 2026',
     readTime: '8 min read',
     summary:
       'A clinical exploration of endothelial nitric oxide synthase, lipid particle peroxidation, and mitochondrial cardioprotection.',
-    author: 'Selvi',
+    author: 'Practitioner Selvi, RDN',
     authorRole: 'Clinical Nutritionist & Supplement Specialist',
+    image: 'https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=800&q=80',
     content: [
       'Arterial stiffness is not an inevitable consequence of aging; it is an active biochemical process driven by endothelial glycoxidation and depleted mitochondrial energy in vascular smooth muscle cells.',
       'Ubiquinol—the active, reduced electron-donor form of Coenzyme Q10—is crucial for preventing the oxidation of circulating LDL particles. Oxidized LDL, not native cholesterol, is what initiates macrophage foam-cell cascade in vascular linings.',
@@ -507,14 +584,16 @@ export const CLINICAL_ARTICLES: ClinicalArticle[] = [
   },
   {
     id: 'mucosal-barrier-restoration-ulcers',
+    type: 'blog',
     category: 'Gastrointestinal Care',
     title: 'Mucosal Barrier Restoration: Clinical Protocols for Ulcers and Gastric Healing',
-    date: 'November 08, 2025',
+    date: 'AUG 2026',
     readTime: '6 min read',
     summary:
       'How zinc-carnosine, demulcent herbs, and anti-inflammatory meal pacing allow damaged stomach epithelial tissue to regenerate.',
-    author: 'Selvi',
+    author: 'Practitioner Selvi, RDN',
     authorRole: 'Clinical Nutritionist & Supplement Specialist',
+    image: 'https://images.unsplash.com/photo-1514733670139-4d87a1941d55?auto=format&fit=crop&w=800&q=80',
     content: [
       'The gastric mucosal barrier is one of the most rapidly regenerating tissues in the human body, replacing its entire cellular lining every 3 to 5 days under healthy physiological conditions. However, chronic stress, NSAID usage, and H. pylori colonization impair this natural restitution cycle.',
       'Zinc L-Carnosine is a unique chelate molecule that adheres directly to inflammatory ulcer lesions, resisting breakdown by gastric stomach acid. It stimulates local heat-shock proteins (HSP70) and insulin-like growth factors to accelerate epithelial repair.',
@@ -527,6 +606,174 @@ export const CLINICAL_ARTICLES: ClinicalArticle[] = [
     ],
   },
 ];
+
+export const CLINICAL_EDUCATION: ClinicalArticle[] = [
+  {
+    id: 'interpreting-functional-blood-biomarkers',
+    type: 'education',
+    category: 'Diagnostic Science',
+    title: 'How to Interpret Functional Blood Biomarkers: Beyond "Normal" Reference Ranges',
+    date: 'NOV 2026',
+    readTime: '8 min read',
+    summary:
+      'Why standard laboratory reference ranges represent statistical disease averages rather than optimal cellular function, and how functional thresholds detect metabolic drift years early.',
+    author: 'Practitioner Selvi, RDN',
+    authorRole: 'Clinical Nutritionist & Supplement Specialist',
+    image: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=1200&q=80',
+    content: [
+      'When patients are told their routine blood tests are "completely normal" despite experiencing chronic fatigue, brain fog, or digestive issues, they are often encountering the fundamental limitation of standard reference ranges.',
+      'Standard lab reference ranges are calculated using a bell-curve statistical average of the general population visiting hospitals and diagnostic centers—a population that includes many individuals suffering from unmanaged subclinical illness.',
+      'In functional clinical nutrition, we evaluate narrow, optimal physiological ranges. For instance, while standard serum ferritin may be considered normal at 15 ng/mL, cellular mitochondrial enzyme activity requires optimal ferritin levels of 50–90 ng/mL.',
+      'By examining optimal ranges for fasting insulin, hs-CRP, homocysteine, vitamin D3, and full thyroid panels, practitioners can identify metabolic drift long before irreversible pathology occurs.',
+    ],
+    keyTakeaways: [
+      'Standard lab ranges represent broad population averages, not optimal vitality.',
+      'Functional ranges detect subclinical nutrient depletions years before illness.',
+      'Optimal biomarker monitoring empowers proactive, individualized health preservation.',
+    ],
+  },
+  {
+    id: 'nutraceutical-bioavailability-chelation',
+    type: 'education',
+    category: 'Pharmacology & Quality',
+    title: 'Understanding Pharmaceutical-Grade Nutraceutical Bioavailability & Chelation',
+    date: 'NOV 2026',
+    readTime: '6 min read',
+    summary:
+      'Why synthetic oxides and carbonates offer poor bioavailability, and how amino acid chelates, liposomal spheres, and active coenzyme forms maximize cellular absorption.',
+    author: 'Practitioner Selvi, RDN',
+    authorRole: 'Clinical Nutritionist & Supplement Specialist',
+    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80',
+    content: [
+      'The effectiveness of a therapeutic supplement is dictated not by the dosage printed on the label, but by the percentage of that molecule that survives gastric acid, enters systemic circulation, and is transported into the target cell.',
+      'Common commercial supplements utilize inorganic mineral salts like magnesium oxide or zinc sulfate. These compounds possess low ionic stability and absorb at rates as low as 4%, often causing severe osmotic diarrhea and gastrointestinal cramping.',
+      'In contrast, pharmaceutical-grade practitioner nutraceuticals employ organic bisglycinate chelates—where mineral atoms are bound to glycine amino acids. This prevents competition with other dietary minerals and enables passive absorption through intestinal peptide channels.',
+    ],
+    keyTakeaways: [
+      'Inorganic mineral forms frequently yield less than 10% bioavailability.',
+      'Amino acid chelates bypass common digestive blockages without gastric irritation.',
+      'Practitioner-grade testing guarantees absence of heavy metals and verified active isomer purity.',
+    ],
+  },
+  {
+    id: 'biochemical-individuality-foundations',
+    type: 'education',
+    category: 'Clinical Epigenetics',
+    title: 'Foundations of Metabolic & Biochemical Individuality: Why One Diet Never Fits All',
+    date: 'OCT 2026',
+    readTime: '7 min read',
+    summary:
+      'Exploring Dr. Roger Williams\' landmark framework of biochemical individuality—how unique enzyme kinetics, methylation rates, and digestive capacities define your nutrient needs.',
+    author: 'Practitioner Selvi, RDN',
+    authorRole: 'Clinical Nutritionist & Supplement Specialist',
+    image: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=800&q=80',
+    content: [
+      'No two human bodies possess identical internal anatomy, enzyme kinetics, or cellular receptor densities. First articulated by biochemist Dr. Roger Williams, the principle of biochemical individuality demonstrates that nutritional requirements can vary up to forty-fold between healthy individuals.',
+      'A diet celebrated for improving one person’s cardiovascular markers may trigger inflammatory lipid cascades or digestive distress in another due to variances in ApoE genotypes, gallbladder bile flow, or histamine clearance pathways.',
+      'Practitioner-led clinical nutrition rejects dogma-driven universal diets in favor of targeted metabolic profiling. We identify your unique biochemical baseline and tailor dietary inputs to harmonize with your physiology.',
+    ],
+    keyTakeaways: [
+      'Nutrient absorption and enzymatic turnover vary substantially across individuals.',
+      'One-size-fits-all diet trends ignore fundamental genetic and epigenetic differences.',
+      'Sustainable wellness requires tailoring macro- and micronutrients to individual biology.',
+    ],
+  },
+  {
+    id: 'whole-food-density-vs-synthetic',
+    type: 'education',
+    category: 'Nutritional Biochemistry',
+    title: 'Whole-Food Nutrient Density vs. Synthetic Fortification: The Bioactive Difference',
+    date: 'OCT 2026',
+    readTime: '5 min read',
+    summary:
+      'The critical difference between isolated synthetic vitamins and whole-food complexes accompanied by natural bioflavonoid, mineral, and enzymatic co-factors.',
+    author: 'Practitioner Selvi, RDN',
+    authorRole: 'Clinical Nutritionist & Supplement Specialist',
+    image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80',
+    content: [
+      'In nature, vitamins never appear as isolated chemical crystals. Vitamin C, for instance, exists in whole plants as an intricate biological complex including ascorbic acid, bioflavonoids, rutin, ascorbinogen, and tyrosinase.',
+      'Isolated synthetic ascorbic acid, frequently derived from genetically modified corn starch treated with sulfuric acid, lacks these natural synergistic co-factors. Without them, the human body must draw upon its own internal mineral reserves to utilize the isolated molecule.',
+      'Prioritizing whole-food nutritional density ensures the human microbiome receives intact fiber matrices, polyphenol antioxidants, and bio-available trace minerals in the ratios evolution intended.',
+    ],
+    keyTakeaways: [
+      'Whole foods provide intricate synergies of coenzymes and bioflavonoids.',
+      'Synthetic isolates often lack the biological chaperones required for intracellular transport.',
+      'A whole-food foundation dramatically improves the efficacy of targeted nutraceuticals.',
+    ],
+  },
+  {
+    id: 'gut-microbiome-scfa-science',
+    type: 'education',
+    category: 'Microbiome Medicine',
+    title: 'The Science of Gut Microbiome & Short-Chain Fatty Acids (SCFAs)',
+    date: 'SEP 2026',
+    readTime: '7 min read',
+    summary:
+      'How microbial fermentation of prebiotic fibers yields acetate, propionate, and butyrate to fuel colonocytes, modulate immunity, and govern metabolic signaling.',
+    author: 'Practitioner Selvi, RDN',
+    authorRole: 'Clinical Nutritionist & Supplement Specialist',
+    image: 'https://images.unsplash.com/photo-1550989460-0adc9554f529?auto=format&fit=crop&w=800&q=80',
+    content: [
+      'Your gut microbiome contains trillions of symbiotic microorganisms that function as an active metabolic organ, fermenting non-digestible soluble fibers into beneficial short-chain fatty acids (SCFAs).',
+      'Butyrate serves as the primary metabolic fuel for colon epithelial cells, accounting for over 70% of their total energy needs. It upregulates tight junction claudin proteins, preventing systemic endotoxemia caused by lipopolysaccharide (LPS) leakage.',
+      'Meanwhile, circulating propionate and acetate signal through G-protein coupled receptors (GPR41/43) in the liver and adipose tissue to regulate lipid storage, enhance insulin sensitivity, and quell systemic inflammation.',
+    ],
+    keyTakeaways: [
+      'Butyrate is the essential metabolic fuel required for intestinal tight-junction integrity.',
+      'SCFAs actively down-regulate inflammatory NF-kB signaling pathways.',
+      'Diversifying dietary prebiotic fiber directly expands microbial resilience and metabolic rate.',
+    ],
+  },
+  {
+    id: 'elimination-reintroduction-protocols',
+    type: 'education',
+    category: 'Clinical Protocols',
+    title: 'Navigating Elimination & Reintroduction Protocols for Food Sensitivities',
+    date: 'SEP 2026',
+    readTime: '6 min read',
+    summary:
+      'A structured, clinician-guided methodology to systematically identify hidden IgG and non-IgE immune sensitivities without triggering psychological food fear.',
+    author: 'Practitioner Selvi, RDN',
+    authorRole: 'Clinical Nutritionist & Supplement Specialist',
+    image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    content: [
+      'Food sensitivities are delayed immune reactions that can manifest up to 72 hours following ingestion, triggering migraines, joint stiffness, eczema, or brain fog that patients rarely connect to their diet.',
+      'A clinician-monitored elimination diet remains the gold standard diagnostic tool. By removing high-immunogenic triggers for 21 to 28 days, circulating antibody-antigen complexes clear and gastrointestinal mucosal inflammation subsides.',
+      'The critical second phase—methodical single-food reintroduction—allows accurate pinpointing of true physiological triggers while ensuring the diet returns to maximum biodiversity without unnecessary permanent restrictions.',
+    ],
+    keyTakeaways: [
+      'Delayed food sensitivities often manifest up to 72 hours after consumption.',
+      'The 28-day elimination phase allows circulating immune complexes to clear.',
+      'Systematic reintroduction isolates specific triggers while preserving long-term dietary diversity.',
+    ],
+  },
+  {
+    id: 'stress-physiology-cortisol-depletion',
+    type: 'education',
+    category: 'Endocrine & Stress',
+    title: 'Stress Physiology, Cortisol Surges & Micronutrient Depletion Mechanisms',
+    date: 'AUG 2026',
+    readTime: '6 min read',
+    summary:
+      'How sustained activation of the hypothalamic-pituitary-adrenal (HPA) axis accelerates urinary excretion of magnesium, zinc, and B vitamins, causing cellular fatigue.',
+    author: 'Practitioner Selvi, RDN',
+    authorRole: 'Clinical Nutritionist & Supplement Specialist',
+    image: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=800&q=80',
+    content: [
+      'When the brain perceives prolonged psychosocial or physiological distress, the adrenal glands pump cortisol and catecholamines into the bloodstream to mobilize emergency glucose.',
+      'This chronic fight-or-flight cascade induces a state of metabolic hyper-consumption. Cortisol accelerates the renal excretion of intracellular magnesium, rapidly consumes zinc during protein synthesis, and exhausts active methylated B-vitamins needed for neurotransmitter recycling.',
+      'Over time, this creates a state of cellular depletion where the nervous system remains hyper-vigilant while the body lacks the elemental building blocks to produce sustained energy.',
+    ],
+    keyTakeaways: [
+      'Chronic cortisol elevations accelerate the loss of intracellular magnesium and zinc.',
+      'Adrenal hormone synthesis places heavy metabolic demands on B-vitamin stores.',
+      'Targeted nutritional replenishment helps reset the hypothalamic-pituitary-adrenal axis.',
+    ],
+  },
+];
+
+// Retain for backward compatibility across existing references
+export const CLINICAL_ARTICLES: ClinicalArticle[] = CLINICAL_BLOGS;
 
 export const AUTHENTIC_PARTNERS = [
   { name: 'Australian Natural Therapists Association', src: '/partners/trimmed/anta.png' },

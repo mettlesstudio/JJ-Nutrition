@@ -280,14 +280,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           <div className="flex sm:hidden flex-col bg-[#F4F8FC]/70 border-b border-[#CDE0F3] flex-shrink-0">
             <div className="flex items-center justify-between px-4 py-2">
               <div className="flex items-center gap-2">
-                <span className="w-5 h-5 rounded-full bg-accent text-white flex items-center justify-center text-[11px] font-semibold">
+                <span className="w-5 h-5 rounded-full bg-accent text-white flex items-center justify-center text-xs font-semibold">
                   {step}
                 </span>
-                <span className="font-montserrat text-xs font-medium text-[#111827]">
+                <span className="font-montserrat text-sm font-medium text-[#111827]">
                   {STEPS[step - 1].label}
                 </span>
               </div>
-              <span className="font-montserrat text-[11px] text-[#555555]">
+              <span className="font-montserrat text-xs text-[#555555]">
                 Step {step} of 4
               </span>
             </div>
@@ -329,7 +329,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       >
                         Choose Your Clinical Focus
                       </h3>
-                      <p className="font-montserrat text-xs sm:text-sm text-[#555555] font-normal leading-relaxed">
+                      <p className="font-montserrat text-sm sm:text-sm text-[#555555] font-normal leading-relaxed">
                         Select the health area you would like to discuss with Practitioner Selvi.
                       </p>
                     </div>
@@ -459,14 +459,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       <h3 className="font-heading font-medium italic text-xl sm:text-2xl text-[#111827] leading-tight mb-1.5">
                         Choose Your Consultation Time
                       </h3>
-                      <p className="font-montserrat text-xs sm:text-sm text-[#555555] font-normal leading-relaxed">
+                      <p className="font-montserrat text-sm sm:text-sm text-[#555555] font-normal leading-relaxed">
                         Select a convenient date and time for your telehealth consultation.
                       </p>
                     </div>
 
                     {/* Date Selector */}
                     <div className="mb-6">
-                      <span className="font-montserrat text-xs font-medium uppercase tracking-wider text-[#111827] block mb-2.5 flex items-center gap-1.5">
+                      <span className="font-montserrat text-sm sm:text-xs font-medium uppercase tracking-wider text-[#111827] block mb-2.5 flex items-center gap-1.5">
                         <Calendar className="w-3.5 h-3.5 text-accent" />
                         Available Dates
                       </span>
@@ -504,7 +504,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
                     {/* Time Slot Selection */}
                     <div className="mb-6">
-                      <span className="font-montserrat text-xs font-medium uppercase tracking-wider text-[#111827] block mb-2.5 flex items-center gap-1.5">
+                      <span className="font-montserrat text-sm sm:text-xs font-medium uppercase tracking-wider text-[#111827] block mb-2.5 flex items-center gap-1.5">
                         <Clock className="w-3.5 h-3.5 text-accent" />
                         Available Time Slots (AEST)
                       </span>
@@ -517,7 +517,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                               key={slot}
                               type="button"
                               onClick={() => setSelectedTime(slot)}
-                              className={`py-3 px-4 rounded-2xl border text-center font-montserrat text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 ${
+                              className={`py-3 px-4 rounded-2xl border text-center font-montserrat text-sm sm:text-sm font-medium transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 ${
                                 isSelected
                                   ? 'border-accent bg-[#EBF2FA] text-accent ring-1 ring-accent font-semibold shadow-2xs'
                                   : 'border-[#CDE0F3] bg-white text-[#111827] hover:border-accent/50 hover:bg-[#F4F8FC]/60'
@@ -529,14 +529,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                           );
                         })}
                       </div>
-                      <p className="font-montserrat text-xs text-[#555555] mt-2.5 leading-relaxed">
+                      <p className="font-montserrat text-sm sm:text-xs text-[#555555] mt-2.5 leading-relaxed">
                         All consultation times are shown in Australian Eastern Standard Time (AEST). Automatic calendar conversions will be included in your confirmation.
                       </p>
                     </div>
 
                     {/* Telehealth Format */}
                     <div>
-                      <span className="font-montserrat text-xs font-medium uppercase tracking-wider text-[#111827] block mb-2.5 flex items-center gap-1.5">
+                      <span className="font-montserrat text-sm sm:text-xs font-medium uppercase tracking-wider text-[#111827] block mb-2.5 flex items-center gap-1.5">
                         <Video className="w-3.5 h-3.5 text-accent" />
                         Telehealth Format
                       </span>
@@ -599,7 +599,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       <h3 className="font-heading font-medium italic text-xl sm:text-2xl text-[#111827] leading-tight mb-1.5">
                         Tell Us About Yourself
                       </h3>
-                      <p className="font-montserrat text-xs sm:text-sm text-[#555555] font-normal leading-relaxed">
+                      <p className="font-montserrat text-sm sm:text-sm text-[#555555] font-normal leading-relaxed">
                         Please provide the details needed for Practitioner Selvi to prepare for your consultation.
                       </p>
                     </div>
@@ -607,7 +607,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     <div className="space-y-4">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                          <label className="block font-montserrat text-xs font-medium text-[#111827] mb-1.5">
+                          <label className="block font-montserrat text-sm sm:text-xs font-medium text-[#111827] mb-1.5">
                             Full Legal Name <span className="text-accent">*</span>
                           </label>
                           <div className="relative">
@@ -620,13 +620,13 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                               onChange={(e) =>
                                 setPatientDetails({ ...patientDetails, fullName: e.target.value })
                               }
-                              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#CDE0F3] text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
+                              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#CDE0F3] text-base sm:text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
                             />
                           </div>
                         </div>
 
                         <div>
-                          <label className="block font-montserrat text-xs font-medium text-[#111827] mb-1.5">
+                          <label className="block font-montserrat text-sm sm:text-xs font-medium text-[#111827] mb-1.5">
                             Email Address <span className="text-accent">*</span>
                           </label>
                           <div className="relative">
@@ -639,13 +639,13 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                               onChange={(e) =>
                                 setPatientDetails({ ...patientDetails, email: e.target.value })
                               }
-                              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#CDE0F3] text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
+                              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#CDE0F3] text-base sm:text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
                             />
                           </div>
                         </div>
 
                         <div>
-                          <label className="block font-montserrat text-xs font-medium text-[#111827] mb-1.5">
+                          <label className="block font-montserrat text-sm sm:text-xs font-medium text-[#111827] mb-1.5">
                             Contact Phone Number <span className="text-accent">*</span>
                           </label>
                           <div className="relative">
@@ -658,13 +658,13 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                               onChange={(e) =>
                                 setPatientDetails({ ...patientDetails, phone: e.target.value })
                               }
-                              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#CDE0F3] text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
+                              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#CDE0F3] text-base sm:text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
                             />
                           </div>
                         </div>
 
                         <div>
-                          <label className="block font-montserrat text-xs font-medium text-[#111827] mb-1.5">
+                          <label className="block font-montserrat text-sm sm:text-xs font-medium text-[#111827] mb-1.5">
                             Country / Location
                           </label>
                           <div className="relative">
@@ -674,7 +674,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                               onChange={(e) =>
                                 setPatientDetails({ ...patientDetails, country: e.target.value })
                               }
-                              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#CDE0F3] text-sm text-[#111827] font-montserrat focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white cursor-pointer"
+                              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#CDE0F3] text-base sm:text-sm text-[#111827] font-montserrat focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white cursor-pointer"
                             >
                               <option value="Australia (AEST)">Australia (AEST / AEDT)</option>
                               <option value="Australia (AWST)">Australia (AWST - Perth)</option>
@@ -688,10 +688,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       </div>
 
                       <div>
-                        <label className="block font-montserrat text-xs font-medium text-[#111827] mb-1">
+                        <label className="block font-montserrat text-sm sm:text-xs font-medium text-[#111827] mb-1">
                           Current Prescription Medications & Supplements
                         </label>
-                        <p className="font-montserrat text-xs text-[#555555] mb-1.5">
+                        <p className="font-montserrat text-sm sm:text-xs text-[#555555] mb-1.5">
                           Crucial for prescription safety screening (e.g. blood thinners, statins, SSRIs, thyroid medication, PPIs).
                         </p>
                         <textarea
@@ -701,12 +701,12 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                           onChange={(e) =>
                             setPatientDetails({ ...patientDetails, currentMedications: e.target.value })
                           }
-                          className="w-full p-3 rounded-xl border border-[#CDE0F3] text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
+                          className="w-full p-3 rounded-xl border border-[#CDE0F3] text-base sm:text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
                         />
                       </div>
 
                       <div>
-                        <label className="block font-montserrat text-xs font-medium text-[#111827] mb-1">
+                        <label className="block font-montserrat text-sm sm:text-xs font-medium text-[#111827] mb-1">
                           Primary Health Goals & Symptoms
                         </label>
                         <textarea
@@ -716,7 +716,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                           onChange={(e) =>
                             setPatientDetails({ ...patientDetails, healthGoals: e.target.value })
                           }
-                          className="w-full p-3 rounded-xl border border-[#CDE0F3] text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
+                          className="w-full p-3 rounded-xl border border-[#CDE0F3] text-base sm:text-sm text-[#111827] font-montserrat placeholder:text-[#555555]/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all bg-white"
                         />
                       </div>
 

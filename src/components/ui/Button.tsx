@@ -23,9 +23,9 @@ export const Button: React.FC<ButtonProps> = ({
     'inline-flex items-center justify-center font-sans uppercase font-medium tracking-wider rounded-full transition-all duration-300 relative overflow-hidden group select-none cursor-pointer';
 
   const sizeClasses = {
-    sm: 'text-xs px-5 py-2.5 gap-2',
-    md: 'text-xs md:text-sm px-7 py-3.5 gap-2.5',
-    lg: 'text-sm md:text-base px-8 py-4 gap-3',
+    sm: 'text-xs sm:text-xs px-5 py-2.5 gap-2',
+    md: 'text-sm md:text-sm px-7 py-3.5 gap-2.5',
+    lg: 'text-base md:text-base px-8 py-4 gap-3',
   };
 
   const variantClasses = {

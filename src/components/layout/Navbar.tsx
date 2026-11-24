@@ -25,12 +25,23 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onRouteChange, onO
   const navLinks: NavItem[] = [
     { number: '01', name: 'Home', route: '/', sectionId: 'home' },
     { number: '02', name: 'About', route: '/', sectionId: 'about' },
-    { number: '03', name: 'Reviews', route: '/', sectionId: 'reviews' },
-    { number: '04', name: 'About Selvi', route: '/', sectionId: 'about-selvi' },
+    { number: '03', name: 'How It Works', route: '/', sectionId: 'how-it-works' },
+    { number: '04', name: 'Reviews', route: '/', sectionId: 'reviews' },
     { number: '05', name: 'Services', route: '/', sectionId: 'services' },
     { number: '06', name: 'Consultations', route: '/', sectionId: 'consultations' },
-    { number: '07', name: 'Blogs / Health Insights', route: '/blogs' },
+    { number: '07', name: 'Blogs & Education', route: '/blogs' },
     { number: '08', name: 'Contact', route: '/', sectionId: 'contact' },
+  ];
+
+  // Desktop Liquid Glass navigation tabs (Home, About, How It Works, Reviews, Services, Consultations, Contact)
+  const desktopTabs = [
+    { id: 'home', name: 'Home', sectionId: 'home', route: '/' },
+    { id: 'about', name: 'About', sectionId: 'about', route: '/' },
+    { id: 'how-it-works', name: 'How It Works', sectionId: 'how-it-works', route: '/' },
+    { id: 'reviews', name: 'Reviews', sectionId: 'reviews', route: '/' },
+    { id: 'services', name: 'Services', sectionId: 'services', route: '/' },
+    { id: 'consultations', name: 'Consultations', sectionId: 'consultations', route: '/' },
+    { id: 'contact', name: 'Contact', sectionId: 'contact', route: '/' },
   ];
 
   // Lock background page scroll when navigation drawer is open
@@ -42,6 +53,17 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onRouteChange, onO
         document.body.style.overflow = prevOverflow;
       };
     }
+  }, [menuOpen]);
+
+  // Close drawer if resized to tablet or desktop viewport
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && menuOpen) {
+        setMenuOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [menuOpen]);
 
   // Support Escape key to close navigation drawer
@@ -64,8 +86,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onRouteChange, onO
     const sections = [
       { id: 'home', navId: 'home' },
       { id: 'about', navId: 'about' },
+      { id: 'how-it-works', navId: 'how-it-works' },
       { id: 'reviews', navId: 'reviews' },
-      { id: 'about-selvi', navId: 'about-selvi' },
       { id: 'services', navId: 'services' },
       { id: 'consultations', navId: 'consultations' },
       { id: 'contact', navId: 'contact' },
@@ -190,35 +212,138 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onRouteChange, onO
   return (
     <>
       {/* ============================================================== */}
-      {/* 1. TOP-LEFT: LARGE FLOATING JJ NUTRITION LOGO                   */}
-      {/* Directly on page background. No surrounding pill or glass box. */}
-      {/* Proportions: Desktop ~76-88px, iPad ~72px, Mobile ~62-68px     */}
+      {/* 1. TOP-LEFT: LARGE FLOATING JJ NUTRITION LOGO (Desktop Only)     */}
+      {/* Appears when scrolling past the Hero; inside Hero, the centered   */}
+      {/* brand lockup inside the video container serves as main branding  */}
       {/* ============================================================== */}
-      <motion.button
-        initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        onClick={() => handleNavClick(navLinks[0])}
-        aria-label="JJ Nutrition Home"
-        className="fixed z-50 cursor-pointer focus:outline-none select-none group"
-        style={{
-          top: 'max(1.25rem, calc(env(safe-area-inset-top, 0px) + 0.85rem))',
-          left: 'max(1.25rem, calc(env(safe-area-inset-left, 0px) + 1.25rem))',
-        }}
-      >
-        <img
-          src="/newlogo-transparent.png"
-          alt="JJ Nutrition Logo"
-          className="w-[62px] h-[62px] sm:w-[68px] sm:h-[68px] md:w-[74px] md:h-[74px] lg:w-[84px] lg:h-[84px] xl:w-[88px] xl:h-[88px] object-contain transition-transform duration-300 group-hover:scale-105 active:scale-95 drop-shadow-[0_2px_8px_rgba(16,36,61,0.08)]"
-          onError={(e) => {
-            (e.target as HTMLElement).style.display = 'none';
-          }}
-        />
-      </motion.button>
+      {(() => {
+        const showDesktopLogo = currentRoute !== '/' || activeSection !== 'home';
+        return (
+          <motion.button
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: showDesktopLogo ? 1 : 0, y: showDesktopLogo ? 0 : -8 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            onClick={() => handleNavClick(navLinks[0])}
+            aria-label="JJ Nutrition Home"
+            className={`fixed z-50 cursor-pointer focus:outline-none select-none group hidden lg:block ${
+              showDesktopLogo ? 'pointer-events-auto' : 'pointer-events-none'
+            }`}
+            style={{
+              top: 'max(1.25rem, calc(env(safe-area-inset-top, 0px) + 0.85rem))',
+              left: 'max(1.25rem, calc(env(safe-area-inset-left, 0px) + 1.25rem))',
+            }}
+          >
+            <img
+              src="/newlogo-transparent.png"
+              alt="JJ Nutrition Logo"
+              className="w-[62px] h-[62px] sm:w-[68px] sm:h-[68px] md:w-[74px] md:h-[74px] lg:w-[84px] lg:h-[84px] xl:w-[88px] xl:h-[88px] object-contain transition-transform duration-300 group-hover:scale-105 active:scale-95 drop-shadow-[0_2px_8px_rgba(16,36,61,0.08)]"
+              onError={(e) => {
+                (e.target as HTMLElement).style.display = 'none';
+              }}
+            />
+          </motion.button>
+        );
+      })()}
 
       {/* ============================================================== */}
-      {/* 2. TOP-RIGHT: CIRCULAR FLOATING GLASS BURGER BUTTON            */}
-      {/* Perfectly circular. Translucent white surface. Backdrop blur.  */}
+      {/* 2. TOP-CENTER: LIQUID GLASS PILL NAVBAR (Desktop & iPad >=768) */}
+      {/* 1:1 Physics, optics, caustics, and spring tabs from Framer ref */}
+      {/* ============================================================== */}
+      <nav
+        aria-label="Main Navigation"
+        className="fixed top-5 left-1/2 -translate-x-1/2 z-50 hidden md:flex items-center p-1.5 rounded-full select-none"
+        style={{
+          background:
+            'linear-gradient(150deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.32) 42%, rgba(255, 255, 255, 0.58) 100%)',
+          backdropFilter: 'blur(20px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+          border: '1px solid rgba(255, 255, 255, 0.75)',
+          boxShadow:
+            '0 20px 40px -15px rgba(16, 36, 61, 0.12), 0 8px 16px -8px rgba(16, 36, 61, 0.05), inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.6), inset 1px 0 0.5px rgba(255, 255, 255, 0.7), inset -1px 0 0.5px rgba(0, 0, 0, 0.05)',
+        }}
+      >
+        {/* Specular top rim highlight */}
+        <div
+          className="absolute inset-0 rounded-full pointer-events-none"
+          style={{
+            boxShadow: 'inset 0 1px 1.2px 0 rgba(255, 255, 255, 0.95)',
+          }}
+        />
+
+        {/* Caustic reflection line */}
+        <div
+          className="absolute left-[12%] bottom-[1px] w-[40%] h-[1.5px] rounded-full pointer-events-none opacity-70 filter blur-[0.35px]"
+          style={{
+            background:
+              'linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.95) 48%, rgba(255, 255, 255, 0))',
+          }}
+        />
+
+        {/* Tab Buttons Container */}
+        <div className="relative flex items-center gap-0.5 lg:gap-1">
+          {desktopTabs.map((tab) => {
+            const isActive =
+              currentRoute === '/blogs'
+                ? tab.route === '/blogs'
+                : activeSection === tab.id;
+
+            return (
+              <button
+                key={tab.id}
+                onClick={() => handleNavClick(tab)}
+                className="relative px-3 py-1.5 md:px-3 md:py-1.5 lg:px-4 lg:py-2 rounded-full cursor-pointer focus:outline-none transition-colors duration-200 select-none flex items-center justify-center group"
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="active-liquid-tab"
+                    transition={{ type: 'spring', stiffness: 400, damping: 30, mass: 0.8 }}
+                    className="absolute inset-0 rounded-full z-0 pointer-events-none overflow-hidden"
+                    style={{
+                      background:
+                        'linear-gradient(150deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.60) 42%, rgba(255, 255, 255, 0.86) 100%)',
+                      boxShadow:
+                        '0 2px 10px -1px rgba(16, 36, 61, 0.12), 0 6px 16px -4px rgba(16, 36, 61, 0.08), inset 0 1px 1.5px #ffffff, inset 0 -1px 1px rgba(255, 255, 255, 0.85), inset 1px 0 0.5px rgba(255, 255, 255, 0.9)',
+                      border: '1px solid rgba(255, 255, 255, 0.95)',
+                      backdropFilter: 'blur(16px)',
+                      WebkitBackdropFilter: 'blur(16px)',
+                    }}
+                  >
+                    {/* Specular traveling sheen */}
+                    <div
+                      className="absolute inset-0 rounded-full pointer-events-none opacity-80"
+                      style={{
+                        background:
+                          'linear-gradient(105deg, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0.6) 48%, rgba(255, 255, 255, 0) 75%)',
+                      }}
+                    />
+                    {/* Micro caustic bottom highlight */}
+                    <div
+                      className="absolute left-[15%] right-[15%] bottom-[1px] h-[1px] rounded-full pointer-events-none opacity-90"
+                      style={{
+                        background:
+                          'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.95) 50%, rgba(255, 255, 255, 0) 100%)',
+                      }}
+                    />
+                  </motion.div>
+                )}
+                <span
+                  className={`relative z-10 font-montserrat text-[12px] md:text-[12.5px] lg:text-[13.5px] font-semibold tracking-[-0.01em] transition-colors duration-200 whitespace-nowrap ${
+                    isActive
+                      ? 'text-[#10243D]'
+                      : 'text-[#334155]/85 hover:text-[#10243D]'
+                  }`}
+                >
+                  {tab.name}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </nav>
+
+      {/* ============================================================== */}
+      {/* 3. TOP-RIGHT: CIRCULAR FLOATING GLASS BURGER BUTTON (Mobile Only) */}
+      {/* Strictly mobile (< 768px). Hidden on iPad and desktop.         */}
       {/* ============================================================== */}
       <motion.button
         initial={{ opacity: 0, scale: 0.9 }}
@@ -226,7 +351,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onRouteChange, onO
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         onClick={() => setMenuOpen(true)}
         aria-label="Open navigation menu"
-        className="fixed z-50 w-11 h-11 sm:w-12 sm:h-12 md:w-13 md:h-13 rounded-full flex items-center justify-center bg-white/75 hover:bg-white/95 active:scale-95 backdrop-blur-xl border border-white/80 shadow-[0_4px_20px_rgba(16,36,61,0.08)] text-[#10243D] cursor-pointer transition-all duration-200 select-none group focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        className="fixed z-50 w-11 h-11 sm:w-12 sm:h-12 md:hidden rounded-full flex items-center justify-center bg-white/75 hover:bg-white/95 active:scale-95 backdrop-blur-xl border border-white/80 shadow-[0_4px_20px_rgba(16,36,61,0.08)] text-[#10243D] cursor-pointer transition-all duration-200 select-none group focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         style={{
           top: 'max(1.25rem, calc(env(safe-area-inset-top, 0px) + 0.85rem))',
           right: 'max(1.25rem, calc(env(safe-area-inset-right, 0px) + 1.25rem))',
@@ -236,7 +361,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onRouteChange, onO
       </motion.button>
 
       {/* ============================================================== */}
-      {/* 3. NAVIGATION DRAWER (Full-screen Glassmorphic Menu)           */}
+      {/* 4. NAVIGATION DRAWER (Full-screen Glassmorphic Menu, Mobile Only) */}
       {/* Preserves all destinations, staggered reveal, & consultation CTA */}
       {/* ============================================================== */}
       <AnimatePresence>
@@ -246,7 +371,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onRouteChange, onO
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-50 bg-white/95 backdrop-blur-2xl flex flex-col justify-between overflow-y-auto"
+            className="fixed inset-0 z-50 bg-white/95 backdrop-blur-2xl flex flex-col justify-between overflow-y-auto md:hidden"
             style={{
               paddingTop: 'max(2rem, calc(env(safe-area-inset-top, 0px) + 1.5rem))',
               paddingBottom: 'max(1.5rem, calc(env(safe-area-inset-bottom, 0px) + 1.5rem))',
@@ -333,7 +458,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onRouteChange, onO
                     }`}
                   >
                     <div className="flex items-baseline justify-end gap-3.5 sm:gap-4">
-                      <span className="font-mono text-xs sm:text-sm text-[#60748A] group-hover:text-accent transition-colors flex-shrink-0">
+                      <span className="font-mono text-sm sm:text-sm text-[#60748A] group-hover:text-accent transition-colors flex-shrink-0">
                         {link.number}
                       </span>
                       <span
@@ -383,7 +508,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onRouteChange, onO
                       handleNavClick({ name: 'Consultations', route: '/', sectionId: 'consultations' });
                     }
                   }}
-                  className="w-full py-3.5 sm:py-4 px-6 rounded-full bg-accent text-white hover:bg-accent-strong text-center text-sm sm:text-base font-semibold tracking-wide flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(4,74,163,0.32)] transition-all cursor-pointer font-montserrat active:scale-[0.99]"
+                  className="w-full py-3.5 sm:py-4 px-6 rounded-full bg-accent text-white hover:bg-accent-strong text-center text-base sm:text-base font-semibold tracking-wide flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(4,74,163,0.32)] transition-all cursor-pointer font-montserrat active:scale-[0.99]"
                 >
                   <span>Book Consultation</span>
                   <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -393,7 +518,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onRouteChange, onO
 
             {/* Footer inside Drawer */}
             <div className="w-full max-w-2xl mx-auto text-center pt-4">
-              <p className="text-xs text-[#60748A] font-montserrat">
+              <p className="text-sm sm:text-xs text-[#60748A] font-montserrat">
                 © 2026 JJ Nutrition. Directed by Practitioner Selvi, RDN. All rights reserved.
               </p>
             </div>

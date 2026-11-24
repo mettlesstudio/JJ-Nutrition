@@ -8,12 +8,12 @@ interface BlogsEntryStripProps {
 
 export const BlogsEntryStrip: React.FC<BlogsEntryStripProps> = ({ onNavigateBlogs }) => {
   return (
-    <section className="w-full relative overflow-hidden py-0" aria-label="Explore Blogs and Health Insights">
+    <section className="w-full relative overflow-hidden py-0" aria-label="Explore Blogs and Education">
       <motion.button
         type="button"
         onClick={onNavigateBlogs}
         whileTap={{ scale: 0.995 }}
-        aria-label="Navigate to Blogs and Health Insights"
+        aria-label="Navigate to Blogs and Education"
         className="w-full group relative overflow-hidden py-10 sm:py-12 md:py-14 px-4 flex items-center justify-center cursor-pointer select-none border-0 text-left bg-accent"
       >
         {/* Layer 1: Background image texture from /blogsbanner.jpg */}
@@ -34,7 +34,7 @@ export const BlogsEntryStrip: React.FC<BlogsEntryStripProps> = ({ onNavigateBlog
         {/* Layer 3: Centred Foreground Content (Crisp 100% white text and icon) */}
         <span className="relative z-10 inline-flex items-center justify-center gap-3 text-white transition-all duration-300">
           <span className="font-heading font-medium italic text-2xl sm:text-3xl md:text-4xl tracking-tight text-white drop-shadow-xs">
-            Blogs
+            Blogs & Education
           </span>
           <ArrowUpRight
             className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 drop-shadow-xs"

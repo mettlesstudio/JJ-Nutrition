@@ -1,25 +1,29 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import {
   motion,
-  AnimatePresence,
   useMotionValue,
   useAnimationFrame,
   useInView,
   useReducedMotion,
   Transition,
 } from 'framer-motion';
-import {
-  Star,
-  CheckCircle2,
-  X,
-} from 'lucide-react';
 import { PATIENT_REVIEWS, PatientReview } from '../../data/clinicalData';
+import { EdgeDecorItem, FloatingScienceNode } from '../decorative/FloatingDecorItem';
+
+// Rotating pastel card palette matching reference aesthetic
+const PASTEL_PALETTE = [
+  '#F6F6F6', // Soft off-white
+  '#E07A5F', // Muted terracotta / warm coral
+  '#A3D5BE', // Sage mint green
+  '#BCBBE3', // Soft lavender / periwinkle
+  '#F4B686', // Warm pastel peach
+  '#F2DC79', // Warm butter yellow
+];
 
 type AnimationStage = 'initial' | 'center' | 'peeking' | 'expanding' | 'settling' | 'looping';
 
 export const ReviewsSection: React.FC = () => {
-  const [selectedReview, setSelectedReview] = useState<PatientReview | null>(null);
-  const [stage, setStage] = useState<AnimationStage>('initial');
+  const [stage, setStage] = useState<AnimationStage>('looping');
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -29,9 +33,10 @@ export const ReviewsSection: React.FC = () => {
   const resumeTimeoutRef = useRef<number | null>(null);
   const hasTriggeredRef = useRef(false);
 
-  const isInView = useInView(galleryContainerRef, {
+  // Early viewport trigger (10% into view, zero negative margin delay)
+  const isInView = useInView(sectionRef, {
     once: true,
-    margin: '-15% 0px -25% 0px',
+    amount: 0.1,
   });
   const shouldReduceMotion = useReducedMotion();
 
@@ -91,64 +96,13 @@ export const ReviewsSection: React.FC = () => {
     }
   }, [initialTrackX, stage, trackX]);
 
-  // Unified, seamless entrance animation timeline
+  // Snappy viewport entrance: trigger marquee immediately once in view
   useEffect(() => {
     if (!isInView || hasTriggeredRef.current) return;
     hasTriggeredRef.current = true;
-
-    if (shouldReduceMotion) {
-      setStage('looping');
-      trackX.set(initialTrackX);
-      return;
-    }
-
-    // Stage 1: Central card fades in and scales smoothly (650ms after heading)
-    const t1 = setTimeout(() => {
-      setStage('center');
-    }, 650);
-
-    // Stage 2: Cards peek out smoothly rotated (-5deg / +5deg) (1400ms)
-    const t2 = setTimeout(() => {
-      setStage('peeking');
-    }, 1450);
-
-    // Stage 3: All remaining cards emerge continuously from the center deck and expand outward (2450ms)
-    const t3 = setTimeout(() => {
-      setStage('expanding');
-    }, 2450);
-
-    if (isMobile) {
-      // Mobile: Stage 3.5 -> Once cards spread into horizontal row (3600ms), smoothly scale up from 0.78 to 1.0
-      const t3_5 = setTimeout(() => {
-        setStage('settling');
-      }, 3600);
-
-      // Mobile: Stage 4 -> Marquee begins smoothly after cards have scaled up to full size (4500ms)
-      const t4 = setTimeout(() => {
-        setStage('looping');
-      }, 4500);
-
-      return () => {
-        clearTimeout(t1);
-        clearTimeout(t2);
-        clearTimeout(t3);
-        clearTimeout(t3_5);
-        clearTimeout(t4);
-      };
-    } else {
-      // Desktop / iPad: Stage 4 begins at exactly 3850ms (strictly preserving existing approved timing)
-      const t4 = setTimeout(() => {
-        setStage('looping');
-      }, 3850);
-
-      return () => {
-        clearTimeout(t1);
-        clearTimeout(t2);
-        clearTimeout(t3);
-        clearTimeout(t4);
-      };
-    }
-  }, [isInView, shouldReduceMotion, initialTrackX, trackX, isMobile]);
+    setStage('looping');
+    trackX.set(initialTrackX);
+  }, [isInView, initialTrackX, trackX]);
 
   // Helper to schedule autoplay resumption with a quiet pause window
   const scheduleResume = useCallback((delayMs = 1800) => {
@@ -185,17 +139,6 @@ export const ReviewsSection: React.FC = () => {
     }
     trackX.set(currentX);
   });
-
-  // Modal keyboard listener (Escape key to dismiss)
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && selectedReview) {
-        setSelectedReview(null);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedReview]);
 
   /**
    * Continuous transform calculations for each card:
@@ -249,14 +192,14 @@ export const ReviewsSection: React.FC = () => {
         opacity: 1,
         transition: isMobile
           ? {
-              type: 'spring' as const,
-              stiffness: 120,
-              damping: 18,
-              mass: 0.8,
-            }
+            type: 'spring' as const,
+            stiffness: 120,
+            damping: 18,
+            mass: 0.8,
+          }
           : {
-              duration: 0.1,
-            },
+            duration: 0.1,
+          },
       };
     }
 
@@ -380,9 +323,53 @@ export const ReviewsSection: React.FC = () => {
     <section
       id="reviews"
       ref={sectionRef}
-      className="bg-transparent py-14 sm:py-20 md:py-24 relative overflow-hidden select-none"
+      className="bg-transparent py-14 sm:py-20 md:py-24 relative overflow-x-clip select-none"
       aria-label="Verified Patient Reviews Gallery"
     >
+      {/* Strict outer-edge 1/4 cropped nutrition graphics (Topmost layer z-30 over cards) */}
+      <EdgeDecorItem
+        side="left"
+        top="-top-6 sm:-top-8 md:-top-10"
+        src="/images/floating/cluster-berries-seeds.png"
+        alt="Wild berries, seeds, and pomegranate cluster"
+        sizeClass="w-36 sm:w-48 md:w-64 lg:w-76 xl:w-84"
+        zIndexClass="z-30"
+        initialRotate={-14}
+        duration={5.4}
+      />
+      <EdgeDecorItem
+        side="right"
+        top="-bottom-6 sm:-bottom-8 md:-bottom-10"
+        src="/images/floating/mortar-pestle.png"
+        alt="Ceramic apothecary mortar and pestle"
+        sizeClass="w-32 sm:w-44 md:w-56 lg:w-68 xl:w-72"
+        zIndexClass="z-30"
+        initialRotate={18}
+        duration={5.0}
+        delay={0.8}
+      />
+
+      {/* Subtle scientific accents */}
+      <FloatingScienceNode
+        type="hexagon"
+        size={44}
+        className="absolute top-12 left-1/3"
+        initialRotate={-15}
+        opacity={0.15}
+        duration={6.0}
+        hideOnMobile
+      />
+      <FloatingScienceNode
+        type="dna"
+        size={46}
+        className="absolute bottom-12 right-1/4"
+        initialRotate={25}
+        opacity={0.16}
+        duration={5.8}
+        delay={0.7}
+        hideOnMobile
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* ============================================================== */}
@@ -392,8 +379,8 @@ export const ReviewsSection: React.FC = () => {
           <motion.h2
             initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
             whileInView={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-15% 0px -20% 0px' }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: 0 }}
             className="font-heading font-medium italic text-3xl sm:text-4xl md:text-5xl lg:text-[54px] text-[#111827] normal-case leading-[1.12] text-right max-w-2xl"
           >
             Real Patients, <br />
@@ -403,10 +390,14 @@ export const ReviewsSection: React.FC = () => {
 
         {/* ============================================================== */}
         {/* 2. PREMIUM ANIMATED REVIEW GALLERY CONTAINER                   */}
-        {/* Single, permanent, stable flex track for all animation stages  */}
+        {/* Snappy entrance animation (0.4s) & early viewport trigger (0.1) */}
         {/* ============================================================== */}
-        <div
+        <motion.div
           ref={galleryContainerRef}
+          initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
+          whileInView={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
           className="relative w-full overflow-hidden py-3"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => scheduleResume(1400)}
@@ -414,8 +405,8 @@ export const ReviewsSection: React.FC = () => {
           onBlurCapture={() => scheduleResume(1400)}
         >
           {/* Edge lateral gradient masks for smooth soft fade */}
-          <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 md:w-24 bg-gradient-to-r from-[#F7FAFD] to-transparent z-20 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 md:w-24 bg-gradient-to-l from-[#F7FAFD] to-transparent z-20 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 md:w-24 bg-gradient-to-r from-[#FAF9F6] to-transparent z-20 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 md:w-24 bg-gradient-to-l from-[#FAF9F6] to-transparent z-20 pointer-events-none" />
 
           <motion.div
             style={{ x: trackX }}
@@ -439,10 +430,11 @@ export const ReviewsSection: React.FC = () => {
                 stage === 'looping'
                   ? 1
                   : absD === 0
-                  ? 30
-                  : absD === 1
-                  ? 20
-                  : Math.max(1, 18 - absD);
+                    ? 30
+                    : absD === 1
+                      ? 20
+                      : Math.max(1, 18 - absD);
+              const cardBg = PASTEL_PALETTE[index % PASTEL_PALETTE.length];
 
               return (
                 <motion.div
@@ -465,131 +457,57 @@ export const ReviewsSection: React.FC = () => {
                 >
                   <ReviewCardContent
                     review={review}
+                    bgColor={cardBg}
                     isDuplicate={isDuplicate}
                   />
                 </motion.div>
               );
             })}
           </motion.div>
-        </div>
+        </motion.div>
 
       </div>
-
-      {/* ============================================================== */}
-      {/* 3. ACCESSIBLE FULL STORY MODAL DIALOG                          */}
-      {/* ============================================================== */}
-      <AnimatePresence>
-        {selectedReview && (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy/40 backdrop-blur-sm"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="modal-review-title"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 15 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 15 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-2xl bg-white rounded-3xl p-6 sm:p-8 border border-border-blue shadow-2xl overflow-y-auto max-h-[85vh]"
-            >
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedReview(null)}
-                aria-label="Close review dialog"
-                className="absolute top-5 right-5 p-2 rounded-full bg-surface-pale text-[#333333] hover:text-[#111827] transition-colors cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-              </button>
-
-              {/* Modal Review Details */}
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-xs uppercase font-bold px-3 py-1 rounded-full bg-surface-pale text-accent">
-                  {selectedReview.serviceFocus}
-                </span>
-                <div className="flex items-center gap-0.5 text-[#F59E0B] ml-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#F59E0B] text-[#F59E0B]" />
-                  ))}
-                </div>
-              </div>
-
-              <h3 id="modal-review-title" className="font-heading font-medium italic text-xl sm:text-2xl md:text-[26px] text-[#111827] mb-4">
-                "{selectedReview.quoteTitle}"
-              </h3>
-
-              <p className="text-[#1A1A1A] text-sm sm:text-base leading-relaxed mb-6 font-montserrat font-normal">
-                "{selectedReview.reviewText}"
-              </p>
-
-              {/* Patient Info */}
-              <div className="pt-4 border-t border-border-blue/70 mb-4">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="font-montserrat font-medium text-[#111827] text-base">{selectedReview.patientName}</span>
-                  <span className="text-xs text-accent font-semibold flex items-center gap-1">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
-                    Verified Patient
-                  </span>
-                </div>
-                <p className="text-xs text-[#555555]">{selectedReview.location} • {selectedReview.date}</p>
-              </div>
-
-              {/* Practitioner Note */}
-              <div className="p-4 rounded-2xl bg-surface-light border border-border-blue">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#044AA3] block mb-1">
-                  Practitioner Selvi's Clinical Note:
-                </span>
-                <p className="text-xs sm:text-sm text-[#1A1A1A] leading-relaxed italic font-montserrat">
-                  "{selectedReview.practitionerNote}"
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </section>
   );
 };
 
 // ==============================================================
-// REUSABLE CARD COMPONENT CONTENT
+// REUSABLE CARD COMPONENT CONTENT (NON-CLICKABLE)
 // ==============================================================
 interface ReviewCardContentProps {
   review: PatientReview;
+  bgColor: string;
   isDuplicate?: boolean;
 }
 
 const ReviewCardContent: React.FC<ReviewCardContentProps> = ({
   review,
+  bgColor,
 }) => {
   return (
-    <div className="w-full h-full p-6 sm:p-7 rounded-3xl bg-white border border-[#CDE0F3] shadow-[0_4px_20px_rgba(16,36,61,0.04)] hover:shadow-[0_8px_28px_rgba(16,36,61,0.08)] transition-all duration-300 flex flex-col justify-between text-left">
-      {/* Top Content: Star Rating + Headline + Review Body */}
+    <div
+      style={{ backgroundColor: bgColor }}
+      className="w-full h-full p-6 sm:p-7 rounded-3xl shadow-[0_4px_24px_rgba(16,36,61,0.06)] flex flex-col justify-between text-left select-none"
+    >
+      {/* Top Content: Headline + Review Body */}
       <div>
-        {/* Star Rating in Consistent Warm Gold */}
-        <div className="flex items-center gap-1 mb-3.5 text-[#F59E0B]" aria-label={`${review.rating || 5} out of 5 stars`}>
-          {[...Array(review.rating || 5)].map((_, i) => (
-            <Star key={i} className="w-4 h-4 fill-[#F59E0B] text-[#F59E0B]" />
-          ))}
-        </div>
-
-        {/* Review Headline / Title — Montserrat Medium (500) */}
-        <h4 className="font-montserrat text-base sm:text-lg font-medium text-[#111827] mb-2.5 line-clamp-2 leading-snug">
+        {/* Review Headline / Title — Montserrat SemiBold (600), dark and crisp */}
+        <h4 className="font-montserrat text-base sm:text-lg font-semibold text-[#111827] mb-2.5 sm:mb-3 line-clamp-2 leading-snug">
           "{review.quoteTitle}"
         </h4>
 
-        {/* Review Description */}
-        <p className="text-[#1A1A1A] text-xs sm:text-sm leading-relaxed font-normal line-clamp-5 font-montserrat">
+        {/* Review Description — dark, crisp charcoal */}
+        <p className="text-[#1F2937] text-sm sm:text-base leading-relaxed font-normal line-clamp-5 font-montserrat">
           "{review.reviewText}"
         </p>
       </div>
 
-      {/* Card Bottom: Reviewer Name & Location / Date — Montserrat Medium (500) */}
-      <div className="pt-4 mt-5 border-t border-[#CDE0F3]">
-        <h5 className="font-montserrat font-medium text-[#111827] text-sm sm:text-base leading-tight mb-1">
+      {/* Card Bottom: Reviewer Name & Location / Date */}
+      <div className="pt-4 mt-5 border-t border-black/10">
+        <h5 className="font-montserrat font-semibold text-[#111827] text-base leading-tight mb-1">
           {review.patientName}
         </h5>
-        <p className="text-[11px] sm:text-xs text-[#555555] font-montserrat font-normal">
+        <p className="text-xs sm:text-sm text-[#1F2937]/80 font-montserrat font-medium">
           {review.location} • {review.date}
         </p>
       </div>

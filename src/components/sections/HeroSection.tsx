@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import CircularText from '../ui/CircularText/CircularText';
 
@@ -13,6 +13,56 @@ interface HeroSectionProps {
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onBookNow, onExploreServices }) => {
+  // Track viewport tier for exact responsive insets & radius (matching Framer particular-site-336288)
+  const [viewportTier, setViewportTier] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
+
+  useEffect(() => {
+    const updateTier = () => {
+      const w = window.innerWidth;
+      if (w >= 1024) {
+        setViewportTier('desktop');
+      } else if (w >= 640) {
+        setViewportTier('tablet');
+      } else {
+        setViewportTier('mobile');
+      }
+    };
+    updateTier();
+    window.addEventListener('resize', updateTier, { passive: true });
+    return () => window.removeEventListener('resize', updateTier);
+  }, []);
+
+  // Framer-inspired "Radius on Scroll" scroll-linked physics
+  const { scrollY } = useScroll();
+
+  // Smooth scroll interpolation using Framer's exact spring curve
+  const smoothScrollY = useSpring(scrollY, {
+    stiffness: 350,
+    damping: 40,
+    mass: 1.2,
+  });
+
+  // Progress from 0 (top of page) to 1 (fully expanded into edge-to-edge view)
+  const scrollProgress = useTransform(smoothScrollY, [0, 260], [0, 1]);
+
+  // Exact inset values per breakpoint:
+  // Desktop: 44px -> 0px | Tablet: 24px -> 0px | Mobile: 14px -> 0px
+  const startInset = viewportTier === 'desktop' ? 44 : viewportTier === 'tablet' ? 24 : 14;
+  const startRadius = viewportTier === 'desktop' ? 44 : viewportTier === 'tablet' ? 32 : 28;
+
+  const dynamicInset = useTransform(scrollProgress, [0, 1], [startInset, 0]);
+  const dynamicRadius = useTransform(scrollProgress, [0, 1], [startRadius, 0]);
+
+  // Badge positioning smoothly adapting as container expands
+  const badgeOffset = useTransform(
+    scrollProgress,
+    [0, 1],
+    [
+      viewportTier === 'desktop' ? 16 : viewportTier === 'tablet' ? 10 : 4,
+      viewportTier === 'desktop' ? 32 : 20,
+    ]
+  );
+
   return (
     <section
       id="home"
@@ -24,312 +74,192 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onBookNow, onExploreSe
       }}
     >
       {/* ========================================================================= */}
-      {/* A. DESKTOP HERO (xl and up: >= 1280px) — SPLIT SCREEN EDITORIAL LAYOUT    */}
-      {/* Left: 46-48% Vertically Centred Content with Textured Background          */}
-      {/* Right: 52-54% Video (Flush Top & Right, 28-32px Bottom Gap exposing texture) */}
-      {/* Rotating text anchored precisely on Video Container's Bottom-Left Corner  */}
+      {/* SHAPED HERO MEDIA CONTAINER (All Viewports)                               */}
+      {/* Restores the signature rounded container with inset framing against the   */}
+      {/* textured off-white background, and applies exact "Radius on Scroll"       */}
+      {/* from https://particular-site-336288.framer.app/                           */}
       {/* ========================================================================= */}
-      <div className="hidden xl:flex w-full h-full flex-row relative z-10">
-        {/* LEFT SIDE: HERO CONTENT (46-48% width) */}
-        <div className="w-[46%] xl:w-[48%] h-full flex flex-col justify-center px-10 xl:px-20 z-10 relative">
-          {/* Main Heading — Two-line hierarchy in #044AA3 with Playfair-A 500 Italic */}
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-heading font-medium italic text-4xl sm:text-5xl lg:text-6xl xl:text-[72px] 2xl:text-[84.896px] text-[#044AA3] leading-[1.08] tracking-tight"
-          >
+      <motion.div
+        initial={{ opacity: 0, scale: 0.98, y: 12 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ type: 'spring', stiffness: 350, damping: 40, mass: 1.5, delay: 0.05 }}
+        style={{
+          top: dynamicInset,
+          bottom: dynamicInset,
+          left: dynamicInset,
+          right: dynamicInset,
+          borderRadius: dynamicRadius,
+        }}
+        className="absolute overflow-hidden shadow-[0_20px_50px_rgba(16,36,61,0.18)] bg-slate-900 z-10 select-none"
+      >
+        {/* Full-bleed Background Video within the shaped container */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          poster={HERO_POSTER_SRC}
+          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none z-0"
+        >
+          <source src={HERO_VIDEO_SRC} type="video/mp4" />
+        </video>
+
+        {/* Subtle Dark/Deep-Blue Gradient Overlays for Sharp Legibility */}
+        <div
+          className="absolute inset-0 pointer-events-none z-10"
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(11, 27, 43, 0.65) 0%, rgba(11, 27, 43, 0.18) 28%, rgba(4, 74, 163, 0.20) 55%, rgba(11, 27, 43, 0.72) 80%, rgba(11, 27, 43, 0.92) 100%)',
+          }}
+        />
+        <div
+          className="absolute inset-0 pointer-events-none z-10"
+          style={{
+            background:
+              'radial-gradient(ellipse 95% 75% at 15% 90%, rgba(11, 27, 43, 0.72) 0%, transparent 70%)',
+          }}
+        />
+
+        {/* 1. TOP-CENTER VERTICAL BRAND LOCKUP (Preserved with clean clearance below liquid glass navbar on md+) */}
+        <motion.div
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ type: 'spring', stiffness: 320, damping: 36, mass: 1.2, delay: 0.18 }}
+          className="absolute top-6 sm:top-8 md:top-24 lg:top-28 left-0 right-0 flex flex-col items-center justify-center text-center z-20 pointer-events-none px-4"
+          style={{
+            paddingTop: 'max(0.25rem, env(safe-area-inset-top, 0px))',
+          }}
+        >
+          {/* Logo Emblem Icon */}
+          <img
+            src="/newlogo-transparent.png"
+            alt="JJ Nutrition Emblem"
+            className="h-10 w-10 sm:h-12 sm:w-12 md:h-13 md:w-13 lg:h-14 lg:w-14 object-contain filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
+            style={{ filter: 'brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.45))' }}
+          />
+
+          {/* JJ Nutrition Wordmark */}
+          <h2 className="font-heading font-medium text-[25px] xs:text-[28px] sm:text-[32px] md:text-[36px] text-white leading-tight tracking-tight mt-1 sm:mt-1.5 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
+            JJ Nutrition
+          </h2>
+
+          {/* AUTHENTIC NUTRITION Tagline */}
+          <p className="font-inter font-medium text-[10.5px] sm:text-[11.5px] md:text-[12.5px] tracking-[0.22em] sm:tracking-[0.25em] text-white/90 uppercase leading-none mt-1 sm:mt-1.5 drop-shadow-[0_1px_6px_rgba(0,0,0,0.5)]">
+            AUTHENTIC NUTRITION
+          </p>
+        </motion.div>
+
+        {/* 2. LOWER-LEFT CONTENT BLOCK (Exact placement & hierarchy preserved) */}
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ type: 'spring', stiffness: 320, damping: 36, mass: 1.2, delay: 0.28 }}
+          className="absolute bottom-6 left-5 sm:bottom-8 sm:left-8 md:bottom-10 md:left-12 lg:bottom-12 lg:left-16 z-20 max-w-[calc(100%-110px)] sm:max-w-xl md:max-w-2xl lg:max-w-3xl flex flex-col items-start text-left pointer-events-auto"
+          style={{
+            paddingBottom: 'max(0.25rem, env(safe-area-inset-bottom, 0px))',
+            paddingLeft: 'max(0.25rem, env(safe-area-inset-left, 0px))',
+          }}
+        >
+          {/* Main Headline */}
+          <h1 className="font-heading font-medium italic text-[26px] xs:text-[30px] sm:text-[38px] md:text-[44px] lg:text-[50px] xl:text-[56px] text-white leading-[1.12] sm:leading-[1.14] tracking-tight drop-shadow-[0_2px_14px_rgba(0,0,0,0.85)]">
             Nourish Your Body.
             <br />
             Influence Your Wellbeing.
-          </motion.h1>
+          </h1>
 
-          {/* Supporting Line — Inter font reference ~23px */}
+          {/* Subheading */}
           <motion.p
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-6 font-subheading text-base xl:text-[22.9px] font-normal tracking-wide text-[#10243D]/80 capitalize"
+            transition={{ type: 'spring', stiffness: 320, damping: 36, mass: 1.2, delay: 0.38 }}
+            className="font-subheading text-[13px] xs:text-[14px] sm:text-[16px] md:text-[17px] lg:text-[18px] font-normal tracking-wide text-white/95 drop-shadow-[0_1px_8px_rgba(0,0,0,0.85)] mt-2 sm:mt-2.5 capitalize"
           >
             Food · Nutrition · Lifestyle · Epigenetics
           </motion.p>
 
-          {/* Two Primary Buttons Side by Side */}
+          {/* Left-Aligned CTA Buttons directly below headline */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.34, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-10 flex items-center gap-4"
+            transition={{ type: 'spring', stiffness: 320, damping: 36, mass: 1.2, delay: 0.48 }}
+            className="mt-4 sm:mt-5 flex flex-col sm:flex-row items-start sm:items-center gap-2.5 sm:gap-3.5"
           >
-            {/* Button 1: Book Consultation */}
+            {/* Button 1: Book Consultation (Primary Brand Blue) */}
             <button
               onClick={onBookNow}
-              className="group inline-flex items-center justify-between gap-3.5 pl-6 pr-2 py-2 rounded-full bg-[#044AA3] text-white hover:bg-[#033b82] transition-all duration-300 shadow-[0_4px_16px_rgba(4,74,163,0.28)] hover:shadow-[0_6px_22px_rgba(3,59,133,0.36)] cursor-pointer select-none active:scale-[0.98]"
+              className="group relative h-[46px] xs:h-[48px] sm:h-[52px] lg:h-[54px] inline-flex items-center justify-between gap-3 sm:gap-4 rounded-full bg-[#044AA3] hover:bg-[#033A82] pl-4 sm:pl-5 lg:pl-6 pr-1.5 py-1.5 shadow-[0_4px_16px_rgba(4,74,163,0.35)] hover:shadow-[0_6px_22px_rgba(3,58,130,0.45)] cursor-pointer select-none active:scale-[0.98] transition-all duration-200"
             >
-              <span className="font-montserrat text-sm font-semibold tracking-wide">
+              <span className="font-montserrat text-[12.5px] xs:text-[13px] sm:text-[14.5px] lg:text-[15px] font-semibold tracking-tight text-white whitespace-nowrap">
                 Book Consultation
               </span>
-              <span className="w-8 h-8 rounded-full bg-white/20 group-hover:bg-white/30 flex items-center justify-center transition-all duration-300 flex-shrink-0">
-                <ArrowUpRight className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <span className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 rounded-full bg-white flex items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover:scale-105 shadow-xs">
+                <ArrowUpRight className="w-4 h-4 sm:w-4.5 sm:h-4.5 lg:w-5 lg:h-5 text-[#044AA3] stroke-[2.4] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </span>
             </button>
 
-            {/* Button 2: Explore Services */}
+            {/* Button 2: Explore Services (High-Contrast White Secondary Pill) */}
             {onExploreServices && (
               <button
                 onClick={onExploreServices}
-                className="group inline-flex items-center justify-between gap-3.5 pl-6 pr-2 py-2 rounded-full bg-white text-[#10243D] border border-[#CDE0F3] hover:border-[#044AA3] hover:text-[#044AA3] transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer select-none active:scale-[0.98]"
+                className="group relative h-[46px] xs:h-[48px] sm:h-[52px] lg:h-[54px] inline-flex items-center justify-between gap-3 sm:gap-4 rounded-full bg-white hover:bg-[#F3F9FD] border border-[#044AA3]/30 hover:border-[#044AA3]/60 pl-4 sm:pl-5 lg:pl-6 pr-1.5 py-1.5 shadow-[0_2px_12px_rgba(16,36,61,0.12)] hover:shadow-[0_4px_16px_rgba(4,74,163,0.2)] cursor-pointer select-none active:scale-[0.98] transition-all duration-200"
               >
-                <span className="font-montserrat text-sm font-semibold tracking-wide">
+                <span className="font-montserrat text-[12.5px] xs:text-[13px] sm:text-[14.5px] lg:text-[15px] font-medium tracking-tight text-[#10243D] whitespace-nowrap">
                   Explore Services
                 </span>
-                <span className="w-8 h-8 rounded-full bg-[#10243D]/5 group-hover:bg-[#044AA3]/15 flex items-center justify-center transition-all duration-300 flex-shrink-0">
-                  <ArrowUpRight className="w-4 h-4 text-[#10243D] group-hover:text-[#044AA3] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                <span className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 rounded-full bg-[#044AA3] flex items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover:scale-105 shadow-xs">
+                  <ArrowUpRight className="w-4 h-4 sm:w-4.5 sm:h-4.5 lg:w-5 lg:h-5 text-white stroke-[2.4] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </span>
               </button>
             )}
           </motion.div>
+        </motion.div>
+      </motion.div>
 
-          {/* Nutrition Graphic Artwork — Desktop Only, immediately below the two CTA buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.44, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-8 xl:mt-10 hidden xl:block pointer-events-none select-none"
+      {/* ========================================================================= */}
+      {/* 3. BOTTOM-RIGHT CIRCULAR ROTATING TEXT BADGE                             */}
+      {/* Cleanly positioned at the bottom-right corner cutout of the shaped shape  */}
+      {/* ========================================================================= */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 32, mass: 1.4, delay: 0.58 }}
+        style={{
+          bottom: badgeOffset,
+          right: badgeOffset,
+        }}
+        className="absolute z-30 pointer-events-auto"
+      >
+        <div
+          className="relative flex items-center justify-center p-1.5 sm:p-2 rounded-full border border-[#CDE0F3] shadow-[0_8px_28px_rgba(16,36,61,0.20)]"
+          style={{ backgroundColor: '#FFFFFF', opacity: 1 }}
+        >
+          <CircularText
+            text="HEALTH*NUTRITION*SCIENCE* "
+            spinDuration={6}
+            draggable={true}
+            hoverTilt={30}
+            fontWeight={400}
+            fill={true}
+            ring={true}
+            ringColor="#044AA3"
+            size={viewportTier === 'desktop' ? 96 : viewportTier === 'tablet' ? 88 : 80}
+            fontSize={viewportTier === 'desktop' ? 9.5 : viewportTier === 'tablet' ? 8.8 : 8.2}
+            letterSpacing={1.2}
+            color="#10243D"
+            className="font-montserrat tracking-widest"
           >
-            <img
-              src="/Nutrition.png"
-              alt="Clinical Nutrition Guidance"
-              className="w-full max-w-[320px] xl:max-w-[360px] 2xl:max-w-[400px] h-auto object-contain"
-              loading="eager"
-            />
-          </motion.div>
-        </div>
-
-        {/* RIGHT SIDE: VIDEO CONTAINER & ROTATING BADGE (52-54% width) */}
-        {/* Starts flush at top: 0, reaches extreme right edge, height leaves ~76px bottom gap exposing textured background */}
-        <div className="w-[54%] xl:w-[52%] h-full relative flex flex-col justify-start">
-          {/* Video Container Box: Flush top, flush right, left boundary at centre division, ends 76px above bottom */}
-          <div className="w-full h-[calc(100%-76px)] relative bg-slate-900">
-            <div className="w-full h-full relative overflow-hidden">
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-                poster={HERO_POSTER_SRC}
-                className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none z-0"
-              >
-                <source src={HERO_VIDEO_SRC} type="video/mp4" />
-              </video>
-
-              {/* Subtle gradient vignette to blend gently with left side */}
-              <div
-                className="absolute inset-0 pointer-events-none z-10"
-                style={{
-                  background: 'linear-gradient(90deg, rgba(250, 249, 246, 0.25) 0%, transparent 6%, transparent 100%)',
-                }}
+            {/* Stationary JJ Nutrition Logo at center */}
+            <div className="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 flex items-center justify-center pointer-events-none select-none">
+              <img
+                src="/newlogo-transparent.png"
+                alt="JJ Nutrition Logo"
+                className="w-[26px] h-[26px] sm:w-[28px] sm:h-[28px] lg:w-[32px] lg:h-[32px] object-contain filter drop-shadow-sm"
               />
             </div>
-
-            {/* ROTATING TEXT COMPONENT: Exact centre point anchored on video container's bottom-left corner */}
-            {/* Position: absolute; left: 0; bottom: 0; transform: translate(-50%, 50%) */}
-            <div
-              className="absolute left-0 bottom-0 z-30 pointer-events-auto"
-              style={{ transform: 'translate(-50%, 50%)' }}
-            >
-              <div
-                className="relative flex items-center justify-center p-2 rounded-full border border-[#CDE0F3] shadow-[0_8px_28px_rgba(16,36,61,0.14)]"
-                style={{ backgroundColor: '#FFFFFF', opacity: 1 }}
-              >
-                <CircularText
-                  text="HEALTH*NUTRITION*SCIENCE* "
-                  spinDuration={6}
-                  draggable={true}
-                  hoverTilt={30}
-                  fontWeight={400}
-                  fill={true}
-                  ring={true}
-                  ringColor="#044AA3"
-                  size={96}
-                  fontSize={9.5}
-                  letterSpacing={1.3}
-                  color="#10243D"
-                  className="font-montserrat tracking-widest"
-                >
-                  {/* Stationary DNA Icon at the exact visual center, rotated ~45 deg */}
-                  <div className="w-11 h-11 flex items-center justify-center pointer-events-none select-none">
-                    <img
-                      src="/DNAicon.png"
-                      alt="JJ Nutrition DNA Icon"
-                      className="w-[32px] h-[32px] object-contain filter drop-shadow-sm transform rotate-45"
-                    />
-                  </div>
-                </CircularText>
-              </div>
-            </div>
-          </div>
+          </CircularText>
         </div>
-      </div>
-
-      {/* ========================================================================= */}
-      {/* B. MOBILE & IPAD HERO (< xl: Mobile, iPad Portrait & iPad Landscape)      */}
-      {/* 1. TALLER video shape occupying available height via flex-1               */}
-      {/* 2. Side margins and asymmetric curved geometry strictly preserved        */}
-      {/* 3. Strict 5-Layer Hierarchy:                                              */}
-      {/*    Layer 1: Background texture (white-wall-textures.webp)                 */}
-      {/*    Layer 2: Video (z-0)                                                   */}
-      {/*    Layer 3: Dark/deep-blue overlay (z-10)                                 */}
-      {/*    Layer 4: Heading (z-20, fully opaque white)                            */}
-      {/*    Layer 5: Rotating text component (z-30, foreground sibling, 100% opaque)*/}
-      {/* 4. Supporting line & side-by-side CTAs positioned towards screen bottom   */}
-      {/* ========================================================================= */}
-      <div
-        className="flex xl:hidden w-full h-[100dvh] min-h-[100dvh] flex-col justify-between pt-0 px-4 sm:px-6 md:px-8 max-w-2xl md:max-w-3xl mx-auto relative z-10"
-        style={{
-          paddingBottom: 'max(1.75rem, calc(env(safe-area-inset-bottom, 0px) + 1.5rem))',
-        }}
-      >
-        {/* TALLER Video Shape: flex-1 fills available vertical viewport space */}
-        <motion.div
-          initial={{ opacity: 0, y: 10, scale: 0.99 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full flex-1 min-h-[380px] sm:min-h-[440px] md:min-h-[520px]"
-        >
-          {/* Main Video Container: Begins at absolute top Y = 0 */}
-          {/* Shape: rounded-t-none rounded-b-[56px] sm:rounded-b-[72px] md:rounded-b-[80px] */}
-          <div className="relative w-full h-full rounded-t-none rounded-b-[56px] sm:rounded-b-[72px] md:rounded-b-[80px] overflow-hidden shadow-[0_16px_40px_rgba(16,36,61,0.12)] bg-slate-900">
-            {/* LAYER 2: Real Nutrition & Wellbeing Video from Pexels (Lowest Stacking Level z-0) */}
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-              poster={HERO_POSTER_SRC}
-              className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none z-0"
-            >
-              <source src={HERO_VIDEO_SRC} type="video/mp4" />
-            </video>
-
-            {/* LAYER 3: Subtle Dark/Deep-Blue Overlay (z-10, Above video, Below heading) */}
-            <div
-              className="absolute inset-0 pointer-events-none z-10"
-              style={{
-                background:
-                  'linear-gradient(180deg, rgba(4, 74, 163, 0.28) 0%, rgba(11, 27, 43, 0.26) 45%, rgba(4, 74, 163, 0.34) 100%)',
-              }}
-            />
-
-            {/* Subtle top light highlight so top-left logo and top-right burger stand out crisply */}
-            <div
-              className="absolute top-0 left-0 right-0 h-24 pointer-events-none z-11"
-              style={{
-                background:
-                  'linear-gradient(to bottom, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.03) 60%, transparent 100%)',
-              }}
-            />
-
-            {/* LAYER 4: Fully Opaque White Heading (z-20, Above overlay, Completely Unaffected by Overlay Opacity) */}
-            <div className="absolute inset-0 flex items-center justify-center p-6 text-center z-20 pointer-events-none">
-              <div className="max-w-[88%] sm:max-w-[82%] md:max-w-[76%]">
-                <h1 className="font-heading font-medium italic text-2xl sm:text-3xl md:text-4xl text-white leading-[1.2] tracking-tight drop-shadow-[0_2px_14px_rgba(0,0,0,0.7)]">
-                  Nourish Your Body.
-                  <br />
-                  Influence Your Wellbeing.
-                </h1>
-              </div>
-            </div>
-          </div>
-
-          {/* LAYER 5: ROTATING TEXT FOREGROUND SIBLING */}
-          {/* Highest visual layer (z-30), solid opaque white background, unaffected by overlay or parent filters */}
-          <div className="absolute -bottom-5 right-2 sm:-bottom-6 sm:right-4 md:-bottom-7 md:right-6 z-30 pointer-events-auto">
-            <div
-              className="relative flex items-center justify-center p-1.5 sm:p-2 rounded-full border border-[#CDE0F3] shadow-[0_6px_22px_rgba(16,36,61,0.16)]"
-              style={{ backgroundColor: '#FFFFFF', opacity: 1 }}
-            >
-              <CircularText
-                text="HEALTH*NUTRITION*SCIENCE* "
-                spinDuration={6}
-                draggable={true}
-                hoverTilt={30}
-                fontWeight={400}
-                fill={true}
-                ring={true}
-                ringColor="#044AA3"
-                size={82}
-                fontSize={8.5}
-                letterSpacing={1.2}
-                color="#10243D"
-                className="font-montserrat tracking-widest"
-              >
-                {/* Stationary DNA Icon at center, rotated ~45 deg */}
-                <div className="w-9 h-9 flex items-center justify-center pointer-events-none select-none">
-                  <img
-                    src="/DNAicon.png"
-                    alt="JJ Nutrition DNA Icon"
-                    className="w-7 h-7 object-contain filter drop-shadow-sm transform rotate-45"
-                  />
-                </div>
-              </CircularText>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* BOTTOM CONTENT BLOCK: Supporting text + CTAs positioned towards bottom of viewport */}
-        <div className="w-full flex-shrink-0 flex flex-col items-center">
-          {/* Supporting Line: 24-32px spacing below video shape */}
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="pt-6 sm:pt-7 md:pt-8 text-center px-4"
-          >
-            <p className="font-subheading text-xs sm:text-sm md:text-base font-normal tracking-wide text-[#044AA3] capitalize">
-              Food · Nutrition · Lifestyle · Epigenetics
-            </p>
-          </motion.div>
-
-          {/* Two CTA Buttons: 28-36px spacing below supporting line, side-by-side towards screen bottom */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="pt-7 sm:pt-8 md:pt-9 px-2 sm:px-4 grid grid-cols-2 gap-2.5 sm:gap-3.5 w-full max-w-md mx-auto"
-          >
-            {/* Button 1: Book Consultation */}
-            <button
-              onClick={onBookNow}
-              className="group w-full inline-flex items-center justify-between gap-1 sm:gap-2 px-2.5 sm:px-4 py-2.5 sm:py-3 rounded-full bg-[#044AA3] text-white hover:bg-[#033b82] transition-all shadow-[0_4px_14px_rgba(4,74,163,0.25)] cursor-pointer select-none active:scale-[0.98]"
-            >
-              <span className="font-montserrat text-[10.5px] sm:text-xs md:text-sm font-semibold tracking-tight whitespace-nowrap">
-                Book Consultation
-              </span>
-              <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
-                <ArrowUpRight className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-white" />
-              </span>
-            </button>
-
-            {/* Button 2: Explore Services */}
-            {onExploreServices && (
-              <button
-                onClick={onExploreServices}
-                className="group w-full inline-flex items-center justify-between gap-1 sm:gap-2 px-2.5 sm:px-4 py-2.5 sm:py-3 rounded-full bg-white text-[#10243D] border border-[#CDE0F3] hover:border-[#044AA3] hover:text-[#044AA3] transition-all shadow-sm cursor-pointer select-none active:scale-[0.98]"
-              >
-                <span className="font-montserrat text-[10.5px] sm:text-xs md:text-sm font-semibold tracking-tight whitespace-nowrap">
-                  Explore Services
-                </span>
-                <span className="w-5 h-5 sm:w-7 sm:h-7 rounded-full bg-[#10243D]/5 flex items-center justify-center flex-shrink-0">
-                  <ArrowUpRight className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-[#10243D] group-hover:text-[#044AA3]" />
-                </span>
-              </button>
-            )}
-          </motion.div>
-        </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

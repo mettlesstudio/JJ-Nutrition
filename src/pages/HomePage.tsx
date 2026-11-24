@@ -1,10 +1,12 @@
 import React from 'react';
 import { HeroSection } from '../components/sections/HeroSection';
-import { MarqueeSection } from '../components/sections/MarqueeSection';
+import { ExperienceStripSection } from '../components/sections/ExperienceStripSection';
 import { AboutJJNutritionSection } from '../components/sections/AboutJJNutritionSection';
+import { StatsCarouselStripSection } from '../components/sections/StatsCarouselStripSection';
+import { HowItWorksSection } from '../components/sections/HowItWorksSection';
 import { ReviewsSection } from '../components/sections/ReviewsSection';
-import { AboutSection } from '../components/sections/AboutSection';
 import { ServicesOverviewSection } from '../components/sections/ServicesOverviewSection';
+import { MarqueeSection } from '../components/sections/MarqueeSection';
 import { ConsultationPricingSection } from '../components/sections/ConsultationPricingSection';
 import { BlogsEntryStrip } from '../components/sections/BlogsEntryStrip';
 import { ContactSection } from '../components/sections/ContactSection';
@@ -39,8 +41,8 @@ export const HomePage: React.FC<HomePageProps> = ({
         }}
       />
 
-      {/* 2. Partners infinite-loop strip */}
-      <MarqueeSection />
+      {/* 2. "14 Years of Nutritional Medicine Experience" handwriting strip */}
+      <ExperienceStripSection />
 
       {/* 3. About JJ Nutrition (Practice Introduction) */}
       <AboutJJNutritionSection
@@ -59,27 +61,16 @@ export const HomePage: React.FC<HomePageProps> = ({
         onBookNow={() => onBookNow()}
       />
 
-      {/* 4. Complete Patient Reviews section */}
+      {/* 4. Stats & Milestones Carousel Strip */}
+      <StatsCarouselStripSection />
+
+      {/* 5. How JJ Nutrition Works (Chronicle Timeline 8-Step Methodology) */}
+      <HowItWorksSection onBookConsultation={() => onBookNow()} />
+
+      {/* 6. Complete Patient Reviews section */}
       <ReviewsSection />
 
-      {/* 5. About Selvi (Practitioner Introduction) */}
-      <AboutSection
-        onBookNow={() => onBookNow()}
-        onNavigateService={(id) => {
-          if (onNavigateService) {
-            onNavigateService(id);
-          } else {
-            const el = document.getElementById('services');
-            if (el) {
-              const navbarOffset = 80;
-              const targetY = el.getBoundingClientRect().top + window.scrollY - navbarOffset;
-              window.scrollTo({ top: targetY, behavior: 'smooth' });
-            }
-          }
-        }}
-      />
-
-      {/* 6. Clinical Services (10 Targeted Protocols - Interactive Explorer) */}
+      {/* 7. Clinical Services (10 Targeted Protocols - Interactive Explorer) */}
       <ServicesOverviewSection
         onSelectService={(service) => {
           // If interactive explorer selects service or books
@@ -88,7 +79,10 @@ export const HomePage: React.FC<HomePageProps> = ({
         onBookService={(serviceId) => onBookNow(serviceId)}
       />
 
-      {/* 7. Transparent Consultation Tiers ($5, $75, $150 AUD) */}
+      {/* 7. Partners infinite-loop strip (Relocated immediately below Clinical Services) */}
+      <MarqueeSection />
+
+      {/* 8. Transparent Consultation Tiers ($5, $75, $150 AUD) */}
       <ConsultationPricingSection
         onSelectTier={(tierId) => onBookNow(undefined, tierId)}
       />

@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Clock, Check, ChevronDown, ArrowUpRight } from 'lucide-react';
 import { CONSULTATION_TIERS } from '../../data/clinicalData';
 
+
 interface ConsultationPricingSectionProps {
   onSelectTier: (tierId: string) => void;
 }
@@ -20,13 +21,19 @@ export const ConsultationPricingSection: React.FC<ConsultationPricingSectionProp
   return (
     <section
       id="consultations"
-      className="bg-transparent py-16 sm:py-20 md:py-24 relative overflow-hidden scroll-mt-20 md:scroll-mt-28"
+      className="relative py-16 sm:py-20 md:py-24 overflow-x-clip scroll-mt-20 md:scroll-mt-28"
+      style={{
+        backgroundImage: `url('/bluebackground.png')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
+      }}
       aria-label="Clinical Consultation Packages"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* ============================================================== */}
-        {/* 1. SECTION HEADING (Natural flow with zero pill / currency)   */}
+        {/* 1. SECTION HEADING (White text for /bluebackground.png)       */}
         {/* ============================================================== */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 lg:mb-14">
           <motion.h2
@@ -34,10 +41,10 @@ export const ConsultationPricingSection: React.FC<ConsultationPricingSectionProp
             whileInView={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-15% 0px -20% 0px' }}
             transition={{ duration: 0.6 }}
-            className="font-heading font-medium italic text-3xl sm:text-4xl md:text-5xl lg:text-[54px] text-[#111827] normal-case leading-tight mb-3 sm:mb-4"
+            className="font-heading font-medium italic text-3xl sm:text-4xl md:text-5xl lg:text-[54px] text-white normal-case leading-tight mb-3 sm:mb-4"
           >
             Select Your Consultation Tier <br />
-            <span className="text-accent font-medium">& Begin Your Health Recovery</span>
+            <span className="text-white font-medium">& Begin Your Health Recovery</span>
           </motion.h2>
 
           <motion.p
@@ -45,7 +52,7 @@ export const ConsultationPricingSection: React.FC<ConsultationPricingSectionProp
             whileInView={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-15% 0px -20% 0px' }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-[#1A1A1A] text-sm sm:text-base md:text-lg leading-relaxed font-normal max-w-2xl mx-auto font-montserrat"
+            className="text-white/90 text-base sm:text-base md:text-lg leading-relaxed font-normal max-w-2xl mx-auto font-montserrat"
           >
             Clear, honest pricing with zero hidden subscription locks. Choose the consultation depth
             that fits your clinical situation.
@@ -99,7 +106,7 @@ export const ConsultationPricingSection: React.FC<ConsultationPricingSectionProp
 
                   {/* 4. Short Description (Centred, Montserrat Regular 400, equal height slot for identical collapsed card heights) */}
                   <div className="min-h-[44px] md:min-h-[66px] lg:min-h-[44px] flex items-center justify-center mb-3 w-full">
-                    <p className="font-montserrat text-xs sm:text-sm text-[#333333] font-normal leading-relaxed max-w-xs px-1">
+                    <p className="font-montserrat text-sm sm:text-sm text-[#333333] font-normal leading-relaxed max-w-xs px-1">
                       {tier.subtitle}
                     </p>
                   </div>
@@ -109,13 +116,12 @@ export const ConsultationPricingSection: React.FC<ConsultationPricingSectionProp
                     type="button"
                     onClick={() => toggleExpand(tier.id)}
                     aria-expanded={isExpanded}
-                    className="inline-flex items-center justify-center gap-1.5 text-xs font-normal text-accent hover:text-accent-strong transition-colors cursor-pointer select-none py-1 px-3 rounded-full hover:bg-surface-pale/60 group mb-3"
+                    className="inline-flex items-center justify-center gap-1.5 text-sm sm:text-xs font-normal text-accent hover:text-accent-strong transition-colors cursor-pointer select-none py-1 px-3 rounded-full hover:bg-surface-pale/60 group mb-3"
                   >
                     <span className="font-montserrat font-normal">{isExpanded ? 'Hide' : 'Show'}</span>
                     <ChevronDown
-                      className={`w-3.5 h-3.5 transition-transform duration-300 ${
-                        isExpanded ? 'rotate-180 text-accent-strong' : 'text-accent group-hover:translate-y-0.5'
-                      }`}
+                      className={`w-3.5 h-3.5 transition-transform duration-300 ${isExpanded ? 'rotate-180 text-accent-strong' : 'text-accent group-hover:translate-y-0.5'
+                        }`}
                     />
                   </button>
 
@@ -131,14 +137,14 @@ export const ConsultationPricingSection: React.FC<ConsultationPricingSectionProp
                         className="overflow-hidden w-full mb-4"
                       >
                         <div className="pt-4 pb-1 border-t border-[#CDE0F3] text-left w-full">
-                          <span className="text-[11px] font-normal uppercase tracking-wider text-[#111827] block mb-3 font-montserrat text-center sm:text-left">
+                          <span className="text-xs sm:text-xs font-normal uppercase tracking-wider text-[#111827] block mb-3 font-montserrat text-center sm:text-left">
                             INCLUDED IN THIS CONSULTATION:
                           </span>
                           <ul className="space-y-2.5">
                             {tier.features.map((feature, fIdx) => (
                               <li
                                 key={fIdx}
-                                className="flex items-start gap-2.5 text-xs sm:text-sm text-[#1A1A1A] font-montserrat font-normal leading-snug"
+                                className="flex items-start gap-2.5 text-sm sm:text-sm text-[#1A1A1A] font-montserrat font-normal leading-snug"
                               >
                                 <Check className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" strokeWidth={2} />
                                 <span>{feature}</span>
@@ -159,9 +165,9 @@ export const ConsultationPricingSection: React.FC<ConsultationPricingSectionProp
                     whileHover={{ y: -1 }}
                     whileTap={{ scale: 0.98 }}
                     transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-full group inline-flex items-center justify-between gap-3 pl-6 pr-2 py-2 rounded-full bg-accent text-white hover:bg-accent-strong transition-all duration-300 shadow-[0_4px_16px_rgba(4,74,163,0.28)] hover:shadow-[0_6px_22px_rgba(3,59,133,0.36)] cursor-pointer select-none"
+                    className="w-full group inline-flex items-center justify-between gap-3 pl-6 pr-2 py-2.5 rounded-full bg-accent text-white hover:bg-accent-strong transition-all duration-300 shadow-[0_4px_16px_rgba(4,74,163,0.28)] hover:shadow-[0_6px_22px_rgba(3,59,133,0.36)] cursor-pointer select-none min-h-[46px]"
                   >
-                    <span className="font-montserrat text-xs sm:text-sm font-semibold tracking-wide mx-auto">
+                    <span className="font-montserrat text-sm sm:text-sm font-semibold tracking-wide mx-auto">
                       Select & Schedule
                     </span>
                     <span className="w-8 h-8 rounded-full bg-white/20 group-hover:bg-white/30 flex items-center justify-center transition-all duration-300 flex-shrink-0">
