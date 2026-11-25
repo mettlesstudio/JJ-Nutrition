@@ -10,26 +10,36 @@ interface ServicesOverviewSectionProps {
 
 // Curated botanical and nutritional artwork for the 10 clinical protocols
 const PROTOCOL_IMAGES: Record<string, string> = {
+  // 01 Heart Health: Mediterranean omega-3 / avocado / seeds / olive oil
   'cardiovascular-combo':
-    'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1200&q=80',
+  // 02 Detox and Weight Loss: Raw rainbow metabolic detox greens & vegetables
   'detox-weight-loss':
     'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1200&q=80',
+  // 03 Bone Health: Calcium-dense dark leafy greens, legumes & mineral-rich whole foods
   'bone-health':
-    'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1200&q=80',
+  // 04 Energy Enhancement: Sun-drenched sliced golden citrus & oranges for mitochondrial vitality
   'energy-enhancement':
-    'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1582979512210-99b6a53386f9?auto=format&fit=crop&w=1200&q=80',
+  // 05 Insomnia Support: Serene linen bedroom ambiance & peaceful evening sleep calm (no animals)
   'insomnia-support':
-    'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1200&q=80',
+  // 06 Anxiety Support: Soothing herbal chamomile tea with lavender blossoms & calming botanicals
   'anxiety-support':
-    'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1514733670139-4d87a1941d55?auto=format&fit=crop&w=1200&q=80',
+  // 07 Ulcer Management & Healing: Warm restorative mucosal-soothing broth with fresh herbs & seeds
   'ulcer-healing':
-    'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1200&q=80',
+  // 08 Alcohol Weaning Support: Crystal glass of sparkling water infused with fresh lemon, lime & mint
   'alcohol-weaning':
-    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=1200&q=80',
+  // 09 Iron Deficiency / Anaemia: Sliced ruby pomegranates brimming with iron & cellular antioxidants
   'iron-deficiency':
-    'https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1541344999736-83eca272f6fc?auto=format&fit=crop&w=1200&q=80',
+  // 10 Prostate Health: Fresh vine-ripened red tomatoes rich in cellular protective lycopene
   'prostate-health':
-    'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=1200&q=80',
 };
 
 // Tailored concise copy for mobile screens to eliminate in-card scrolling

@@ -6,6 +6,7 @@ import { BlogPage } from './pages/BlogPage';
 import { BookingModal } from './components/booking/BookingModal';
 import { GlobalFallingScientificElements } from './components/decorative/GlobalFallingScientificElements';
 import { MaintenancePage } from './components/pages/MaintenancePage';
+import { AdminPage } from './pages/AdminPage';
 
 function MainWebsite() {
   const [route, setRoute] = useState<string>(() => {
@@ -13,6 +14,12 @@ function MainWebsite() {
       const path = window.location.pathname.toLowerCase();
       if (path === '/blogs' || path === '/blog') {
         return '/blogs';
+      }
+      if (path === '/admin') {
+        return '/admin';
+      }
+      if (window.location.hash.toLowerCase() === '#admin') {
+        return '/admin';
       }
       return '/';
     }
@@ -42,6 +49,8 @@ function MainWebsite() {
       const path = (window.location.pathname || '/').toLowerCase();
       if (path === '/blogs' || path === '/blog') {
         setRoute('/blogs');
+      } else if (path === '/admin' || window.location.hash.toLowerCase() === '#admin') {
+        setRoute('/admin');
       } else {
         setRoute('/');
         const hash = window.location.hash.replace('#', '');
@@ -55,6 +64,11 @@ function MainWebsite() {
 
     // Initial check for hash or retired section paths
     const initialPath = window.location.pathname.toLowerCase();
+    
+    if (initialPath === '/admin' || window.location.hash.toLowerCase() === '#admin') {
+      setRoute('/admin');
+      return;
+    }
     
     // Always start at Hero section (top: 0) on initial load or refresh of root homepage
     if (initialPath === '/' && !window.location.hash) {
@@ -91,6 +105,13 @@ function MainWebsite() {
       setRoute('/blogs');
       window.history.pushState({}, '', '/blogs');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (normalized === '/admin') {
+      setRoute('/admin');
+      window.history.pushState({}, '', '/admin');
+      window.scrollTo({ top: 0, behavior: 'instant' });
       return;
     }
 
@@ -134,6 +155,16 @@ function MainWebsite() {
         );
     }
   };
+
+  if (route === '/admin') {
+    return (
+      <AdminPage
+        onNavigateHome={() => {
+          handleRouteChange('/');
+        }}
+      />
+    );
+  }
 
   return (
     <div

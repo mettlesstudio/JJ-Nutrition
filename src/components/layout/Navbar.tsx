@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { X, ArrowUpRight } from 'lucide-react';
 
 interface NavbarProps {
   currentRoute: string;
@@ -342,162 +342,216 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onRouteChange, onO
       </nav>
 
       {/* ============================================================== */}
-      {/* 3. TOP-RIGHT: CIRCULAR FLOATING GLASS BURGER BUTTON (Mobile Only) */}
+      {/* 3. TOP-RIGHT: LIQUID GLASS MOBILE BURGER BUTTON (< md / 768px) */}
       {/* Strictly mobile (< 768px). Hidden on iPad and desktop.         */}
       {/* ============================================================== */}
       <motion.button
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        onClick={() => setMenuOpen(true)}
-        aria-label="Open navigation menu"
-        className="fixed z-50 w-11 h-11 sm:w-12 sm:h-12 md:hidden rounded-full flex items-center justify-center bg-white/75 hover:bg-white/95 active:scale-95 backdrop-blur-xl border border-white/80 shadow-[0_4px_20px_rgba(16,36,61,0.08)] text-[#10243D] cursor-pointer transition-all duration-200 select-none group focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        onClick={() => setMenuOpen((prev) => !prev)}
+        aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+        className="fixed z-50 md:hidden w-10 h-10 rounded-full flex items-center justify-center bg-white/55 hover:bg-white/80 active:scale-95 backdrop-blur-xl border border-white/70 shadow-[0_8px_24px_rgba(4,74,163,0.12),inset_0_1px_0_rgba(255,255,255,0.85)] text-[#10243D] cursor-pointer transition-all duration-200 select-none group focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         style={{
-          top: 'max(1.25rem, calc(env(safe-area-inset-top, 0px) + 0.85rem))',
-          right: 'max(1.25rem, calc(env(safe-area-inset-right, 0px) + 1.25rem))',
+          top: 'max(1rem, calc(env(safe-area-inset-top, 0px) + 0.75rem))',
+          right: 'max(1rem, calc(env(safe-area-inset-right, 0px) + 0.75rem))',
         }}
       >
-        <Menu className="w-5 h-5 text-[#10243D] transition-transform duration-200 group-hover:scale-110" />
+        <div className="w-4 h-3.5 flex flex-col justify-between items-center relative pointer-events-none">
+          <motion.span
+            animate={{
+              rotate: menuOpen ? 45 : 0,
+              y: menuOpen ? 6 : 0,
+            }}
+            transition={{ type: 'spring', duration: 0.4, bounce: 0 }}
+            className="w-4 h-[1.75px] bg-[#044AA3] rounded-full origin-center"
+          />
+          <motion.span
+            animate={{
+              opacity: menuOpen ? 0 : 1,
+              x: menuOpen ? 6 : 0,
+            }}
+            transition={{ duration: 0.2 }}
+            className="w-2.5 h-[1.75px] bg-[#044AA3] rounded-full self-start"
+          />
+          <motion.span
+            animate={{
+              rotate: menuOpen ? -45 : 0,
+              y: menuOpen ? -6 : 0,
+              width: menuOpen ? 16 : 13,
+            }}
+            transition={{ type: 'spring', duration: 0.4, bounce: 0 }}
+            className="w-3.5 h-[1.75px] bg-[#044AA3] rounded-full origin-center self-end"
+          />
+        </div>
       </motion.button>
 
       {/* ============================================================== */}
-      {/* 4. NAVIGATION DRAWER (Full-screen Glassmorphic Menu, Mobile Only) */}
-      {/* Preserves all destinations, staggered reveal, & consultation CTA */}
+      {/* 4. MOBILE SIDEBAR NAVIGATION DRAWER (< md / < 768px)           */}
+      {/* Framer-inspired spring mechanics, JJ Nutrition luxury paper   */}
       {/* ============================================================== */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-50 bg-white/95 backdrop-blur-2xl flex flex-col justify-between overflow-y-auto md:hidden"
-            style={{
-              paddingTop: 'max(2rem, calc(env(safe-area-inset-top, 0px) + 1.5rem))',
-              paddingBottom: 'max(1.5rem, calc(env(safe-area-inset-bottom, 0px) + 1.5rem))',
-              paddingLeft: 'max(1.5rem, calc(env(safe-area-inset-left, 0px) + 1.5rem))',
-              paddingRight: 'max(1.5rem, calc(env(safe-area-inset-right, 0px) + 1.5rem))',
-            }}
-          >
-            {/* Top Bar inside Drawer: Logo on left, Circular Close button on right */}
-            <div className="flex items-center justify-between w-full max-w-4xl mx-auto mb-6 sm:mb-8">
-              <button
-                onClick={() => handleNavClick(navLinks[0])}
-                aria-label="JJ Nutrition Home"
-                className="cursor-pointer focus:outline-none"
-              >
-                <img
-                  src="/newlogo-transparent.png"
-                  alt="JJ Nutrition Logo"
-                  className="w-[58px] h-[58px] sm:w-[68px] sm:h-[68px] object-contain"
-                />
-              </button>
-
-              <button
-                onClick={() => setMenuOpen(false)}
-                aria-label="Close navigation menu"
-                className="w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-white/80 hover:bg-white active:scale-95 backdrop-blur-xl border border-white shadow-[0_4px_20px_rgba(16,36,61,0.1)] text-[#10243D] cursor-pointer transition-all focus:outline-none"
-              >
-                <X className="w-5 h-5 text-[#10243D]" />
-              </button>
-            </div>
-
-            {/* Staggered Navigation List (01 through 08, right-aligned) */}
+          <>
+            {/* Backdrop Fade & Blur */}
             <motion.div
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              variants={{
-                hidden: { opacity: 0 },
-                visible: {
-                  opacity: 1,
-                  transition: {
-                    staggerChildren: 0.045,
-                    delayChildren: 0.05,
-                  },
-                },
-                exit: {
-                  opacity: 0,
-                  transition: {
-                    staggerChildren: 0.02,
-                    staggerDirection: -1,
-                  },
-                },
-              }}
-              className="w-full max-w-2xl mx-auto flex flex-col space-y-1 my-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              onClick={() => setMenuOpen(false)}
+              className="fixed inset-0 z-50 bg-[#10243D]/25 backdrop-blur-sm md:hidden"
+            />
+
+            {/* Slide-out Sidebar Panel */}
+            <motion.aside
+              initial={{ x: '100%' }}
+              animate={{ x: '0%' }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', duration: 0.4, bounce: 0 }}
+              className="fixed top-0 right-0 z-50 w-[86vw] max-w-[360px] h-[100dvh] bg-[#F7F6F2]/95 backdrop-blur-2xl border-l border-white/70 shadow-[-16px_0_48px_rgba(4,74,163,0.16)] flex flex-col justify-between overflow-hidden md:hidden select-none"
             >
-              {navLinks.map((link) => {
-                const isSelected = getIsActive(link);
-                return (
-                  <motion.button
-                    key={link.name}
-                    variants={{
-                      hidden: { opacity: 0, x: 25 },
-                      visible: {
-                        opacity: 1,
-                        x: 0,
-                        transition: {
-                          duration: 0.3,
-                          ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
-                        },
+              {/* Background Linework & Subtle DNA Texture Layers */}
+              <div
+                className="absolute inset-0 pointer-events-none opacity-40 z-0 bg-repeat"
+                style={{
+                  backgroundImage: `url('/white-wall-textures.webp')`,
+                  backgroundSize: '400px 400px',
+                }}
+              />
+              <div
+                className="absolute -right-20 top-1/4 w-72 h-72 opacity-[0.06] pointer-events-none z-0 bg-contain bg-no-repeat rotate-45 select-none"
+                style={{ backgroundImage: `url('/dnapattern.png')` }}
+              />
+              <div
+                className="absolute -left-20 bottom-16 w-72 h-72 opacity-[0.05] pointer-events-none z-0 bg-contain bg-no-repeat -rotate-12 select-none"
+                style={{ backgroundImage: `url('/dnapattern.png')` }}
+              />
+
+              {/* Header inside Drawer: Clean Right-Aligned Glass Circular Close (×) Button */}
+              <div
+                className="relative z-10 flex items-center justify-end px-5 pb-2 pt-3"
+                style={{
+                  paddingTop: 'max(1.15rem, calc(env(safe-area-inset-top, 0px) + 0.75rem))',
+                }}
+              >
+                <button
+                  onClick={() => setMenuOpen(false)}
+                  aria-label="Close navigation menu"
+                  className="w-10 h-10 rounded-full flex items-center justify-center bg-white/75 hover:bg-white active:scale-95 backdrop-blur-xl border border-white/80 shadow-[0_4px_16px_rgba(4,74,163,0.1)] text-[#10243D] cursor-pointer transition-all focus:outline-none"
+                >
+                  <X className="w-5 h-5 text-[#10243D]" />
+                </button>
+              </div>
+
+              {/* Navigation Items with Staggered Entrance & Pill-Shaped Active Highlight */}
+              <div className="relative z-10 flex-1 overflow-y-auto px-4 py-2 flex flex-col justify-center">
+                <div className="text-[11px] font-semibold text-[#60748A] uppercase tracking-wider px-4 mb-2.5 font-montserrat">
+                  Navigation
+                </div>
+
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: {
+                      opacity: 1,
+                      transition: {
+                        staggerChildren: 0.04,
+                        delayChildren: 0.08,
                       },
-                      exit: {
-                        opacity: 0,
-                        x: 16,
-                        transition: {
-                          duration: 0.2,
-                          ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
-                        },
+                    },
+                    exit: {
+                      opacity: 0,
+                      transition: {
+                        staggerChildren: 0.02,
+                        staggerDirection: -1,
                       },
-                    }}
-                    onClick={() => handleNavClick(link)}
-                    className={`w-full text-right py-3 sm:py-3.5 px-3 flex items-center justify-end gap-3.5 sm:gap-4 border-b border-[#CDE0F3]/70 cursor-pointer group select-none transition-colors ${
-                      isSelected
-                        ? 'text-accent'
-                        : 'text-[#10243D] hover:text-accent'
-                    }`}
-                  >
-                    <div className="flex items-baseline justify-end gap-3.5 sm:gap-4">
-                      <span className="font-mono text-sm sm:text-sm text-[#60748A] group-hover:text-accent transition-colors flex-shrink-0">
-                        {link.number}
-                      </span>
-                      <span
-                        className={`font-montserrat text-lg sm:text-2xl tracking-tight transition-colors ${
-                          isSelected
-                            ? 'font-medium text-accent'
-                            : 'font-normal text-[#10243D] group-hover:text-accent'
+                    },
+                  }}
+                  className="flex flex-col space-y-1.5"
+                >
+                  {navLinks.map((link) => {
+                    const isSelected = getIsActive(link);
+                    return (
+                      <motion.button
+                        key={link.name}
+                        variants={{
+                          hidden: { opacity: 0, y: 20 },
+                          visible: {
+                            opacity: 1,
+                            y: 0,
+                            transition: {
+                              type: 'spring',
+                              duration: 0.4,
+                              bounce: 0,
+                            },
+                          },
+                          exit: {
+                            opacity: 0,
+                            y: 12,
+                            transition: {
+                              duration: 0.2,
+                            },
+                          },
+                        }}
+                        onClick={() => handleNavClick(link)}
+                        className={`relative w-full text-left py-2.5 sm:py-3 px-5 rounded-full flex items-center justify-between cursor-pointer group select-none transition-colors duration-200 ${
+                          isSelected ? 'text-white font-medium' : 'text-[#10243D] hover:text-[#044AA3]'
                         }`}
                       >
-                        {link.name}
-                      </span>
-                    </div>
-                    <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-accent flex-shrink-0" />
-                  </motion.button>
-                );
-              })}
+                        {isSelected && (
+                          <motion.div
+                            layoutId="mobileNavActivePill"
+                            className="absolute inset-0 bg-[#044AA3] rounded-full shadow-[0_4px_16px_rgba(4,74,163,0.32)] z-0"
+                            transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                          />
+                        )}
 
-              {/* Book Consultation button: DIRECTLY UNDERNEATH CONTACT */}
-              <motion.div
-                variants={{
-                  hidden: { opacity: 0, y: 15 },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: {
-                      duration: 0.3,
-                      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
-                    },
-                  },
-                  exit: {
-                    opacity: 0,
-                    y: 10,
-                    transition: {
-                      duration: 0.2,
-                      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
-                    },
-                  },
+                        <div className="relative z-10 flex items-center gap-3.5">
+                          <span
+                            className={`font-mono text-xs sm:text-sm font-semibold tracking-wider ${
+                              isSelected
+                                ? 'text-white/80'
+                                : 'text-[#60748A] group-hover:text-[#044AA3] transition-colors'
+                            }`}
+                          >
+                            {link.number}
+                          </span>
+                          <span
+                            className={`font-montserrat text-lg sm:text-xl tracking-tight ${
+                              isSelected
+                                ? 'font-semibold text-white'
+                                : 'font-medium text-[#10243D] group-hover:text-[#044AA3] transition-colors'
+                            }`}
+                          >
+                            {link.name}
+                          </span>
+                        </div>
+
+                        <div className="relative z-10 flex items-center">
+                          <ArrowUpRight
+                            className={`w-4 h-4 sm:w-5 sm:h-5 transition-all duration-200 ${
+                              isSelected
+                                ? 'text-white opacity-95'
+                                : 'text-[#60748A] opacity-30 group-hover:opacity-100 group-hover:text-[#044AA3] group-hover:translate-x-0.5 group-hover:-translate-y-0.5'
+                            }`}
+                          />
+                        </div>
+                      </motion.button>
+                    );
+                  })}
+                </motion.div>
+              </div>
+
+              {/* Drawer Footer: Book Consultation CTA & Telehealth Contact */}
+              <div
+                className="relative z-10 px-5 pt-3 pb-6 border-t border-[#CDE0F3]/60 bg-white/40 backdrop-blur-md flex flex-col gap-3"
+                style={{
+                  paddingBottom: 'max(1.5rem, calc(env(safe-area-inset-bottom, 0px) + 1.25rem))',
                 }}
-                className="pt-6 sm:pt-8"
               >
                 <button
                   onClick={() => {
@@ -508,21 +562,26 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onRouteChange, onO
                       handleNavClick({ name: 'Consultations', route: '/', sectionId: 'consultations' });
                     }
                   }}
-                  className="w-full py-3.5 sm:py-4 px-6 rounded-full bg-accent text-white hover:bg-accent-strong text-center text-base sm:text-base font-semibold tracking-wide flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(4,74,163,0.32)] transition-all cursor-pointer font-montserrat active:scale-[0.99]"
+                  className="w-full py-3.5 px-5 rounded-full bg-[#044AA3] hover:bg-[#033B82] active:scale-[0.98] text-white font-montserrat text-sm font-semibold tracking-wide flex items-center justify-center gap-2 shadow-[0_6px_20px_rgba(4,74,163,0.32)] transition-all cursor-pointer"
                 >
                   <span>Book Consultation</span>
-                  <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <ArrowUpRight className="w-4 h-4" />
                 </button>
-              </motion.div>
-            </motion.div>
 
-            {/* Footer inside Drawer */}
-            <div className="w-full max-w-2xl mx-auto text-center pt-4">
-              <p className="text-sm sm:text-xs text-[#60748A] font-montserrat">
-                © 2026 JJ Nutrition. Directed by Practitioner Selvi, RDN. All rights reserved.
-              </p>
-            </div>
-          </motion.div>
+                <div className="flex flex-col items-center gap-1 text-center">
+                  <a
+                    href="mailto:info@jjnutrition.com.au"
+                    className="text-xs text-[#044AA3] font-medium font-montserrat hover:underline flex items-center gap-1.5"
+                  >
+                    <span>info@jjnutrition.com.au</span>
+                  </a>
+                  <span className="text-[10px] text-[#60748A] font-montserrat">
+                    Practitioner Selvi, RDN • Clinical Telehealth
+                  </span>
+                </div>
+              </div>
+            </motion.aside>
+          </>
         )}
       </AnimatePresence>
     </>

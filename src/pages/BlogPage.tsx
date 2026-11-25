@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { ArrowUpRight, X, Sparkles, BookOpen } from 'lucide-react';
+import { ArrowUpRight, X, Sparkles, BookOpen, Volume2, VolumeX } from 'lucide-react';
 import { CLINICAL_BLOGS, CLINICAL_EDUCATION, ClinicalArticle } from '../data/clinicalData';
+import { FannedCardDeck } from '../components/blog/FannedCardDeck';
+import { EdgeDecorItem } from '../components/decorative/FloatingDecorItem';
 
 interface BlogPageProps {
   onBookNow: () => void;
@@ -11,6 +13,8 @@ interface BlogPageProps {
 export const BlogPage: React.FC<BlogPageProps> = ({ onBookNow }) => {
   const [activeTab, setActiveTab] = useState<'blogs' | 'education'>('blogs');
   const [selectedArticle, setSelectedArticle] = useState<ClinicalArticle | null>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
 
   // Active articles list
@@ -42,15 +46,143 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBookNow }) => {
   }, [selectedArticle]);
 
   return (
-    <main className="pt-24 sm:pt-28 md:pt-32 pb-20 sm:pb-28 relative min-h-screen">
-      {/* Background Subtle DNA Linework Texture */}
+    <main className="pt-24 sm:pt-28 md:pt-32 pb-20 sm:pb-28 relative min-h-screen overflow-x-clip bg-transparent">
+      {/* Background DNA Pattern - Top of Page (Shifted down below Hero Video on Education tab) */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.045] bg-repeat bg-center"
+        aria-hidden="true"
+        className={`absolute left-0 right-0 w-full h-[650px] sm:h-[850px] pointer-events-none select-none z-[1] transition-all duration-500 ${
+          activeTab === 'education'
+            ? 'top-[42vh] sm:top-[52vh] md:top-[560px]'
+            : 'top-0'
+        }`}
         style={{
           backgroundImage: `url('/dnapattern.png')`,
-          backgroundSize: '400px auto',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
+          backgroundRepeat: 'no-repeat',
         }}
+      />
+
+      {/* Background DNA Pattern - Bottom of Page directly above Footer (Flipped vertically scale-y-[-1], Crisp visibility) */}
+      <div
         aria-hidden="true"
+        className="absolute bottom-0 left-0 right-0 w-full h-[650px] sm:h-[850px] pointer-events-none select-none z-[1] scale-y-[-1]"
+        style={{
+          backgroundImage: `url('/dnapattern.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center bottom',
+          backgroundRepeat: 'no-repeat',
+          transform: 'scaleY(-1)',
+        }}
+      />
+
+      {/* ============================================================== */}
+      {/* 0. EDUCATION TAB ONLY: FULL-WIDTH HERO VIDEO SECTION           */}
+      {/* ============================================================== */}
+      {activeTab === 'education' && (
+        <div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[68vh] max-h-[620px] -mt-24 sm:-mt-28 md:-mt-32 mb-8 sm:mb-12 overflow-hidden bg-black select-none z-10">
+          {/* Full-width Nutrition / Wellness Video */}
+          <video
+            ref={videoRef}
+            src="/videos/hero-nutrition.mp4"
+            autoPlay
+            loop
+            playsInline
+            muted={isMuted}
+            controls={false}
+            className="w-full h-full object-cover"
+          />
+
+          {/* Top subtle scrim for navbar visibility */}
+          <div
+            className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/60 via-black/20 to-transparent pointer-events-none z-10"
+            aria-hidden="true"
+          />
+
+          {/* Tall Multi-stop Gradient Fade along Bottom dissolving into Page Base */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-44 sm:h-56 md:h-64 bg-gradient-to-b from-transparent via-[#F7F6F2]/75 to-[#F7F6F2] pointer-events-none z-10"
+            aria-hidden="true"
+          />
+
+          {/* Minimalist Frosted Circular Mute/Unmute Control in Bottom-Right Corner */}
+          <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 z-20">
+            <button
+              type="button"
+              onClick={() => {
+                const nextMuted = !isMuted;
+                setIsMuted(nextMuted);
+                if (videoRef.current) {
+                  videoRef.current.muted = nextMuted;
+                }
+              }}
+              aria-label={isMuted ? 'Unmute video audio' : 'Mute video audio'}
+              className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/85 hover:bg-white backdrop-blur-md border border-white/60 text-[#044AA3] shadow-[0_8px_24px_rgba(0,0,0,0.22)] flex items-center justify-center transition-all duration-300 cursor-pointer active:scale-95 group"
+            >
+              {isMuted ? (
+                <VolumeX className="w-5 h-5 transition-transform group-hover:scale-110" />
+              ) : (
+                <Volume2 className="w-5 h-5 transition-transform group-hover:scale-110" />
+              )}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ============================================================== */}
+      {/* DECORATIVE 1/4 SCREEN-EDGE NUTRITION PNGs                     */}
+      {/* Topmost content layer z-40 (overlapping edges cleanly)         */}
+      {/* ============================================================== */}
+      {/* 1. Top-Right: Berry & Seed Bowl Cluster beside header / toggle */}
+      <EdgeDecorItem
+        side="right"
+        top={activeTab === 'education' ? 'top-[48vh] sm:top-[58vh] md:top-[620px]' : 'top-16 sm:top-24 md:top-28'}
+        src="/images/floating/cluster-berries-seeds.png"
+        alt="Citrus, seed and botanical bowl cluster"
+        initialRotate={-14}
+        duration={5.4}
+        delay={0.2}
+        sizeClass="w-24 sm:w-32 md:w-44 lg:w-52"
+        zIndexClass="z-40"
+      />
+
+      {/* 2. Mid-Left: Ginger, Turmeric & Star Anise cluster beside featured card */}
+      <EdgeDecorItem
+        side="left"
+        top="top-[28%] sm:top-[30%]"
+        src="/images/floating/cluster-roots-citrus.png"
+        alt="Ginger, turmeric, star anise and blood orange roots cluster"
+        initialRotate={16}
+        duration={4.9}
+        delay={0.6}
+        sizeClass="w-24 sm:w-32 md:w-44 lg:w-52"
+        zIndexClass="z-40"
+      />
+
+      {/* 3. Lower-Right: Apothecary Herbs & Botanicals flanking fanned carousel */}
+      <EdgeDecorItem
+        side="right"
+        top="top-[62%] sm:top-[64%]"
+        src="/images/floating/cluster-apothecary-herbs.png"
+        alt="Clinical apothecary herbs and botanical mortar"
+        initialRotate={-18}
+        duration={5.8}
+        delay={0.4}
+        sizeClass="w-24 sm:w-32 md:w-44 lg:w-52"
+        zIndexClass="z-40"
+      />
+
+      {/* 4. Lower-Left: Fresh Avocado & Dark Greens cluster flanking lower deck */}
+      <EdgeDecorItem
+        side="left"
+        top="top-[78%] sm:top-[80%]"
+        src="/images/floating/cluster-avocado-greens.png"
+        alt="Fresh avocado and nutrient-dense greens cluster"
+        initialRotate={12}
+        duration={5.1}
+        delay={0.8}
+        sizeClass="w-24 sm:w-32 md:w-44 lg:w-52"
+        zIndexClass="z-40"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -58,18 +190,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBookNow }) => {
         {/* 1. HEADER & INTERACTIVE PILL SWITCHER                         */}
         {/* ============================================================== */}
         <div className="text-center pt-2 sm:pt-6 mb-8 sm:mb-12">
-          {/* Eyebrow Badge */}
-          <motion.div
-            initial={shouldReduceMotion ? {} : { opacity: 0, y: -10 }}
-            animate={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#E8F5FC] border border-[#D0E0F2] text-[#044AA3] text-xs font-semibold tracking-wider uppercase font-montserrat mb-4"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-[#044AA3]" />
-            Evidence-Based Clinical Knowledge
-          </motion.div>
-
-          {/* Large Section Heading */}
+          {/* Large Section Heading (Top pill badge removed per user request) */}
           <motion.h1
             initial={shouldReduceMotion ? {} : { opacity: 0, y: 16 }}
             animate={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
@@ -216,11 +337,11 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBookNow }) => {
             </div>
 
             {/* ============================================================== */}
-            {/* 3. GRID SECTION BELOW FEATURED CARD (Other Blogs / Education)  */}
+            {/* 3. FANNED CARD DECK (Other Blogs / Education Carousel)         */}
             {/* ============================================================== */}
-            <div className="pt-8 sm:pt-14 pb-12 sm:pb-20 border-t border-[#DCE8F1]">
+            <div className="pt-8 sm:pt-14 pb-12 sm:pb-20 border-t border-[#DCE8F1] overflow-x-clip">
               {/* Section Heading & Subtitle */}
-              <div className="text-center mb-10 sm:mb-14">
+              <div className="text-center mb-8 sm:mb-12">
                 <h2 className="font-heading font-medium italic text-3xl sm:text-4xl md:text-5xl text-[#10243D] leading-tight mb-3">
                   {activeTab === 'blogs' ? 'Other Blogs' : 'Other Education'}
                 </h2>
@@ -229,52 +350,11 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBookNow }) => {
                 </p>
               </div>
 
-              {/* 3-Column Responsive Card Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 sm:gap-8 lg:gap-10">
-                {gridItems.map((item, idx) => (
-                  <motion.article
-                    key={item.id}
-                    initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }}
-                    whileInView={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.15 }}
-                    transition={{
-                      delay: shouldReduceMotion ? 0 : idx * 0.06,
-                      duration: 0.45,
-                      ease: [0.16, 1, 0.3, 1],
-                    }}
-                    onClick={() => setSelectedArticle(item)}
-                    className="group cursor-pointer flex flex-col justify-between"
-                  >
-                    <div>
-                      {/* Rounded Landscape Thumbnail */}
-                      <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-slate-100 shadow-sm border border-[#CDE0F3]/70 mb-4">
-                        <img
-                          src={item.image}
-                          alt={item.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-600 ease-out"
-                          loading="lazy"
-                        />
-                        {/* Frosted Top-Left Pill Badge */}
-                        <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[#044AA3] text-xs font-semibold shadow-xs border border-white/60">
-                          {item.category}
-                        </div>
-                      </div>
-
-                      {/* Left-Aligned Title */}
-                      <h3 className="font-heading font-medium text-lg sm:text-xl text-[#10243D] group-hover:text-[#044AA3] transition-colors leading-snug mb-2 line-clamp-2">
-                        {item.title}
-                      </h3>
-                    </div>
-
-                    {/* Date / Read Time Caption */}
-                    <p className="text-xs text-[#60748A] font-montserrat mt-2 flex items-center gap-2">
-                      <span>{item.date}</span>
-                      <span>•</span>
-                      <span>{item.readTime}</span>
-                    </p>
-                  </motion.article>
-                ))}
-              </div>
+              {/* Fanned Overlapping Card Deck Carousel */}
+              <FannedCardDeck
+                items={gridItems}
+                onSelectArticle={(article) => setSelectedArticle(article)}
+              />
             </div>
           </motion.div>
         </AnimatePresence>
@@ -308,99 +388,113 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBookNow }) => {
               transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
               className="relative w-full max-w-3xl bg-white rounded-3xl shadow-[0_24px_70px_rgba(16,36,61,0.22)] border border-[#CDE0F3] overflow-hidden z-10 flex flex-col max-h-[92dvh] sm:max-h-[88vh]"
             >
-              {/* Header Image Arch */}
-              <div className="relative h-48 sm:h-60 w-full overflow-hidden bg-[#044AA3] flex-shrink-0">
+              {/* Header Image Arch with Multi-stop Gradient Fade into White */}
+              <div className="relative h-64 sm:h-72 md:h-80 w-full overflow-hidden flex-shrink-0 bg-[#044AA3]">
                 <img
                   src={selectedArticle.image}
                   alt={selectedArticle.title}
-                  className="w-full h-full object-cover opacity-90"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B192C]/80 via-transparent to-transparent" />
 
-                {/* Close Button */}
+                {/* Multi-stop gradient fade dissolving image into the white modal background */}
+                <div
+                  className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent pointer-events-none"
+                  aria-hidden="true"
+                />
+                <div
+                  className="absolute inset-x-0 bottom-0 h-44 sm:h-52 bg-gradient-to-b from-transparent via-white/70 via-55% to-white pointer-events-none"
+                  aria-hidden="true"
+                />
+
+                {/* Floating Close Button */}
                 <button
                   type="button"
                   onClick={() => setSelectedArticle(null)}
-                  className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-[#10243D] transition-all flex items-center justify-center cursor-pointer shadow-md border border-white/60 z-20 active:scale-95"
+                  className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-[#10243D] transition-all flex items-center justify-center cursor-pointer shadow-md border border-white/60 z-30 active:scale-95"
                   aria-label="Close article modal"
                 >
                   <X className="w-4 h-4" />
                 </button>
 
-                {/* Category & Read Time Pills */}
-                <div className="absolute bottom-4 left-5 sm:left-7 flex items-center gap-2 flex-wrap">
-                  <span className="px-3 py-1 rounded-full bg-white/95 text-[#044AA3] text-xs font-semibold shadow-xs">
-                    {selectedArticle.category}
-                  </span>
-                  <span className="px-3 py-1 rounded-full bg-black/40 text-white text-xs backdrop-blur-sm">
-                    {selectedArticle.readTime} • {selectedArticle.date}
-                  </span>
+                {/* Category & Read Time Pills + Main Heading inside the lower fading transition zone */}
+                <div className="absolute inset-x-0 bottom-0 z-20 px-5 sm:px-8 pb-3 text-center flex flex-col items-center justify-end">
+                  {/* Category & Read Time Pills */}
+                  <div className="flex items-center justify-center gap-2 mb-2.5 flex-wrap">
+                    <span className="px-3.5 py-1 rounded-full bg-[#E8F5FC]/95 backdrop-blur-md text-[#044AA3] text-xs font-semibold shadow-xs border border-[#CDE0F3]">
+                      {selectedArticle.category}
+                    </span>
+                    <span className="px-3 py-1 rounded-full bg-white/85 backdrop-blur-md text-[#60748A] text-xs font-medium border border-[#DCE8F1] shadow-xs">
+                      {selectedArticle.readTime} • {selectedArticle.date}
+                    </span>
+                  </div>
+
+                  {/* Main Article/Guide Heading */}
+                  <h2
+                    id="article-modal-title"
+                    className="font-heading font-medium italic text-2xl sm:text-3xl md:text-4xl text-[#10243D] leading-tight text-center max-w-2xl mx-auto drop-shadow-xs"
+                  >
+                    {selectedArticle.title}
+                  </h2>
                 </div>
               </div>
 
-              {/* Scrollable Article Body */}
-              <div className="p-5 sm:p-7 lg:p-8 overflow-y-auto space-y-6 text-[#1A1A1A] font-montserrat leading-relaxed flex-1">
-                {/* Title */}
-                <h2
-                  id="article-modal-title"
-                  className="font-heading font-medium italic text-2xl sm:text-3xl text-[#10243D] leading-snug"
-                >
-                  {selectedArticle.title}
-                </h2>
-
-                {/* Author Card */}
-                <div className="flex items-center gap-3 py-3 border-y border-[#DCE8F1]">
-                  <div className="w-8 h-8 rounded-full bg-[#044AA3] text-white flex items-center justify-center font-bold text-xs">
-                    S
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-[#10243D]">{selectedArticle.author}</p>
-                    <p className="text-xs text-[#60748A]">{selectedArticle.authorRole}</p>
-                  </div>
-                </div>
-
-                {/* Article Paragraphs */}
-                <div className="space-y-4 text-base text-[#333333] leading-relaxed">
+              {/* Scrollable Article Body - All Center-Aligned */}
+              <div className="p-6 sm:p-8 lg:p-10 overflow-y-auto space-y-6 text-[#1A1A1A] font-montserrat leading-relaxed flex-1 text-center">
+                {/* Article Paragraphs - Center-Aligned */}
+                <div className="space-y-4 text-base text-[#333333] leading-relaxed max-w-2xl mx-auto text-center">
                   {selectedArticle.content.map((paragraph, i) => (
                     <p key={i}>{paragraph}</p>
                   ))}
                 </div>
 
-                {/* Key Clinical Takeaways Callout */}
-                <div className="p-5 sm:p-6 rounded-2xl bg-[#E8F5FC] border border-[#D0E0F2]">
-                  <h4 className="font-montserrat text-xs uppercase font-bold tracking-wider text-[#044AA3] mb-3">
+                {/* Key Clinical Takeaways Callout - Center-Aligned */}
+                <div className="p-5 sm:p-6 rounded-2xl bg-[#E8F5FC] border border-[#D0E0F2] max-w-2xl mx-auto text-center">
+                  <h4 className="font-montserrat text-xs uppercase font-bold tracking-wider text-[#044AA3] mb-3 text-center">
                     Key Clinical Takeaways:
                   </h4>
-                  <ul className="space-y-2.5">
+                  <ul className="space-y-2 text-center flex flex-col items-center">
                     {selectedArticle.keyTakeaways.map((takeaway, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm text-[#10243D]">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#044AA3] mt-2 flex-shrink-0" />
+                      <li key={i} className="flex items-center justify-center gap-2 text-sm text-[#10243D] max-w-xl text-center">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#044AA3] flex-shrink-0" />
                         <span>{takeaway}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                {/* Consultation Booking CTA Card */}
-                <div className="p-5 sm:p-6 rounded-2xl bg-[#F3F9FD] border border-[#DCE8F1] flex items-center justify-between flex-wrap gap-4 mt-6">
-                  <div>
-                    <p className="text-base font-semibold text-[#10243D] font-heading italic">
-                      Need individualized clinical guidance?
-                    </p>
-                    <p className="text-xs text-[#60748A] font-montserrat">
-                      Author your personalized nutritional protocol with Practitioner Selvi.
-                    </p>
-                  </div>
+                {/* Consultation Booking CTA Card - Center-Aligned */}
+                <div className="p-6 sm:p-7 rounded-2xl bg-[#F3F9FD] border border-[#DCE8F1] flex flex-col items-center justify-center text-center max-w-2xl mx-auto mt-6">
+                  <p className="text-lg font-semibold text-[#10243D] font-heading italic mb-1 text-center">
+                    Need individualized clinical guidance?
+                  </p>
+                  <p className="text-xs sm:text-sm text-[#60748A] font-montserrat mb-4 text-center max-w-md">
+                    Author your personalized nutritional protocol with Practitioner Selvi.
+                  </p>
                   <button
                     type="button"
                     onClick={() => {
                       setSelectedArticle(null);
                       onBookNow();
                     }}
-                    className="px-6 py-2.5 rounded-full bg-[#044AA3] text-white hover:bg-[#033B85] text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-[0_4px_14px_rgba(4,74,163,0.28)] cursor-pointer active:scale-95"
+                    className="px-8 py-3 rounded-full bg-[#044AA3] text-white hover:bg-[#033B85] text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-[0_4px_14px_rgba(4,74,163,0.28)] cursor-pointer active:scale-95"
                   >
                     Book Consultation
                   </button>
+                </div>
+
+                {/* Practitioner Attribution - Placed BELOW the Book Consultation Button, Separated by Divider */}
+                <div className="pt-6 mt-6 border-t border-[#DCE8F1] flex flex-col items-center justify-center text-center gap-2 max-w-md mx-auto">
+                  <div className="w-10 h-10 rounded-full bg-[#044AA3] text-white flex items-center justify-center font-bold text-sm shadow-xs">
+                    S
+                  </div>
+                  <div className="text-center">
+                    <p className="text-sm font-semibold text-[#10243D]">
+                      {selectedArticle.author || 'Practitioner Selvi, RDN'}
+                    </p>
+                    <p className="text-xs text-[#60748A]">
+                      {selectedArticle.authorRole || 'Clinical Nutritionist & Supplement Specialist'}
+                    </p>
+                  </div>
                 </div>
               </div>
             </motion.div>

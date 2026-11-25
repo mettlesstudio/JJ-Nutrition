@@ -96,6 +96,7 @@ export const CLINICAL_SERVICES: ClinicalService[] = [
     category: 'Cardiovascular',
     title: 'Heart Health Combo',
     tagline: 'Cardiovascular wellness, lipid panel optimization, arterial elasticity, and targeted CoQ10/omega-3 clinical support.',
+    image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1200&q=80',
     description:
       'A targeted clinical protocol evaluating endothelial nitric oxide synthesis, lipid subfraction ratios, and myocardial mitochondrial bioenergetics to support systemic vascular health.',
     expectedOutcomes: [
@@ -117,6 +118,7 @@ export const CLINICAL_SERVICES: ClinicalService[] = [
     category: 'Metabolic & Detox',
     title: 'Detox and Weight Loss',
     tagline: 'Metabolic reset focusing on Phase I & II liver clearance, insulin sensitivity, and lean tissue preservation.',
+    image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1200&q=80',
     description:
       'Grounded in clinical hepatology and endocrinology, this protocol supports hepatic biotransformation pathways while correcting cellular insulin resistance for lasting metabolic balance.',
     expectedOutcomes: [
@@ -138,6 +140,7 @@ export const CLINICAL_SERVICES: ClinicalService[] = [
     category: 'Structural',
     title: 'Bone Health',
     tagline: 'Micro-crystalline osteo-density matrix, Calcium-D3-K2 synergy, collagen synthesis, and fracture risk mitigation.',
+    image: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1200&q=80',
     description:
       'Moves beyond crude calcium carbonate supplements by supplying the exact biochemical cofactors required to transport calcium into osseous skeletal matrix rather than arterial soft tissue.',
     expectedOutcomes: [
@@ -159,6 +162,7 @@ export const CLINICAL_SERVICES: ClinicalService[] = [
     category: 'Cellular Energy',
     title: 'Energy Enhancement',
     tagline: 'Mitochondrial biogenesis, cellular ATP synthesis, adrenal support, and overcoming chronic daily exhaustion.',
+    image: 'https://images.unsplash.com/photo-1582979512210-99b6a53386f9?auto=format&fit=crop&w=1200&q=80',
     description:
       'Directly intervenes at the electron transport chain level to restore mitochondrial oxidative phosphorylation and clear metabolic blockages causing persistent fatigue.',
     expectedOutcomes: [
@@ -180,6 +184,7 @@ export const CLINICAL_SERVICES: ClinicalService[] = [
     category: 'Neurological & Sleep',
     title: 'Insomnia Support',
     tagline: 'Circadian rhythm resynchronization, GABA/melatonin precursor nutrition, and restorative deep-sleep architecture.',
+    image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=1200&q=80',
     description:
       'Clinical nutrition focused on central nervous system down-regulation, nocturnal cortisol blunting, and neurochemical precursors needed for continuous, unfragmented delta sleep.',
     expectedOutcomes: [
@@ -201,6 +206,7 @@ export const CLINICAL_SERVICES: ClinicalService[] = [
     category: 'Neurological & Sleep',
     title: 'Anxiety Support',
     tagline: 'Gut-brain axis modulation, nervous system nourishment, adaptogenic herbal therapy, and stress hormone balancing.',
+    image: 'https://images.unsplash.com/photo-1514733670139-4d87a1941d55?auto=format&fit=crop&w=1200&q=80',
     description:
       'Restores the biological equilibrium between excitatory glutamate and inhibitory GABA neurotransmitters while nurturing the vagus nerve and adrenal stress axis.',
     expectedOutcomes: [
@@ -222,6 +228,7 @@ export const CLINICAL_SERVICES: ClinicalService[] = [
     category: 'Gastrointestinal',
     title: 'Ulcer Management & Healing Support',
     tagline: 'Mucosal barrier restoration, H. pylori-supportive nutrition, demulcent botanicals, and stomach lining repair.',
+    image: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1200&q=80',
     description:
       'A targeted gastrointestinal protocol promoting epithelial restitution of gastric and duodenal mucosa while soothing inflammatory digestive irritation.',
     expectedOutcomes: [
@@ -243,6 +250,7 @@ export const CLINICAL_SERVICES: ClinicalService[] = [
     category: 'Recovery & Support',
     title: 'Alcohol Weaning Support',
     tagline: 'Neurochemical stabilization, liver regeneration, glutathione repletion, and mitigating physiological alcohol cravings.',
+    image: 'https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=1200&q=80',
     description:
       'Provides biological nutritional support during alcohol reduction or weaning, replenishing depleted micronutrients and stabilizing neurotransmitters to alleviate physical cravings.',
     expectedOutcomes: [
@@ -264,6 +272,7 @@ export const CLINICAL_SERVICES: ClinicalService[] = [
     category: 'Haematology',
     title: 'Iron Deficiency / Anaemia',
     tagline: 'Non-constipating bioavailable iron protocols, ferritin pool replenishment, and absorption cofactor pairing.',
+    image: 'https://images.unsplash.com/photo-1541344999736-83eca272f6fc?auto=format&fit=crop&w=1200&q=80',
     description:
       'Solves the chronic failure of conventional iron tablets by utilizing gentle chelated iron forms paired with molecular transport cofactors for deep cellular ferritin replenishment without gastric pain.',
     expectedOutcomes: [
@@ -285,6 +294,7 @@ export const CLINICAL_SERVICES: ClinicalService[] = [
     category: 'Endocrine & Men',
     title: 'Prostate Health',
     tagline: 'Cellular PSA support, zinc homeostasis, saw palmetto/lycopene synergy, and urinary stream comfort.',
+    image: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=1200&q=80',
     description:
       'Evidence-based nutritional protocol targeting 5-alpha-reductase inhibition, healthy cellular prostate proliferation, and smooth bladder emptying comfort in men.',
     expectedOutcomes: [
